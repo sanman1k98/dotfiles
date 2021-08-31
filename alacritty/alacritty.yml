@@ -1,0 +1,19 @@
+import:
+  - ~/.config/alacritty/color_schemes.yml
+window:
+  padding:
+    x: 40
+    y: 40
+  decorations: buttonless
+font:
+  normal:
+    family: Hack Nerd Font
+  bold: 
+    family: Hack Nerd Font
+  italic:
+    family: Hack Nerd Font
+  bold_italic:
+    family: Hack Nerd Font
+  size: 12
+  offset:
+    y: 0
