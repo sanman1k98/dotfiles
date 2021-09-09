@@ -1,26 +1,18 @@
-local set = require('conf.utils').set
+local o = vim.opt
 
-local o, wo, bo = vim.o, vim.wo, vim.bo
-local buffer = {o, bo}
-local window = {o, wo}
+o.number = true
+o.relativenumber = true
+o.numberwidth = 4
+o.scrolloff = 10
 
--- set('OPT', VAL)
+o.tabstop = 2
+o.shiftwidth = 2
+o.autoindent = true
+o.smartindent = true
 
-set('number', true, window)
-set('relativenumber', true, window)
-set('numberwidth', 4, window)
-set('scrolloff', 10)
-set('wrap', false, window)
+o.hidden = true
 
-set('tabstop', 2, buffer)
-set('shiftwidth', 2, buffer)
-set('smarttab', true)
-set('shiftround', true)
-set('smartindent', true, buffer)
+o.splitright = true
+o.splitbelow = true
 
-set('hidden', true)
-
-set('splitbelow', true)
-set('splitright', true)
-
-set('completeopt', 'menuone,noselect')
+o.completeopt = 'menuone,noselect'
