@@ -12,12 +12,19 @@ return require('packer').startup(
 			config = function () require'plugins.lsp' end
 		}
 		-- Dev setup for init.lua
-		use 'folke/lua-dev.nvim'
+		-- use 'folke/lua-dev.nvim'
 
 		-- load autocomplete
 		use {
-			'hrsh7th/nvim-compe',
-			config = require'plugins.compe'
+			'ms-jpq/coq_nvim',
+			branch = 'coq',
+			-- config = require''
+		}
+
+		-- snippets to go along with autocomplete
+		use {
+			'ms-jpq/coq.artifacts',
+			branch = 'artifacts'
 		}
 
 		-- treeshitter
@@ -37,10 +44,9 @@ return require('packer').startup(
 		}
 
 		-- load which-key
-		use {
-			'folke/which-key.nvim',
-			config = require'plugins.which-key'
-		}
+		-- use {
+		-- 'folke/which-key.nvim',
+		-- }
 
 		use {
 			'sudormrfbin/cheatsheet.nvim',
@@ -52,7 +58,7 @@ return require('packer').startup(
 		-- statusline
 		use {
 			'hoob3rt/lualine.nvim',
-			requires = {'kyazdani42/nvim-web-devicons', opt = true},
+			requires = {'kyazdani42/nvim-web-devicons'},
 			config = require'plugins.lualine'
 		}
 
