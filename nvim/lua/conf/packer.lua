@@ -6,13 +6,37 @@ return require('packer').startup(
 		-- load package manager
 		use 'wbthomason/packer.nvim'
 
+		-- colorschemes
+		use 'folke/tokyonight.nvim'
+
+		-- statusline
+		use {
+			'hoob3rt/lualine.nvim',
+			requires = {'kyazdani42/nvim-web-devicons'},
+			config = require'plugins.lualine'
+		}
+
+		-- load telescope fuzzy finder
+		use {
+			'nvim-telescope/telescope.nvim',
+			requires = {
+				{'nvim-lua/popup.nvim'},
+				{'nvim-lua/plenary.nvim'}
+			},
+			config = require'plugins.telescope'
+		}
+
+	end)
+
+
+--[[
 		-- load lspconfig
 		use {
 			'neovim/nvim-lspconfig',
 			config = function () require'plugins.lsp' end
 		}
 		-- Dev setup for init.lua
-		-- use 'folke/lua-dev.nvim'
+		use 'folke/lua-dev.nvim'
 
 		-- load autocomplete
 		use {
@@ -33,33 +57,15 @@ return require('packer').startup(
 			config = require'plugins.treesitter'
 		}
 
-		-- load telescope fuzzy finder
-		use {
-			'nvim-telescope/telescope.nvim',
-			requires = {
-				{'nvim-lua/popup.nvim'},
-				{'nvim-lua/plenary.nvim'}
-			},
-			config = require'plugins.telescope'
-		}
 
 		-- load which-key
-		-- use {
-		-- 'folke/which-key.nvim',
-		-- }
+		use {
+		'folke/which-key.nvim',
+		}
 
 		use {
 			'sudormrfbin/cheatsheet.nvim',
 		}
 
-		-- colorschemes
-		use 'folke/tokyonight.nvim'
 
-		-- statusline
-		use {
-			'hoob3rt/lualine.nvim',
-			requires = {'kyazdani42/nvim-web-devicons'},
-			config = require'plugins.lualine'
-		}
-
-	end)
+]]--
