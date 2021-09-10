@@ -6,6 +6,12 @@ return require('packer').startup(
 		-- load package manager
 		use 'wbthomason/packer.nvim'
 
+		-- dependencies for some of the other plugins
+		use 'nvim-lua/popup.nvim'
+		use 'nvim-lua/plenary.nvim'
+
+
+
 	end)
 
 
