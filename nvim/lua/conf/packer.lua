@@ -6,6 +6,11 @@ return require('packer').startup(
 		-- load package manager
 		use 'wbthomason/packer.nvim'
 
+	end)
+
+
+--[[
+
 		-- colorschemes
 		use 'folke/tokyonight.nvim'
 
@@ -26,10 +31,6 @@ return require('packer').startup(
 			config = require'plugins.telescope'
 		}
 
-	end)
-
-
---[[
 		-- load lspconfig
 		use {
 			'neovim/nvim-lspconfig',
