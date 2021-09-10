@@ -8,4 +8,4 @@ require('conf.sets')
 require('conf.maps')
 
 -- Set the colorscheme
-require('conf.colors')
+-- require('conf.colors')
