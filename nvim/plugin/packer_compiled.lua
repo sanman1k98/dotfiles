@@ -73,6 +73,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"

@@ -20,7 +20,15 @@ return require('packer').startup(
 		use {
 			'hoob3rt/lualine.nvim',
 			requires = {'kyazdani42/nvim-web-devicons'},
-			config = require'plugins.lualine'
+			-- config = require'plugins.lualine'
+		}
+
+		-- treeshitter
+		use {
+			'nvim-treesitter/nvim-treesitter',
+			branch = '0.5-compat',
+			run = ':TSUpdate',
+			-- config = require'plugins.treesitter'
 		}
 
 
