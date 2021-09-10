@@ -69,6 +69,14 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/lualine.nvim"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -84,6 +92,10 @@ _G.packer_plugins = {
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/tokyonight.nvim"
   }
 }
 
