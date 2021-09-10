@@ -80,6 +80,10 @@ _G.packer_plugins = {
   ["popup.nvim"] = {
     loaded = true,
     path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
+  ["telescope.nvim"] = {
+    loaded = true,
+    path = "/Users/sandeepdilip/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   }
 }
 

@@ -10,6 +10,10 @@ return require('packer').startup(
 		use 'nvim-lua/popup.nvim'
 		use 'nvim-lua/plenary.nvim'
 
+		-- telescope
+		use 'nvim-telescope/telescope.nvim'
+
+
 
 
 	end)
