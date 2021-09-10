@@ -7,6 +7,9 @@ require('conf.maps')
 -- Load packer.nvim plugins
 require('conf.packer')
 
+-- Setup the lang servers
+require 'plugins.lsp'
+
 -- Set the colorscheme
 require('conf.colors')
 

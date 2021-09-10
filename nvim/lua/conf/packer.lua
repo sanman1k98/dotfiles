@@ -1,5 +1,7 @@
 -- plugin configurations loaded in init.lua
 
+vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
+
 return require('packer').startup(
 	function(use)
 
@@ -34,22 +36,24 @@ return require('packer').startup(
 		-- load lspconfig
 		use {
 			'neovim/nvim-lspconfig',
-			config = function () require'plugins.lsp' end
+			-- config = function () require'plugins.lsp' end
 		}
-		-- Dev setup for init.lua
-		use 'folke/lua-dev.nvim'
 
 		-- load autocomplete
 		use {
 			'ms-jpq/coq_nvim',
 			branch = 'coq',
-			-- config = require''
 		}
 
 		-- snippets to go along with autocomplete
 		use {
 			'ms-jpq/coq.artifacts',
 			branch = 'artifacts'
+		}
+
+		-- coq settings here whatever
+		vim.g.coq_settings = {
+			['auto_start'] = 'shut-up'
 		}
 
 	end)
