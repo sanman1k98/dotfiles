@@ -20,7 +20,7 @@ return require('packer').startup(
 		use {
 			'hoob3rt/lualine.nvim',
 			requires = {'kyazdani42/nvim-web-devicons'},
-			-- config = require'plugins.lualine'
+			config = require'plugins.lualine'
 		}
 
 		-- treeshitter
@@ -28,9 +28,29 @@ return require('packer').startup(
 			'nvim-treesitter/nvim-treesitter',
 			branch = '0.5-compat',
 			run = ':TSUpdate',
-			-- config = require'plugins.treesitter'
+			config = require'plugins.treesitter'
 		}
 
+		-- load lspconfig
+		use {
+			'neovim/nvim-lspconfig',
+			config = function () require'plugins.lsp' end
+		}
+		-- Dev setup for init.lua
+		use 'folke/lua-dev.nvim'
+
+		-- load autocomplete
+		use {
+			'ms-jpq/coq_nvim',
+			branch = 'coq',
+			-- config = require''
+		}
+
+		-- snippets to go along with autocomplete
+		use {
+			'ms-jpq/coq.artifacts',
+			branch = 'artifacts'
+		}
 
 	end)
 
