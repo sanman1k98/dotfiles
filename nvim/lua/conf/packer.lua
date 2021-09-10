@@ -13,7 +13,6 @@ return require('packer').startup(
 		-- telescope
 		use 'nvim-telescope/telescope.nvim'
 
-
 		-- colorschemes
 		use 'folke/tokyonight.nvim'
 
@@ -21,7 +20,7 @@ return require('packer').startup(
 		use {
 			'hoob3rt/lualine.nvim',
 			requires = {'kyazdani42/nvim-web-devicons'},
-			config = require'plugins.lualine'
+			-- config = require'plugins.lualine'
 		}
 
 
