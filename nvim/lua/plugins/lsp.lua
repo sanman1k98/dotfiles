@@ -29,6 +29,9 @@ ls.sumneko_lua.setup(coq.lsp_ensure_capabilities {
 -- Deno typescript language server
 ls.denols.setup(coq.lsp_ensure_capabilities())
 
+-- Typescript language server
+ls.tsserver.setup(coq.lsp_ensure_capabilities())
+
 -- Dockerfile language server
 ls.dockerls.setup(coq.lsp_ensure_capabilities())
 
