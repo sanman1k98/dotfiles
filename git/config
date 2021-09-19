@@ -1,0 +1,7 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Sandeep Dilip
+	email = 34922961+sanman1k98@users.noreply.github.com
+[init]
+	defaultBranch = main
