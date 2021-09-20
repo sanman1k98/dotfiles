@@ -7,13 +7,11 @@ window:
   decorations: buttonless
 font:
   normal:
-    family: Hack Nerd Font
+    family: SauceCodePro Nerd Font
   bold: 
-    family: Hack Nerd Font
+    family: SauceCodePro Nerd Font
   italic:
-    family: Hack Nerd Font
+    family: SauceCodePro Nerd Font
   bold_italic:
-    family: Hack Nerd Font
-  size: 12
-  offset:
-    y: 0
+    family: SauceCodePro Nerd Font
+  size: 14
