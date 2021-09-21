@@ -1,6 +1,11 @@
 .DS_Store
 
+# displays remote info
+containers/
+
+# compiled plugins file
 nvim/plugin/packer_compiled.lua
 
+# probably sensitive info
 git/
 gh/
