@@ -39,14 +39,6 @@ return require('packer').startup(
 			config = function () require'circles'.setup{} end
 		}
 
-		-- statusline
-		--[[
-		use {
-			'famiu/feline.nvim',
-			config = function () require'feline'.setup{} end
-		}
-		]]--
-
 		use {
 			'hoob3rt/lualine.nvim',
 			requires = {'projekt0n/circles.nvim'},
