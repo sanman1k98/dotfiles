@@ -8,8 +8,7 @@ require('conf.maps')
 require('conf.packer')
 
 -- Setup the lang servers
-require 'plugins.lsp'
+-- require 'plugins.lsp'
 
 -- Set the colorscheme
-require('conf.colors')
-
+-- require('conf.colors')
