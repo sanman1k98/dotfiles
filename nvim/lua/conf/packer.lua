@@ -15,6 +15,24 @@ return require('packer').startup(
 		-- telescope
 		use 'nvim-telescope/telescope.nvim'
 
+		-- treeshitter
+		use {
+			'nvim-treesitter/nvim-treesitter',
+			branch = '0.5-compat',
+			run = ':TSUpdate',
+			config = function ()
+				require'nvim-treesitter.configs'.setup {
+					ensure_installed = 'maintained',
+					highlight = {
+						enable = true
+					},
+					indent = {
+						enable = false
+					}
+				}
+			end
+		}
+
 		use {
 			'projekt0n/circles.nvim',
 			requires = {'kyazdani42/nvim-web-devicons'},
@@ -51,24 +69,6 @@ return require('packer').startup(
 			config = function ()
 				require'github-theme'.setup {
 					theme_style = 'dark_default'
-				}
-			end
-		}
-
-		-- treeshitter
-		use {
-			'nvim-treesitter/nvim-treesitter',
-			branch = '0.5-compat',
-			run = ':TSUpdate',
-			config = function ()
-				require'nvim-treesitter.configs'.setup {
-					ensure_installed = 'maintained',
-					highlight = {
-						enable = true
-					},
-					indent = {
-						enable = false
-					}
 				}
 			end
 		}
