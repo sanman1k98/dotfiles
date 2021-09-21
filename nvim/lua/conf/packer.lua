@@ -23,12 +23,9 @@ return require('packer').startup(
 			config = function ()
 				require'nvim-treesitter.configs'.setup {
 					ensure_installed = 'maintained',
-					highlight = {
-						enable = true
-					},
-					indent = {
-						enable = false
-					}
+					highlight = { enable = true },
+					indent = { enable = false },
+					autopairs = { enable = true }
 				}
 			end
 		}
@@ -52,6 +49,11 @@ return require('packer').startup(
 					}
 				}
 			end
+		}
+
+		use {
+			'kyazdani42/nvim-tree.lua',
+			config = function () require'plugins.nvim-tree' end
 		}
 
 		-- colorschemes
@@ -84,6 +86,12 @@ return require('packer').startup(
 		-- coq settings here whatever
 		vim.g.coq_settings = {
 			['auto_start'] = 'shut-up'
+		}
+
+		-- autopairs
+		use {
+			'windwp/nvim-autopairs',
+			config = function () require'plugins.autopairs' end
 		}
 
 	end)
