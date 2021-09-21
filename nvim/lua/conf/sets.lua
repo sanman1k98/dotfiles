@@ -4,6 +4,7 @@ o.number = true
 o.relativenumber = true
 o.numberwidth = 4
 o.scrolloff = 10
+o.wrap = false
 
 o.tabstop = 2
 o.shiftwidth = 2
