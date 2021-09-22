@@ -45,7 +45,7 @@ return require('packer').startup(
 						theme = 'github'
 					},
 					sections = {
-						lualine_x = {'encoding', 'filetype'}
+						lualine_x = {{'diagnostics', sources = {'nvim_lsp'}}, 'filetype'}
 					}
 				}
 			end
