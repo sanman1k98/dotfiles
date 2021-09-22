@@ -62,7 +62,10 @@ return require('packer').startup(
 			'projekt0n/github-nvim-theme',
 			config = function ()
 				require'github-theme'.setup {
-					theme_style = 'dark_default'
+					theme_style = 'dark_default',
+					dark_sidebar = false,
+					function_style = 'italic',
+					variable_style = 'italic'
 				}
 			end
 		}
