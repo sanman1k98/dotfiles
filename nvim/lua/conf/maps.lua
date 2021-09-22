@@ -6,7 +6,8 @@ map('n', '<leader>;', ':')
 map('n', '<leader>e', '<cmd>Telescope fd<cr>')
 map('n', '<leader>b', '<cmd>Telescope buffers<cr>')
 map('n', '<leader>c', '<cmd>Telescope commands<cr>')
-map('n', '<leader>t', '<cmd>NvimTreeToggle<cr>')
+map('n', '<leader>f', '<cmd>NvimTreeToggle<cr>')
+map('n', '<leader>tw', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
 
 -- coq recommended mappings
 vim.g.coq_settings = { keymap = { recommended = false } }
