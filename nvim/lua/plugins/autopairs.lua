@@ -5,7 +5,8 @@ npairs.setup {
 	map_bs = false,
 	check_ts = true,
 	ts_config = {
-		lua = {'string'}
+		lua = {'string'},
+		javascript = {'template_string'}
 	}
 }
 
