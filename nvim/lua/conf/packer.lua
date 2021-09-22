@@ -1,5 +1,18 @@
--- plugin configurations loaded in init.lua
+--[[
 
+For some stupid ass reason, :PackerSync doesn't work properly
+Use the following when updating this file:
+	1) save edits
+	2) exit nvim
+	3) start nvim
+	4) :PackerUpdate
+	5) :PackerSync
+
+]]--
+
+
+
+-- packer.nvim iss180
 vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
 
 return require('packer').startup(
@@ -30,12 +43,14 @@ return require('packer').startup(
 			end
 		}
 
+		-- M I N I M A L I S M
 		use {
 			'projekt0n/circles.nvim',
 			requires = {'kyazdani42/nvim-web-devicons'},
 			config = function () require'circles'.setup{} end
 		}
 
+		-- status line
 		use {
 			'hoob3rt/lualine.nvim',
 			requires = {'projekt0n/circles.nvim'},
@@ -51,6 +66,7 @@ return require('packer').startup(
 			end
 		}
 
+		-- file tree
 		use {
 			'kyazdani42/nvim-tree.lua',
 			config = function () require'plugins.nvim-tree' end
@@ -70,7 +86,7 @@ return require('packer').startup(
 			end
 		}
 
-		-- load lspconfig
+		-- lspconfigs
 		use {
 			'neovim/nvim-lspconfig',
 			config = function () require'plugins.lsp' end
@@ -81,6 +97,7 @@ return require('packer').startup(
 			'ms-jpq/coq_nvim',
 			branch = 'coq',
 		}
+		-- autocomplete and snippets
 		use {
 			'ms-jpq/coq.artifacts',
 			branch = 'artifacts'
