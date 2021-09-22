@@ -100,8 +100,8 @@ return require('packer').startup(
 
 		-- autocomplete and snippets
 		use {
-			'ms-jpq/coq.artifacts',
-			branch = 'artifacts'
+			{ 'ms-jpq/coq_nvim', branch = 'coq' },
+			{ 'ms-jpq/coq.artifacts', branch = 'artifacts' }
 		}
 
 		-- coq settings here whatever
