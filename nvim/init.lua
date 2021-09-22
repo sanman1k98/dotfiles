@@ -5,10 +5,5 @@ require('conf.sets')
 require('conf.maps')
 
 -- Load packer.nvim plugins
+-- along with their configs
 require('conf.packer')
-
--- Setup the lang servers
--- require 'plugins.lsp'
-
--- Set the colorscheme
--- require('conf.colors')
