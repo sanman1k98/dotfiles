@@ -92,11 +92,12 @@ return require('packer').startup(
 			config = function () require'plugins.lsp' end
 		}
 
-		-- load autocomplete and snippets
+		-- pretty diagnostics
 		use {
-			'ms-jpq/coq_nvim',
-			branch = 'coq',
+			'folke/trouble.nvim',
+			config = function () require'trouble'.setup{} end
 		}
+
 		-- autocomplete and snippets
 		use {
 			'ms-jpq/coq.artifacts',
