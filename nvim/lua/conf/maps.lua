@@ -10,6 +10,7 @@ map('n', '<leader>b', '<cmd>Telescope buffers<cr>')
 map('n', '<leader>c', '<cmd>Telescope commands<cr>')
 map('n', '<leader>t', '<cmd>NvimTreeToggle<cr>')
 map('n', '<leader>d', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
+map('n', '<leader>z', '<cmd>ZenMode<cr>')
 
 -- coq recommended mappings
 vim.g.coq_settings = { keymap = { recommended = false } }
