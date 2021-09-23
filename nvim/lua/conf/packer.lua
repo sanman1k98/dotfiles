@@ -88,7 +88,13 @@ return require('packer').startup(
 
 		-- null-ls
 		use {
-			'jose-elias-alvarez/null-ls.nvim'
+			'jose-elias-alvarez/null-ls.nvim',
+			config = function ()
+				local nls = require'null-ls'
+				nls.config {
+					sources = { nls.builtins.formatting.prettier }
+				}
+			end
 		}
 
 		-- lspconfigs
