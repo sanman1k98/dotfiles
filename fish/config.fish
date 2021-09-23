@@ -1,9 +1,6 @@
 # STARSHIP_CONFIG=~/.config/starship 
 set -Ux STARSHIP_CONFIG ~/.config/starship/starship.toml
 
-# Use podman socket for docker-compose
-set -Ux DOCKER_HOST ssh://sandeep@sandbox.sagamtech.com:22
-
 set -Ux EDITOR nvim
 set -Ux VISUAL $EDITOR
 

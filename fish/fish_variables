@@ -1,6 +1,5 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export DOCKER_HOST:ssh\x3a//sandeep\x40sandbox\x2esagamtech\x2ecom\x3a22
 SETUVAR --export EDITOR:nvim
 SETUVAR --export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX:YES
 SETUVAR --export STARSHIP_CONFIG:/Users/sandeepdilip/\x2econfig/starship/starship\x2etoml
