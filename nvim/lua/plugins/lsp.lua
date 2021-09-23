@@ -1,8 +1,6 @@
 local ls = require'lspconfig'
 local coq = require 'coq'
 
-ls['null-ls'].setup{}
-
 local sumneko_root_path = vim.fn.stdpath('data')..'/site/language-servers/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
 
@@ -29,7 +27,7 @@ ls.sumneko_lua.setup(coq.lsp_ensure_capabilities {
 })
 
 -- Deno typescript language server
-ls.denols.setup(coq.lsp_ensure_capabilities())
+-- ls.denols.setup(coq.lsp_ensure_capabilities())
 
 -- Typescript language server
 ls.tsserver.setup(coq.lsp_ensure_capabilities())
