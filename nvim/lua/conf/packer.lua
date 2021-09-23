@@ -50,6 +50,20 @@ return require('packer').startup(
 			config = function () require'circles'.setup{} end
 		}
 
+		-- indentation guides
+		use {
+			'lukas-reineke/indent-blankline.nvim',
+			config = require'indent_blankline'.setup {
+				show_current_context = true
+			}
+		}
+
+		-- zen mode
+		use {
+			{'folke/twilight.nvim', config = require'twilight'.setup()},
+			{'folke/zen-mode.nvim', config = require'zen-mode'.setup()}
+		}
+
 		-- status line
 		use {
 			'hoob3rt/lualine.nvim',
