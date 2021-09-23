@@ -86,21 +86,25 @@ return require('packer').startup(
 			end
 		}
 
-		-- null-ls
+		-- lspconfigs
+		use {
+			'neovim/nvim-lspconfig',
+			config = function () require'plugins.lsp' end
+		}
+
+		-- TODO: find out how the hell this works cuz I'm dumb
 		use {
 			'jose-elias-alvarez/null-ls.nvim',
 			config = function ()
 				local nls = require'null-ls'
 				nls.config {
-					sources = { nls.builtins.formatting.prettier }
+					sources = {
+						nls.builtins.formatting.prettier,
+						nls.builtins.formatting.sylua
+					}
 				}
+				require("lspconfig")["null-ls"].setup{}
 			end
-		}
-
-		-- lspconfigs
-		use {
-			'neovim/nvim-lspconfig',
-			config = function () require'plugins.lsp' end
 		}
 
 		-- pretty diagnostics
