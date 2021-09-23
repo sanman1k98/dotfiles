@@ -86,6 +86,11 @@ return require('packer').startup(
 			end
 		}
 
+		-- null-ls
+		use {
+			'jose-elias-alvarez/null-ls.nvim'
+		}
+
 		-- lspconfigs
 		use {
 			'neovim/nvim-lspconfig',
