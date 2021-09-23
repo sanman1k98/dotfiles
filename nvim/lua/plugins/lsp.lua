@@ -30,7 +30,13 @@ ls.sumneko_lua.setup(coq.lsp_ensure_capabilities {
 -- ls.denols.setup(coq.lsp_ensure_capabilities())
 
 -- Typescript language server
-ls.tsserver.setup(coq.lsp_ensure_capabilities())
+ls.tsserver.setup(coq.lsp_ensure_capabilities {
+	on_attach = function(client)
+		-- let null-ls do the formatting
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+	end
+})
 
 -- Dockerfile language server
 ls.dockerls.setup(coq.lsp_ensure_capabilities())
