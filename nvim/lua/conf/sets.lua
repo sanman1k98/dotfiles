@@ -11,6 +11,8 @@ o.shiftwidth = 2
 o.autoindent = true
 o.smartindent = true
 
+o.mouse = 'nvi'
+
 o.hidden = true
 
 o.splitright = true
