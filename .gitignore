@@ -1,11 +1,13 @@
 .DS_Store
 
+# fish history and complettions
+local/share/fish/
+
 # displays remote info
 containers/
 
 # compiled plugins file
 nvim/plugin/packer_compiled.lua
 
-# probably sensitive info
-git/
-gh/
+#  sensitive info
+gh/hosts.yml
