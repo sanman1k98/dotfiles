@@ -60,7 +60,12 @@ return require('packer').startup(
 		use {
 			'lukas-reineke/indent-blankline.nvim',
 			config = function ()
-				require'indent_blankline'.setup {show_current_context = true}
+				require'indent_blankline'.setup {
+					show_current_context = true,
+					buftype_exclude = {'terminal', 'help', 'packer', 'NvimTree'},
+					bufname_exclue = {'README.md'},
+
+				}
 			end
 		}
 
