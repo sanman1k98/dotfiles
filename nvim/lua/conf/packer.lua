@@ -59,7 +59,7 @@ return require('packer').startup(
 		-- indentation guides
 		use {
 			'lukas-reineke/indent-blankline.nvim',
-			config = function () 
+			config = function ()
 				require'indent_blankline'.setup {show_current_context = true}
 			end
 		}
@@ -96,6 +96,7 @@ return require('packer').startup(
 		use 'folke/tokyonight.nvim'
 		use {
 			'projekt0n/github-nvim-theme',
+			after = 'lualine.nvim',
 			config = function ()
 				require'github-theme'.setup {
 					theme_style = 'dark_default',
