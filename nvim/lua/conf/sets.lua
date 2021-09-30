@@ -5,6 +5,7 @@ o.termguicolors = true
 o.number = true
 o.relativenumber = true
 o.numberwidth = 4
+
 o.scrolloff = 10
 o.wrap = false
 
@@ -17,6 +18,7 @@ o.mouse = 'nvi'
 
 o.hidden = true
 
+o.helpheight = 10
 o.splitright = true
 o.splitbelow = true
 
