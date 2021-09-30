@@ -10,10 +10,16 @@ Use the following when updating this file:
 
 ]]--
 
+local fn = vim.fn
 
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+	fn.system {'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path}
+	vim.cmd 'packadd packer.nvim'
+end
 
 -- packer.nvim iss180
-vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
+fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
 
 return require('packer').startup(
 	function(use)
@@ -53,15 +59,15 @@ return require('packer').startup(
 		-- indentation guides
 		use {
 			'lukas-reineke/indent-blankline.nvim',
-			config = require'indent_blankline'.setup {
-				show_current_context = true
-			}
+			config = function () 
+				require'indent_blankline'.setup {show_current_context = true}
+			end
 		}
 
 		-- zen mode
 		use {
-			{'folke/twilight.nvim', config = require'twilight'.setup()},
-			{'folke/zen-mode.nvim', config = require'zen-mode'.setup()}
+			{'folke/twilight.nvim', config = function () require'twilight'.setup() end},
+			{'folke/zen-mode.nvim', config = function () require'zen-mode'.setup() end}
 		}
 
 		-- status line
