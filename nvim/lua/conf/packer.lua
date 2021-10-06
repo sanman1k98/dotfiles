@@ -62,9 +62,8 @@ return require('packer').startup(
 			config = function ()
 				require'indent_blankline'.setup {
 					show_current_context = true,
-					buftype_exclude = {'terminal', 'help', 'packer', 'NvimTree'},
+					filetype_exclude = {'terminal', 'help', 'packer', 'NvimTree', 'man'},
 					bufname_exclue = {'README.md'},
-
 				}
 			end
 		}
