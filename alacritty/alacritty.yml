@@ -1,5 +1,11 @@
 import:
   - ~/.config/alacritty/color_schemes.yml
+
+# TODO: copy alacritty.terminfo to /usr/share/terminfo
+# and add as environment variable 
+
+# env:
+
 window:
   padding:
     x: 40
