@@ -11,3 +11,6 @@ nvim/plugin/packer_compiled.lua
 
 #  sensitive info
 gh/hosts.yml
+
+zsh/.zcompdump
+zsh/.zsh_history
