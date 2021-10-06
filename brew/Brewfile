@@ -1,0 +1,49 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Secure runtime for JavaScript and TypeScript
+brew "deno"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# HTTP/2 C Library
+brew "nghttp2"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
+# Small build system for use with gyp or CMake
+brew "ninja"
+# Platform built on V8 to build network applications
+brew "node"
+# Safe, concurrent, practical language
+brew "rust"
+# Cross-shell prompt for astronauts
+brew "starship"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# Terminal multiplexer
+brew "tmux"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Additional completion definitions for zsh
+brew "zsh-completions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
+# Web browser focusing on privacy
+cask "brave-browser"
+cask "font-sauce-code-pro-nerd-font"
+# GPU-based terminal emulator
+cask "kitty"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Open-source code editor
+cask "visual-studio-code"
