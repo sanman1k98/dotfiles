@@ -1,4 +1,5 @@
 export MANPAGER='nvim +Man!'
+export EDITOR='nvim'
 
 alias -g la='ls -lAG'
 
