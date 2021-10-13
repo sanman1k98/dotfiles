@@ -8,6 +8,8 @@ o.numberwidth = 4
 
 o.scrolloff = 10
 o.wrap = false
+o.breakindent = true
+o.linebreak = true
 
 o.tabstop = 2
 o.shiftwidth = 2
