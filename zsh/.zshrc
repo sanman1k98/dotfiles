@@ -2,6 +2,7 @@ export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 
 alias -g la='ls -lAG'
+alias -g lg='lazygit'
 
 setopt nobeep
 setopt autocd
