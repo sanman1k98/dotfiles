@@ -114,7 +114,7 @@ return require('packer').startup(
 		-- lspconfigs
 		use {
 			'neovim/nvim-lspconfig',
-			config = function () require'plugins.lsp' end
+			config = function () require'configs.lsp' end
 		}
 
 		-- TODO: find out how the hell this works cuz I'm dumb
@@ -152,7 +152,7 @@ return require('packer').startup(
 		-- autopairs
 		use {
 			'windwp/nvim-autopairs',
-			config = function () require'plugins.autopairs' end
+			config = function () require'configs.autopairs' end
 		}
 
 	end)
