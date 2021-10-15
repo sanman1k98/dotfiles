@@ -5,7 +5,7 @@ Again, always a work in progress
 ### Highlights
 - use packer.nvim for package management
 - telescope for fuzzy finding
-- treesitter for to use get the features of Tree-sitter, like better highlighting and indeinting
+- treesitter to get the features of Tree-sitter, like better highlighting and indeinting
 - nvim-tree to show a file tree on the side
 - lspconfigs to use the builtin LSP client
 - null-ls to provide some formatting functionality
@@ -20,13 +20,12 @@ Again, always a work in progress
 	- circles instead of nerd font glyphs
 
 ### Structure
-- `conf/` is where my "main" configuration files are
-	- `sets` sets my options
-	- `maps` sets my mappings
-	- `packer` loads all the plugins and their configs
-		- some of the configs are small enough to be defined within the plugin specification
-		- the bigger configs are extracted to files in the `plugins` folder
-- `plugins/` is where the configs for the plugins specified in the 'packer' file are located 
+- `sets` does options
+- `maps` does mappings
+- `plugins` specifies the plugins to be loaded
+	- some of the configs are small enough to be defined within the plugin specification
+	- the bigger configs are extracted to files in the `configs/` folder
+- `configs/` is where the configs for somce of the plugins specified in the 'plugins' file are located 
 	- `lsp/` is where the setup for individual LSPs shoud go
 
 ### TODOs
