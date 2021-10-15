@@ -42,8 +42,8 @@ Again, always a work in progress
 - [ ] format and add clarity to README
 	- [ ] add links to the plugins that I use
 	- [ ] try to make more sense somehow
-- [ ] try redoing structure and naming
-	- [ ] move `conf/` files to `lua/` top-level folder
+- [x] try redoing structure and naming
+	- [x] move `conf/` files to `lua/` top-level folder
 		- ie: `require('sets')` instead of `require('conf.sets')`
 		- *Watch out for namespace clashes*
-	- [ ] rename `plugins/` -> `configs/`
+	- [x] rename `plugins/` -> `configs/`
