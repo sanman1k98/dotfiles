@@ -1,9 +1,9 @@
 -- Load some basic nvim options
-require('conf.sets')
+require('sets')
 
 -- Load my keymappings
-require('conf.maps')
+require('maps')
 
 -- Load packer.nvim plugins
 -- along with their configs
-require('conf.packer')
+require('plugins')
