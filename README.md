@@ -19,6 +19,7 @@ Always a WIP and I'm always learning new and better ways to do stuff:)
 	- I enjoyed using fish cause of the autosuggestions and pretty colors but I wanna go back to something more ubiquitous and powerful
 
 ### TODOs
+- [ ] add some screenshots
 - [ ] an install script would be pretty cool 
 - [ ] zsh functions to do stuff like:
 	- [ ] edit dotfiles in a new kitty tab
