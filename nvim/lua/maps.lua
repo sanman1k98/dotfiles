@@ -8,15 +8,37 @@ local function map(modes, lhs, rhs, args)
   for _, mode in ipairs(modes) do set_keymap(mode, lhs, rhs, args) end
 end
 
+-- better escape
 map('i', 'kj', '<esc>')
+
+-- I don't like pressing shift with my weak left pinky:(
 map('n', '<leader>;', ':')
+
+-- shortcut to get help in an new tab
+map('n', '<leader>h', ':tab h ')
+
+-- 
 map('n', '<leader>w', '<cmd>w<cr>')
+
+-- 
 map('v', '<leader>f', '<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>')
+
+-- 
 map('n', '<leader>e', '<cmd>Telescope fd<cr>')
+
+-- 
 map('n', '<leader>b', '<cmd>Telescope buffers<cr>')
+
+-- 
 map('n', '<leader>c', '<cmd>Telescope commands<cr>')
+
+-- 
 map('n', '<leader>t', '<cmd>NvimTreeToggle<cr>')
+
+-- 
 map('n', '<leader>d', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
+
+-- 
 map('n', '<leader>z', '<cmd>ZenMode<cr>')
 
 -- coq recommended mappings
