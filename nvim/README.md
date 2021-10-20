@@ -36,6 +36,7 @@ Again, always a work in progress
 - [ ] specify OS-specific configuration
 	- [ ] `MACOSX_DEPLOYMENT_TARGET` 
 - [ ] mappings
+	- [ ] better mouse scrolling on macOS
 	- [ ] LSP features like code actions and stuff
 	- [ ] help in a new tab
 - [ ] format and add clarity to README
