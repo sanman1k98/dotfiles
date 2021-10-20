@@ -18,6 +18,8 @@ o.smartindent = true
 
 o.mouse = 'nvi'
 
+o.clipboard = 'unnamedplus'
+
 o.hidden = true
 
 o.helpheight = 10
