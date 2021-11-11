@@ -125,7 +125,7 @@ return require('packer').startup(
 				nls.config {
 					sources = {
 						nls.builtins.formatting.prettier,
-						nls.builtins.formatting.sylua
+						nls.builtins.formatting.stylua
 					}
 				}
 				require("lspconfig")["null-ls"].setup{}
