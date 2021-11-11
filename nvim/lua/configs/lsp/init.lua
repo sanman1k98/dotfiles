@@ -47,3 +47,13 @@ ls.pyright.setup(coq.lsp_ensure_capabilities())
 -- yaml landguage server
 ls.yamlls.setup(coq.lsp_ensure_capabilities())
 
+-- json language server
+ls.jsonls.setup(coq.lsp_ensure_capabilities {
+	commands = {
+		Format = {
+			function()
+				vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+			end
+		}
+	}
+})
