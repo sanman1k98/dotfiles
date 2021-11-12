@@ -38,6 +38,9 @@ ls.tsserver.setup(coq.lsp_ensure_capabilities {
 	end
 })
 
+-- PHP language server
+ls.phpactor.setup(coq.lsp_ensure_capabilities())
+
 -- Dockerfile language server
 ls.dockerls.setup(coq.lsp_ensure_capabilities())
 
