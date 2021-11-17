@@ -32,10 +32,13 @@ return require('packer').startup(
 		use 'nvim-lua/plenary.nvim'
 
 		-- telescope
-		use 'nvim-telescope/telescope.nvim'
-
+		use {
+			'nvim-telescope/telescope.nvim',
+			cmd = 'Telescope'
+		}
 		-- treeshitter
 		use {
+			event = 'BufRead',
 			'nvim-treesitter/nvim-treesitter',
 			branch = '0.5-compat',
 			run = ':TSUpdate',
@@ -93,11 +96,15 @@ return require('packer').startup(
 		-- file tree
 		use {
 			'kyazdani42/nvim-tree.lua',
-			config = function () require'nvim-tree'.setup{} end
+			config = function () require'nvim-tree'.setup{} end,
+			module = 'nvim-tree'
 		}
 
 		-- colorschemes
-		use 'folke/tokyonight.nvim'
+		use {
+			disabled = true,
+			'folke/tokyonight.nvim'
+		}
 		use {
 			'projekt0n/github-nvim-theme',
 			after = 'lualine.nvim',
@@ -135,7 +142,8 @@ return require('packer').startup(
 		-- pretty diagnostics
 		use {
 			'folke/trouble.nvim',
-			config = function () require'trouble'.setup{} end
+			config = function () require'trouble'.setup{} end,
+			module = 'trouble'
 		}
 
 		-- autocomplete and snippets
