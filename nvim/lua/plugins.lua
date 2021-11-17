@@ -79,7 +79,7 @@ return require('packer').startup(
 
 		-- status line
 		use {
-			'hoob3rt/lualine.nvim',
+			'nvim-lualine/lualine.nvim',
 			requires = {'projekt0n/circles.nvim'},
 			config = function ()
 				require'lualine'.setup {
