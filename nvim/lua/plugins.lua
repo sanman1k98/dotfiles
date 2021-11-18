@@ -54,6 +54,7 @@ return require('packer').startup(
 
 		-- M I N I M A L I S M
 		use {
+			event = 'VimEnter',
 			'projekt0n/circles.nvim',
 			requires = {'kyazdani42/nvim-web-devicons'},
 			config = function () require'circles'.setup{} end
@@ -127,6 +128,7 @@ return require('packer').startup(
 		-- TODO: find out how the hell this works cuz I'm dumb
 		use {
 			'jose-elias-alvarez/null-ls.nvim',
+			after = 'nvim-lspconfig',
 			config = function ()
 				local nls = require'null-ls'
 				nls.config {
@@ -159,6 +161,7 @@ return require('packer').startup(
 
 		-- autopairs
 		use {
+			after = 'coq_nvim',
 			'windwp/nvim-autopairs',
 			config = function () require'configs.autopairs' end
 		}
