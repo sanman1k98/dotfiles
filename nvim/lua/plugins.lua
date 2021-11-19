@@ -52,16 +52,9 @@ return require('packer').startup(
 			end
 		}
 
-		-- M I N I M A L I S M
-		use {
-			event = 'VimEnter',
-			'projekt0n/circles.nvim',
-			requires = {'kyazdani42/nvim-web-devicons'},
-			config = function () require'circles'.setup{} end
-		}
-
 		-- indentation guides
 		use {
+			event = 'BufRead',
 			'lukas-reineke/indent-blankline.nvim',
 			config = function ()
 				require'indent_blankline'.setup {
@@ -72,16 +65,31 @@ return require('packer').startup(
 			end
 		}
 
+		-- M I N I M A L I S M
+		use {
+			'projekt0n/circles.nvim',
+			requires = {'kyazdani42/nvim-web-devicons', opt = true},
+			config = function () require'circles'.setup{} end
+		}
+
 		-- zen mode
 		use {
-			{'folke/twilight.nvim', config = function () require'twilight'.setup() end},
-			{'folke/zen-mode.nvim', config = function () require'zen-mode'.setup() end}
+			{
+				'folke/twilight.nvim',
+				module = 'twilight',
+				config = function () require'twilight'.setup() end
+			},
+			{
+				'folke/zen-mode.nvim',
+				cmd = 'ZenMode',
+				config = function () require'zen-mode'.setup() end
+			}
 		}
 
 		-- status line
 		use {
 			'nvim-lualine/lualine.nvim',
-			requires = {'projekt0n/circles.nvim'},
+			after = 'circles.nvim',
 			config = function ()
 				require'lualine'.setup {
 					options = {
@@ -101,10 +109,12 @@ return require('packer').startup(
 			module = 'nvim-tree'
 		}
 
+
 		-- colorschemes
 		use {
-			disabled = true,
-			'folke/tokyonight.nvim'
+			'folke/tokyonight.nvim',
+			opt = true,
+			disabled = true
 		}
 		use {
 			'projekt0n/github-nvim-theme',
@@ -148,20 +158,19 @@ return require('packer').startup(
 			module = 'trouble'
 		}
 
+		-- coq settings here whatever
+		vim.g.coq_settings = {
+			['auto_start'] = 'shut-up'
+		}
+
 		-- autocomplete and snippets
 		use {
 			{ 'ms-jpq/coq_nvim', branch = 'coq' },
 			{ 'ms-jpq/coq.artifacts', branch = 'artifacts' }
 		}
 
-		-- coq settings here whatever
-		vim.g.coq_settings = {
-			['auto_start'] = 'shut-up'
-		}
-
 		-- autopairs
 		use {
-			after = 'coq_nvim',
 			'windwp/nvim-autopairs',
 			config = function () require'configs.autopairs' end
 		}
