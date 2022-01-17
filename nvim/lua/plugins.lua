@@ -143,13 +143,14 @@ return require('packer').startup(
 			after = 'nvim-lspconfig',
 			config = function ()
 				local nls = require'null-ls'
-				nls.config {
+				nls.setup {
 					sources = {
-						nls.builtins.formatting.prettier,
+						nls.builtins.formatting.prettier.with {
+							prefer_local = 'node_modules/.bin/'
+						},
 						nls.builtins.formatting.stylua
 					}
 				}
-				require("lspconfig")["null-ls"].setup{}
 			end
 		}
 
