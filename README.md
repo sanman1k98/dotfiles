@@ -1,7 +1,6 @@
 # Welcome to my dotfiles!
 
 Always a WIP and I'm always learning new and better ways to do stuff:)
-(forreal tho this could be way better it's kinda basic)
 
 ### Highlights
 - Primarily for macOS
@@ -19,14 +18,28 @@ Always a WIP and I'm always learning new and better ways to do stuff:)
 	- I enjoyed using fish cause of the autosuggestions and pretty colors but I wanna go back to something more ubiquitous and powerful
 
 ### TODOs
-- [ ] add some screenshots
-- [ ] an install script would be pretty cool 
-- [ ] zsh functions to do stuff like:
-	- [ ] edit dotfiles in a new kitty tab
-	- [ ] cheat.sh in a new kitty tab
-	- [ ] automate stuff in macOS
-- [ ] kittens
-	- [ ] see if making a kitten to copy my tmux conf to a remote machine makes sense
+- [ ] add some images
+	- [ ] screenshots of my desktop
+	- [ ] links to wallpapers
+- [ ] an install script would be dope
+	- [ ] macOS
+	- [ ] Arch
+- [ ] zsh
+	- [ ] make autocomplete case insensitive
+	- [ ] read more documentation
+	- [ ] function to edit dotfiles in a new kitty tab
+	- [ ] function to open cheat.sh in a new kitty tab
+- [ ] kitty
+	- [ ] specify thicker bold font variants
+	- [ ] kitten to copy my tmux configuration when sshing to another machine
 - [ ] tidy up the dirs
 	- [ ] remove folders for stuff I don't use much anymore
-- [ ] make this README make more sense and format it properly
+- [ ] better README
+	- [ ] clarity
+	- [ ] formatting
+	- [ ] insert links for various items
+
+### Ideas
+- [ ] add a `resources.md` so I can put all the links for articles, stackoverflow answers, other dotfile repos, etc in one place
+- [ ] zsh functions to automate stuff in macOS
+
