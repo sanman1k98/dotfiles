@@ -14,31 +14,35 @@ map('i', 'kj', '<esc>')
 -- I don't like pressing shift with my weak left pinky:(
 map('n', '<leader>;', ':')
 
--- shortcut to get help in an new tab
-map('n', '<leader>h', ':tab h ')
+-- search through help tags and open in a new window
+map('n', '<leader>h', '<cmd>lua require"telescope.builtin".help_tags()<cr>')
 
--- 
+-- write file
 map('n', '<leader>w', '<cmd>w<cr>')
 
--- 
-map('v', '<leader>f', '<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>')
+-- format selected
+map('v', 'gw', '<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>')
 
--- 
-map('n', '<leader>e', '<cmd>Telescope fd<cr>')
+-- vim lsp code actions
+map('n', '<leader>va', '<cmd>lua require"telescope.builtin".lsp_code_actions()<cr>')
+map('n', '<leader>vr', '<cmd>lua vim.lsp.buf.rename()<cr>')
 
--- 
-map('n', '<leader>b', '<cmd>Telescope buffers<cr>')
+-- fuzzy find files
+map("n", "<leader>ff", '<cmd>lua require"telescope.builtin".fd()<cr>')
 
--- 
-map('n', '<leader>c', '<cmd>Telescope commands<cr>')
+-- buffers
+map('n', '<leader>fb', '<cmd>lua require"telescope.builtin".buffers()<cr>')
 
--- 
-map('n', '<leader>t', '<cmd>NvimTreeToggle<cr>')
+-- search through commands
+map('n', '<leader>c', '<cmd>lua require"telescope.builtin".commands()<cr>')
 
--- 
-map('n', '<leader>d', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
+-- file tree
+map('n', '<leader>ft', '<cmd>NvimTreeFocus<cr>')
 
--- 
+-- toggle diagnostics window
+map('n', '<leader>vd', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
+
+--
 map('n', '<leader>z', '<cmd>ZenMode<cr>')
 
 -- coq recommended mappings
