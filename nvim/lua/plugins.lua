@@ -34,7 +34,9 @@ return require('packer').startup(
 		-- telescope
 		use {
 			'nvim-telescope/telescope.nvim',
-			cmd = 'Telescope'
+			config = function () require('configs.telescope') end,
+			cmd = 'Telescope',
+			module = 'telescope'
 		}
 		-- treeshitter
 		use {
