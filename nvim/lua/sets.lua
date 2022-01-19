@@ -29,3 +29,8 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.completeopt = 'menuone,noselect'
+
+local g = vim.g
+
+g.do_filetype_lua = 1
+g.did_load_filetypes = 0
