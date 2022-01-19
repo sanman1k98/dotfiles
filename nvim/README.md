@@ -29,7 +29,8 @@ Again, always a work in progress
 	- `lsp/` is where the setup for individual LSPs shoud go
 
 ### TODOs
-- [ ] filetype.lua
+- [x] switch over to nightly
+- [x] filetype.lua
 	- `:help vim.filetype`
 	- to enable do this but in lua
 		- `let g:do_filetype_lua = 1`
@@ -44,10 +45,11 @@ Again, always a work in progress
 - [x] specify OS-specific configuration
 	- [x] `MACOSX_DEPLOYMENT_TARGET` 
 - [ ] mappings
-	- [ ] try out the new `vim.keymap` API
+	- [x] try out the new `vim.keymap` API
 		- adding descriptions to keymaps via `desc` option in the opts table
 		- rhs can be lua function
 		- `:help vim.api.nvim_set_keymap`
+	- [ ] change rhs to use real lua functions
 	- [ ] better mouse scrolling on macOS
 	- [ ] LSP features like code actions and stuff
 	- [ ] help in a new tab
