@@ -1,31 +1,31 @@
-local o = vim.opt
+local opt = vim.opt
 
-o.termguicolors = true
+opt.termguicolors = true
 
-o.showtabline = 2
+opt.showtabline = 2
 
-o.number = true
-o.relativenumber = true
-o.numberwidth = 4
+opt.number = true
+opt.relativenumber = true
+opt.numberwidth = 4
 
-o.scrolloff = 10
-o.wrap = false
-o.breakindent = true
-o.linebreak = true
+opt.scrolloff = 10
+opt.wrap = false
+opt.breakindent = true
+opt.linebreak = true
 
-o.tabstop = 2
-o.shiftwidth = 2
-o.autoindent = true
-o.smartindent = true
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.autoindent = true
+opt.smartindent = true
 
-o.mouse = 'nvi'
+opt.mouse = 'nvi'
 
-o.clipboard = 'unnamedplus'
+opt.clipboard = 'unnamedplus'
 
-o.hidden = true
+opt.hidden = true
 
-o.helpheight = 10
-o.splitright = true
-o.splitbelow = true
+opt.helpheight = 10
+opt.splitright = true
+opt.splitbelow = true
 
-o.completeopt = 'menuone,noselect'
+opt.completeopt = 'menuone,noselect'
