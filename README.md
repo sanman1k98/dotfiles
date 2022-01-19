@@ -37,9 +37,12 @@ Always a WIP and I'm always learning new and better ways to do stuff:)
 - [ ] better README
 	- [ ] clarity
 	- [ ] formatting
-	- [ ] insert links for various items
+	- [ ] insert relavant links
 
 ### Ideas
 - [ ] add a `resources.md` so I can put all the links for articles, stackoverflow answers, other dotfile repos, etc in one place
 - [ ] zsh functions to automate stuff in macOS
-
+- [ ] learn how to write formulae for Homebrew
+	- [ ] get up to speed on Ruby and take notes on it
+	- [ ] read Homebrew docs
+	- [ ] look at other Formula scripts, eg neovim.rb
