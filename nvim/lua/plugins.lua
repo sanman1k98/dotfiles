@@ -1,17 +1,7 @@
---[[
-
-For some stupid ass reason, :PackerSync doesn't work properly
-Use the following when updating this file:
-	1) save edits
-	2) exit nvim
-	3) start nvim
-	4) :PackerUpdate
-	5) :PackerSync
-
-]]--
 
 local fn = vim.fn
 
+-- some bootstrapping
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
 	fn.system {'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path}
