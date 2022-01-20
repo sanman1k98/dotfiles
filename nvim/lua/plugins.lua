@@ -32,7 +32,6 @@ return require('packer').startup(
 		use {
 			event = 'BufRead',
 			'nvim-treesitter/nvim-treesitter',
-			branch = '0.5-compat',
 			run = ':TSUpdate',
 			config = function ()
 				require'nvim-treesitter.configs'.setup {
@@ -148,7 +147,7 @@ return require('packer').startup(
 		use {
 			'folke/trouble.nvim',
 			config = function () require'trouble'.setup{} end,
-			module = 'trouble'
+			cmd = 'TroubleToggle'
 		}
 
 		-- coq settings here whatever
