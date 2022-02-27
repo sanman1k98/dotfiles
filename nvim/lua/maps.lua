@@ -35,9 +35,6 @@ map('n', '<leader>ft', '<cmd>NvimTreeFocus<cr>')
 -- toggle diagnostics window
 map('n', '<leader>vd', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
 
---
-map('n', '<leader>z', '<cmd>ZenMode<cr>')
-
 -- coq recommended mappings
 vim.g.coq_settings = { keymap = { recommended = false } }
 map('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true })

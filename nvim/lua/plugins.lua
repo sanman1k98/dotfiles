@@ -79,12 +79,14 @@ return require('packer').startup(
 			{
 				'folke/twilight.nvim',
 				module = 'twilight',
-				config = function () require'twilight'.setup() end
+				config = function () require'twilight'.setup() end,
+				disabled = true
 			},
 			{
 				'folke/zen-mode.nvim',
 				cmd = 'ZenMode',
-				config = function () require'zen-mode'.setup() end
+				config = function () require'zen-mode'.setup() end,
+				disabled = true
 			}
 		}
 
