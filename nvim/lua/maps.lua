@@ -17,11 +17,15 @@ map('n', '<leader>w', '<cmd>w<cr>')
 map('v', 'gw', '<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>')
 
 -- vim lsp code actions
-map('n', '<leader>va', '<cmd>lua require"telescope.builtin".lsp_code_actions()<cr>')
+map('n', '<leader>va', function ()
+	require'telescope.builtin'.lsp_code_actions()
+end)
 map('n', '<leader>vr', '<cmd>lua vim.lsp.buf.rename()<cr>')
 
 -- fuzzy find files
-map("n", "<leader>ff", '<cmd>lua require"telescope.builtin".fd()<cr>')
+map("n", "<leader>ff", function ()
+	require'telescope.builtin'.find_files()
+end)
 
 -- buffers
 map('n', '<leader>fb', '<cmd>lua require"telescope.builtin".buffers()<cr>')
