@@ -7,6 +7,8 @@ alias -g lg='lazygit'
 setopt nobeep
 setopt autocd
 setopt nocaseglob
+setopt autolist
+setopt menucomplete
 setopt extendedhistory
 setopt sharehistory
 setopt appendhistory
