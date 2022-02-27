@@ -24,8 +24,19 @@ return require('packer').startup(
 		-- telescope
 		use {
 			'nvim-telescope/telescope.nvim',
-			config = function () require('configs.telescope') end,
-			cmd = 'Telescope',
+			config = function ()
+				local telescope = require'telescope'
+				telescope.setup {
+					pickers = {
+						find_files = {
+							hidden = true
+						},
+						lsp_code_actions = {
+							theme = 'cursor'
+						}
+					}
+				}
+			end,
 			module = 'telescope'
 		}
 		-- treeshitter
