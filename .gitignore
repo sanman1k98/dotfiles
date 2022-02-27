@@ -1,6 +1,6 @@
 .DS_Store
 
-# fish history and complettions
+# fish history and completions
 local/share/fish/
 
 # displays remote info
@@ -12,8 +12,14 @@ nvim/plugin/packer_compiled.lua
 #  sensitive info
 gh/hosts.yml
 
+# shell command history and completions
 zsh/.zcompdump
 zsh/.zsh_history
 zsh/.zsh_sessions
-
 zsh/.zcompcache
+
+configstore
+
+# ignore valet files except the config
+valet
+!valet/config.json
