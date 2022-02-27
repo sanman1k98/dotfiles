@@ -1,6 +1,8 @@
 export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
 alias -g la='ls -lAG --color=always'
 alias -g lg='lazygit'
 
