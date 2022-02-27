@@ -36,6 +36,11 @@ map('n', '<leader>c', '<cmd>lua require"telescope.builtin".commands()<cr>')
 -- file tree
 map('n', '<leader>ft', '<cmd>NvimTreeFocus<cr>')
 
+-- file browser
+map('n', '<leader>fb', function ()
+	require'telescope'.extensions.file_browser.file_browser()
+end)
+
 -- toggle diagnostics window
 map('n', '<leader>vd', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
 
