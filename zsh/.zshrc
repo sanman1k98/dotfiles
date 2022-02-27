@@ -1,7 +1,7 @@
 export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 
-alias -g la='ls -lAG'
+alias -g la='ls -lAG --color=always'
 alias -g lg='lazygit'
 
 setopt nobeep
