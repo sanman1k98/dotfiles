@@ -113,6 +113,13 @@ return require('packer').startup(
 			module = 'nvim-tree'
 		}
 
+		-- file browser
+		use {
+			'nvim-telescope/telescope-file-browser.nvim',
+			config = function ()
+				require'telescope'.load_extension'file_browser'
+			end
+		}
 
 		-- colorschemes
 		use {
