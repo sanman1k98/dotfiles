@@ -2,34 +2,75 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
+tap "homebrew/services"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
+# Official Amazon AWS command-line interface
+brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Cross-platform make
+brew "cmake"
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Generic library support script
+brew "libtool"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
+# Postgres C API library
+brew "libpq"
+# General-purpose scripting language
+brew "php", link: false
+# Dependency Manager for PHP
+brew "composer"
 # Secure runtime for JavaScript and TypeScript
 brew "deno"
+# Lightweight DNS forwarder and DHCP server
+brew "dnsmasq"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Core application library for C
+brew "glib"
+# Manage compile and link flags for libraries
+brew "pkg-config"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
 # Simple terminal UI for git commands
 brew "lazygit"
+# Just-In-Time Compiler (JIT) for the Lua programming language
+brew "luajit", args: ["HEAD"]
+# Package manager for the Lua programming language
+brew "luarocks"
 # Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 # HTTP/2 C Library
 brew "nghttp2"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
+# HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
+brew "nginx"
 # Small build system for use with gyp or CMake
 brew "ninja"
 # Platform built on V8 to build network applications
 brew "node"
+# Development kit for the Java programming language
+brew "openjdk"
 # Safe, concurrent, practical language
 brew "rust"
 # Cross-shell prompt for astronauts
 brew "starship"
-# Organize software neatly under a single directory tree (e.g. /usr/local)
-brew "stow"
+# Opinionated Lua code formatter
+brew "stylua"
 # Terminal multiplexer
 brew "tmux"
 # Fish-like fast/unobtrusive autosuggestions for zsh
@@ -40,10 +81,28 @@ brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 # Web browser focusing on privacy
 cask "brave-browser"
+# App to build and share containerized applications and microservices
+cask "docker"
+# Version of Cascadia Code with embedded Powerline symbols
+cask "font-cascadia-code-pl"
+cask "font-fira-code"
+# Sans-serif, slab-serif, monospace and quasi‑proportional typeface family
+cask "font-iosevka-aile"
+# Sans-serif, slab-serif, monospace and quasi‑proportional typeface family
+cask "font-iosevka-etoile"
 cask "font-sauce-code-pro-nerd-font"
+cask "font-source-code-pro"
+# Git client focusing on productivity
+cask "gitkraken"
 # GPU-based terminal emulator
 cask "kitty"
-# Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
+# Collaboration platform for API development
+cask "postman"
+# Instant messaging application focusing on security
+cask "signal"
+# System monitor for the menu bar
+cask "stats"
 # Open-source code editor
 cask "visual-studio-code"
+# Video communication and virtual meeting platform
+cask "zoom"
