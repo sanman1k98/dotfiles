@@ -1,15 +1,11 @@
 local ls = require'lspconfig'
 local coq = require 'coq'
 
-local sumneko_root_path = vim.fn.stdpath('data')..'/site/language-servers/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
-
 local rtp = vim.split(package.path, ';')
 table.insert(rtp, 'lua/?.lua')
 table.insert(rtp, 'lua/?/init.lua')
 
 ls.sumneko_lua.setup(coq.lsp_ensure_capabilities {
-	cmd = { sumneko_binary, "-E", sumneko_root_path.."/main.lua" },
 	settings = {
 		Lua = {
 			runtime = {
