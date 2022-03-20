@@ -43,6 +43,7 @@ return require('packer').startup(
 		-- treeshitter
 		use {
 			event = 'BufRead',
+			module = 'telescope.previewers.buffer_preview',
 			'nvim-treesitter/nvim-treesitter',
 			run = ':TSUpdate',
 			config = function ()
