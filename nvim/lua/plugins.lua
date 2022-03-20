@@ -94,11 +94,14 @@ return require('packer').startup(
 		-- status line
 		use {
 			'nvim-lualine/lualine.nvim',
-			after = 'circles.nvim',
+			after = {
+				'circles.nvim',
+				'github-nvim-theme'
+			},
 			config = function ()
 				require'lualine'.setup {
 					options = {
-						theme = 'github'
+						theme = 'auto'
 					},
 					sections = {
 						lualine_x = {'filetype'}
@@ -130,7 +133,6 @@ return require('packer').startup(
 		}
 		use {
 			'projekt0n/github-nvim-theme',
-			after = 'lualine.nvim',
 			config = function ()
 				require'github-theme'.setup {
 					theme_style = 'dark_default',
