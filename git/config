@@ -8,3 +8,8 @@
 [alias]
 	ss = status -s
 	ca = commit -a
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+	forceSignAnnotated = true
