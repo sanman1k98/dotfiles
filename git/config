@@ -41,3 +41,10 @@
 # Sign tags by default
 [tag]
 	gpgSign = true
+
+
+
+# Since config is evaluated from top to bottom, we will include other files
+# that intend to override variables here at the end. 
+[include]
+	path = ~/.work_config/git/config
