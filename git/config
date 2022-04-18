@@ -1,15 +1,43 @@
-# This is Git's per-user configuration file.
+# My main git configuration.
+#
+# Section and variable names are case-insensitve.
+
+
+
+# `user.name` and `user.email` determines what ends up in the author and
+# committer field of commiter objects.
+#
+# The author is the person who originally wrote the patch.
+# The committer is the person who last applied the patch.
 [user]
-# Please adapt and uncomment the following lines:
 	name = Sandeep Dilip
-	email = 34922961+sanman1k98@users.noreply.github.com
+
+	# Using git with multiple emails.
+	#
+	# Instructs git to avoid guessing defaults for `user.name` and `user.email`.
+	# With this set to true, git will prompt us to set up an email before making
+	# new commits in a newly cloned repository.
+	useconfigonly = true
+
+	# `user.signingkey` can be any valid gpg `USERID` and will be passed unchanged
+	# into `gpg --local-user`. See `man gpg(1)` for more information.
+
+
+# Changes from default value `master`.
 [init]
 	defaultBranch = main
+
+
 [alias]
 	ss = status -s
 	ca = commit -a
+
+
+# Sign commits by default.
 [commit]
 	gpgSign = true
+
+
+# Sign tags by default
 [tag]
 	gpgSign = true
-	forceSignAnnotated = true
