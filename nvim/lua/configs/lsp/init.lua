@@ -34,6 +34,9 @@ ls.tsserver.setup(coq.lsp_ensure_capabilities {
 	end
 })
 
+-- Terraform language server
+ls.terraformls.setup(coq.lsp_ensure_capabilities())
+
 -- PHP language server
 ls.phpactor.setup(coq.lsp_ensure_capabilities())
 
