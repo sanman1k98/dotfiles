@@ -1,5 +1,5 @@
 export ZDOTDIR=$HOME/.config/zsh
-export HOMEBREW_BUNDLE_FILE=$HOME/.config/brew/
+export HOMEBREW_BUNDLE_FILE=$HOME/.config/brew/Brewfile
 
 typeset -U fpath
 fpath+=/usr/local/share/zsh-completions
