@@ -1,18 +1,20 @@
+name: Project management
 
-name: CI
-
-# Controls when the workflow will run
 on:
   issues:
     types:
       - opened
+      - transferred # I don't imagine this happening, but I'm adding it anyway
 
 jobs:
   add-issue-to-project:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
+      # NOTE: This action is in beta but the API is stable. Some breaking
+      # changes might occur between versions. Using the main branch anyway
+      # cause that's more exciting.
       - uses: actions/add-to-project@main
         with:
           project-url: https://github.com/users/sanman1k98/projects/1
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PROJECTS_BETA }}
