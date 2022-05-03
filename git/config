@@ -20,8 +20,11 @@
 	# new commits in a newly cloned repository.
 	useconfigonly = true
 
-	# `user.signingkey` can be any valid gpg `USERID` and will be passed unchanged
-	# into `gpg --local-user`. See `man gpg(1)` for more information.
+	# TODO: work on phrasing this comment
+	# `user.signingkey` can be any valid gpg `USERID` and will be passed
+	# unchanged into `gpg --local-user`. See `man gpg(1)` for more information.
+	# The following string prefixed with an `@` will match with the signing key
+	# that contains the substring "sanman1k98".
 	signingkey = @sanman1k98
 
 
