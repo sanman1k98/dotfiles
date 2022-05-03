@@ -23,7 +23,20 @@ autoload -Uz compinit promptinit
 compinit -u
 promptinit
 
-# TODO: wrap in if statement
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-eval $(starship init zsh)
+# aliases for work
+if [[ -e $HOME/.work_config/zsh/aliases.zsh ]]; then
+	source $HOME/.work_config/zsh/aliases.zsh
+fi
+
+# TODO: see if there is a better way to do this... the square brackets are
+# probably redundant.
+#
+# Source starship prompt very last
+if [[ $(where starship) ]]; then
+	source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	eval $(starship init zsh)
+else
+	echo "starship prompt not installed."
+	prompt off
+fi
