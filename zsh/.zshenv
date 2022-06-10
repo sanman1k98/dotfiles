@@ -1,5 +1,6 @@
 export ZDOTDIR=$HOME/.config/zsh
 export HOMEBREW_BUNDLE_FILE=$HOME/.config/brew/Brewfile
+export LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml
 
 typeset -U fpath
 fpath+=/usr/local/share/zsh-completions
