@@ -3,6 +3,27 @@
 # Section and variable names are case-insensitve.
 
 
+[include]
+	path = ../delta/themes.gitconfig
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	line-numbers = true
+	navigate = true
+	hyperlinks = true
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colormoved = default
+
+
 
 # `user.name` and `user.email` determines what ends up in the author and
 # committer field of commiter objects.
