@@ -18,6 +18,6 @@ path+=/usr/local/opt/python@3.10/libexec/bin
 
 
 # work environment
-if [[ -e $HOME/.work_config/zsh/env_vars.zsh ]]; then
-	source $HOME/.work_config/zsh/env_vars.zsh
+if [[ -e $HOME/.work_config/zsh/env.zsh ]]; then
+	source $HOME/.work_config/zsh/env.zsh
 fi
