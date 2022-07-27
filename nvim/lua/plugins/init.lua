@@ -25,22 +25,10 @@ return require('packer').startup(
 		-- telescope
 		use {
 			'nvim-telescope/telescope.nvim',
-			config = function ()
-				local telescope = require'telescope'
-				telescope.setup {
-					pickers = {
-						find_files = {
-							find_command = {'fd', '--type', 'file', '--exclude', '{.git,node_modules}'},
-							hidden = true
-						},
-						lsp_code_actions = {
-							theme = 'cursor'
-						}
-					}
-				}
-			end,
+			config = function () require'plugins.configs.telescope' end,
 			module = 'telescope'
 		}
+
 		-- treeshitter
 		use {
 			'nvim-treesitter/nvim-treesitter',
