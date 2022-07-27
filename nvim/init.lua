@@ -1,5 +1,4 @@
--- Load some basic nvim options
-require('sets')
+require('options')
 
 -- Load my keymappings
 require('maps')
