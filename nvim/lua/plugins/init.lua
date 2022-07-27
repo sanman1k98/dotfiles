@@ -54,7 +54,7 @@ return require('packer').startup(
 			'lukas-reineke/indent-blankline.nvim',
 			config = function ()
 				local present, blankline = pcall(require, 'indent_blankline')
-				if present then 
+				if present then
 					blankline.setup {
 					show_first_indent_level = false,
 					show_current_context = true,
