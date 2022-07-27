@@ -3,10 +3,13 @@ local fn = vim.fn
 
 -- some bootstrapping
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local is_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
+	is_bootstrap = true
 	fn.system {'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path}
-	vim.cmd 'packadd packer.nvim'
 end
+
+vim.cmd.packadd 'packer.nvim'
 
 -- packer.nvim iss180
 fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
@@ -17,8 +20,6 @@ return require('packer').startup(
 		-- load package manager
 		use 'wbthomason/packer.nvim'
 
-		-- dependencies for some of the other plugins
-		use 'nvim-lua/popup.nvim'
 		use 'nvim-lua/plenary.nvim'
 
 		-- telescope
@@ -42,18 +43,21 @@ return require('packer').startup(
 		}
 		-- treeshitter
 		use {
-			event = 'BufRead',
-			module = 'telescope.previewers.buffer_preview',
 			'nvim-treesitter/nvim-treesitter',
 			run = ':TSUpdate',
 			config = function ()
-				require'nvim-treesitter.configs'.setup {
-					ensure_installed = 'maintained',
-					highlight = { enable = true },
-					indent = { enable = false },
-					autopairs = { enable = true }
+				local present, treesitter = pcall(require, 'nvim-treesitter.configs')
+				if not present then return end
+				treesitter.setup {
+					ensure_installed = {
+						'lua'
+					},
+					highlight = {
+						enable = true,
+						use_languagetree = true,
+					},
 				}
-			end
+			end,
 		}
 
 		-- indentation guides
@@ -62,18 +66,24 @@ return require('packer').startup(
 			'lukas-reineke/indent-blankline.nvim',
 			config = function ()
 				require'indent_blankline'.setup {
+					show_first_indent_level = false,
 					show_current_context = true,
-					filetype_exclude = {'terminal', 'help', 'packer', 'NvimTree', 'man'},
+					filetype_exclude = {'terminal', 'help', 'packer', 'man'},
 					bufname_exclue = {'README.md'},
+					show_end_of_line = true,
+					space_char_blankline = ' '
 				}
 			end
 		}
 
-		-- M I N I M A L I S M
 		use {
-			'projekt0n/circles.nvim',
-			requires = {'kyazdani42/nvim-web-devicons', opt = true},
-			config = function () require'circles'.setup{} end
+			'kyazdani42/nvim-web-devicons',
+			config = function() 
+				local present, devicons = pcall(require, 'nvim-web-devicons')
+				if present then
+					devicons.setup()
+				end
+			end,
 		}
 
 		-- zen mode
@@ -96,7 +106,6 @@ return require('packer').startup(
 		use {
 			'nvim-lualine/lualine.nvim',
 			after = {
-				'circles.nvim',
 				'github-nvim-theme'
 			},
 			config = function ()
@@ -111,6 +120,19 @@ return require('packer').startup(
 			end
 		}
 
+		-- git signs in the number column
+		use {
+			'lewis6991/gitsigns.nvim',
+			requires = { 'nvim-lua/plenary.nvim' },
+			event = {"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"},
+			config = function()
+				local present, gitsigns = pcall(require, 'gitsigns')
+				if present then
+					gitsigns.setup()
+				end
+			end,
+		}
+
 		-- file tree
 		use {
 			'kyazdani42/nvim-tree.lua',
@@ -118,20 +140,7 @@ return require('packer').startup(
 			module = 'nvim-tree'
 		}
 
-		-- file browser
-		use {
-			'nvim-telescope/telescope-file-browser.nvim',
-			config = function ()
-				require'telescope'.load_extension'file_browser'
-			end
-		}
-
 		-- colorschemes
-		use {
-			'folke/tokyonight.nvim',
-			opt = true,
-			disabled = true
-		}
 		use {
 			'projekt0n/github-nvim-theme',
 			config = function ()
@@ -141,54 +150,68 @@ return require('packer').startup(
 					function_style = 'italic',
 					variable_style = 'italic'
 				}
-			end
+			end,
+			after = 'nvim-web-devicons',
+		}
+		use {
+			'catppuccin/nvim', as = 'catppuccin',
+			opt = true,
+			disabled = true
+		}
+
+		use {
+			'williamboman/mason-lspconfig.nvim',
+			requires = { 'williamboman/mason.nvim' },
+			config = function()
+				local present1, mason = pcall(require, 'mason')
+				local present2, mason_lspconfig = pcall(require, 'mason-lspconfig')
+				if present1 and present2 then
+					mason.setup()
+					mason_lspconfig.setup()
+				end
+			end,
+			cmd = {
+				'LspInstall',
+				'LspUninstall',
+				'Mason',
+				'MasonInstall',
+				'MasonInstallAll',
+				'MasonUninstall',
+				'MasonUninstallAll',
+				'MasonLog'
+			}
 		}
 
 		-- lspconfigs
 		use {
 			'neovim/nvim-lspconfig',
-			config = function () require'configs.lsp' end
+			event = {"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"}
 		}
 
-		-- TODO: find out how the hell this works cuz I'm dumb
+		-- completion and snippets
 		use {
-			'jose-elias-alvarez/null-ls.nvim',
-			after = 'nvim-lspconfig',
-			config = function ()
-				local nls = require'null-ls'
-				nls.setup {
-					sources = {
-						nls.builtins.formatting.prettier.with {
-							prefer_local = 'node_modules/.bin/'
-						},
-						nls.builtins.formatting.stylua
-					}
-				}
-			end
-		}
-
-		-- pretty diagnostics
-		use {
-			'folke/trouble.nvim',
-			config = function () require'trouble'.setup{} end,
-			cmd = 'TroubleToggle'
-		}
-
-		-- coq settings here whatever
-		vim.g.coq_settings = {
-			['auto_start'] = 'shut-up'
-		}
-
-		-- autocomplete and snippets
-		use {
-			{ 'ms-jpq/coq_nvim', branch = 'coq' },
-			{ 'ms-jpq/coq.artifacts', branch = 'artifacts' }
+			{
+				'hrsh7th/nvim-cmp',
+				after = 'nvim-lspconfig',
+				requires = { 'hrsh7th/cmp-nvim-lsp' },
+				config = function() require 'plugins.configs.cmp' end,
+			},
+			{'hrsh7th/cmp-buffer', after = 'nvim-cmp'},
+			{'hrsh7th/cmp-path', after = 'nvim-cmp'},
+			{'hrsh7th/cmp-cmdline', after = 'nvim-cmp'},
+			{'L3MON4D3/LuaSnip', after = 'nvim-cmp'},
+			{'saadparwaiz1/cmp_luasnip', after = 'LuaSnip'},
 		}
 
 		-- autopairs
 		use {
 			'windwp/nvim-autopairs',
-			config = function () require'configs.autopairs' end
+			config = function () require'plugins.configs.autopairs' end,
+			after = 'nvim-cmp'
 		}
+
+		if is_bootstrap then
+			require('packer').sync()
+		end
 
 	end)
