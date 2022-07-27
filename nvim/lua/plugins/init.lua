@@ -53,7 +53,9 @@ return require('packer').startup(
 			event = 'BufRead',
 			'lukas-reineke/indent-blankline.nvim',
 			config = function ()
-				require'indent_blankline'.setup {
+				local present, blankline = pcall(require, 'indent_blankline')
+				if present then 
+					blankline.setup {
 					show_first_indent_level = false,
 					show_current_context = true,
 					filetype_exclude = {'terminal', 'help', 'packer', 'man'},
@@ -61,9 +63,11 @@ return require('packer').startup(
 					show_end_of_line = true,
 					space_char_blankline = ' '
 				}
+				end
 			end
 		}
 
+		-- UI icons
 		use {
 			'kyazdani42/nvim-web-devicons',
 			config = function() 
@@ -97,14 +101,17 @@ return require('packer').startup(
 				'github-nvim-theme'
 			},
 			config = function ()
-				require'lualine'.setup {
-					options = {
-						theme = 'auto'
-					},
-					sections = {
-						lualine_x = {'filetype'}
+				local present, lualine = pcall(require, 'lualine')
+				if present then 
+					lualine.setup {
+						options = {
+							theme = 'auto'
+						},
+						sections = {
+							lualine_x = {'filetype'}
+						}
 					}
-				}
+				end
 			end
 		}
 
