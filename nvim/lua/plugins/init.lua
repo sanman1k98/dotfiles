@@ -154,9 +154,17 @@ return require('packer').startup(
 			disabled = true
 		}
 
+		-- lspconfigs
 		use {
-			'williamboman/mason-lspconfig.nvim',
-			requires = { 'williamboman/mason.nvim' },
+			'neovim/nvim-lspconfig',
+			requires = { 'hrsh7th/cmp-nvim-lsp' },
+			event = {"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"},
+			config = function() require'plugins.configs.lsp' end,
+		}
+
+		use {
+			'williamboman/mason-lspconfig.nvim', requires = { 'williamboman/mason.nvim' },
+			after = 'nvim-lspconfig',
 			config = function()
 				local present1, mason = pcall(require, 'mason')
 				local present2, mason_lspconfig = pcall(require, 'mason-lspconfig')
@@ -165,6 +173,7 @@ return require('packer').startup(
 					mason_lspconfig.setup()
 				end
 			end,
+			--[[
 			cmd = {
 				'LspInstall',
 				'LspUninstall',
@@ -175,20 +184,14 @@ return require('packer').startup(
 				'MasonUninstallAll',
 				'MasonLog'
 			}
-		}
-
-		-- lspconfigs
-		use {
-			'neovim/nvim-lspconfig',
-			event = {"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"}
+			]]
 		}
 
 		-- completion and snippets
 		use {
 			{
 				'hrsh7th/nvim-cmp',
-				after = 'nvim-lspconfig',
-				requires = { 'hrsh7th/cmp-nvim-lsp' },
+				event = { 'InsertEnter' },
 				config = function() require 'plugins.configs.cmp' end,
 			},
 			{'hrsh7th/cmp-buffer', after = 'nvim-cmp'},
