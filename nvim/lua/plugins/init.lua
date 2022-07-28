@@ -20,7 +20,10 @@ return require('packer').startup(
 		-- load package manager
 		use 'wbthomason/packer.nvim'
 
-		use 'nvim-lua/plenary.nvim'
+		use {
+			'nvim-lua/plenary.nvim',
+			module = 'plenary'
+		}
 
 		-- telescope
 		use {
@@ -173,18 +176,6 @@ return require('packer').startup(
 					mason_lspconfig.setup()
 				end
 			end,
-			--[[
-			cmd = {
-				'LspInstall',
-				'LspUninstall',
-				'Mason',
-				'MasonInstall',
-				'MasonInstallAll',
-				'MasonUninstall',
-				'MasonUninstallAll',
-				'MasonLog'
-			}
-			]]
 		}
 
 		-- completion and snippets
@@ -199,6 +190,7 @@ return require('packer').startup(
 				after = 'nvim-cmp',
 				config = function() require 'plugins.configs.luasnip' end,
 			},
+			{'onsails/lspkind.nvim', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-buffer', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-path', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-cmdline', after = 'nvim-cmp'},
@@ -211,6 +203,12 @@ return require('packer').startup(
 			'windwp/nvim-autopairs',
 			config = function () require'plugins.configs.autopairs' end,
 			after = 'nvim-cmp'
+		}
+
+		use {
+			'kylechui/nvim-surround',
+			after = 'nvim-cmp',
+			config = function () require'plugins.configs.surround' end,
 		}
 
 		if is_bootstrap then
