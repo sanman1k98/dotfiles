@@ -194,11 +194,16 @@ return require('packer').startup(
 				event = { 'InsertEnter' },
 				config = function() require 'plugins.configs.cmp' end,
 			},
+			{
+				'L3MON4D3/LuaSnip',
+				after = 'nvim-cmp',
+				config = function() require 'plugins.configs.luasnip' end,
+			},
 			{'hrsh7th/cmp-buffer', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-path', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-cmdline', after = 'nvim-cmp'},
-			{'L3MON4D3/LuaSnip', after = 'nvim-cmp'},
 			{'saadparwaiz1/cmp_luasnip', after = 'LuaSnip'},
+			{'rafamadriz/friendly-snippets', after = 'LuaSnip'},
 		}
 
 		-- autopairs
