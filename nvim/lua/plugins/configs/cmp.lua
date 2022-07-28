@@ -5,6 +5,8 @@ if not (present1 or present2) then
 	return
 end
 
+vim.opt.completeopt = "menuone,noselect"
+
 cmp.setup {
 	snippet = {
 		expand = function(args)

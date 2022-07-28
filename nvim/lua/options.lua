@@ -44,5 +44,3 @@ opt.hidden = true
 opt.helpheight = 10
 opt.splitright = true
 opt.splitbelow = true
-
-opt.completeopt = 'menuone,noselect'
