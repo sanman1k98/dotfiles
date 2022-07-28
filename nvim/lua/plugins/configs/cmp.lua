@@ -6,20 +6,6 @@ end
 
 vim.opt.completeopt = "menuone,noselect"
 
--- copied from NvChad plugins.configs.cmp module
-local function border(hl_name)
-	return {
-		{ "╭", hl_name },
-		{ "─", hl_name },
-		{ "╮", hl_name },
-		{ "│", hl_name },
-		{ "╯", hl_name },
-		{ "─", hl_name },
-		{ "╰", hl_name },
-		{ "│", hl_name },
-	}
-end
-
 cmp.setup {
 	window = {
 		completion = cmp.config.window.bordered(),
