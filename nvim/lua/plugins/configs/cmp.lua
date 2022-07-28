@@ -1,7 +1,6 @@
-local present1, cmp = pcall(require, 'cmp')
-local present2, luasnip = pcall(require, 'luasnip')
+local present, cmp = pcall(require, 'cmp')
 
-if not (present1 or present2) then
+if not present then
 	return
 end
 
@@ -22,14 +21,18 @@ local function border(hl_name)
 end
 
 cmp.setup {
+	window = {
+		completion = cmp.config.window.bordered(),
+		documenation = cmp.config.window.bordered(),
+	},
+
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			require('luasnip').lsp_expand(args.body)
 		end,
 	},
 
 	mapping = cmp.mapping.preset.insert {
-		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-n>'] = cmp.mapping.select_next_item(),
 		['<C-p>'] = cmp.mapping.select_prev_item(),
 		['<CR>'] = cmp.mapping.confirm{ select = true },
@@ -38,8 +41,9 @@ cmp.setup {
 
 	sources = cmp.config.sources {
 		{name = 'nvim_lsp'},
-		{name = 'luasnip'},
 		{name = 'buffer'},
+		{name = 'luasnip'},
 		{name = 'path'}
 	}
 }
+
