@@ -19,6 +19,11 @@ setopt sharehistory
 setopt appendhistory
 setopt histverify
 
+if [[ $(where brew) ]]; then
+	brew_completions="$(brew --prefix)/share/zsh/site-functions"
+	fpath+=brew_completions
+fi
+
 autoload -Uz compinit promptinit
 compinit -u
 promptinit
