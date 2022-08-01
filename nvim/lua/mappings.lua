@@ -2,7 +2,7 @@ vim.g.mapleader = [[ ]]
 local map = vim.keymap.set
 
 -- better escape
-map('i', 'kj', '<esc>')
+-- map('i', 'kj', '<esc>')
 
 -- I don't like pressing shift with my weak left pinky:(
 map('n', '<leader>;', ':')
@@ -44,3 +44,15 @@ end)
 
 -- file tree
 map('n', '<leader>ft', '<cmd>NvimTreeFocus<cr>')
+
+-- custom map function
+
+require'utils.map' {
+	i = {
+		['kj'] = {
+			'<esc>',
+			'quickly leave insert mode'
+		}
+	}
+}
+
