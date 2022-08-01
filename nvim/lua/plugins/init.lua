@@ -22,7 +22,6 @@ return require('packer').startup(
 
 		use {
 			'nvim-lua/plenary.nvim',
-			module = 'plenary'
 		}
 
 		-- telescope
