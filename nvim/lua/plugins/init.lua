@@ -134,7 +134,7 @@ return require('packer').startup(
 		-- file tree
 		use {
 			'kyazdani42/nvim-tree.lua',
-			config = function () require'nvim-tree'.setup{} end,
+			config = function () require'plugins.configs.tree' end,
 			module = 'nvim-tree'
 		}
 
