@@ -22,6 +22,13 @@ opt.wrap = false
 opt.breakindent = true
 opt.linebreak = true
 
+-- default value is " "tcqj""
+opt.formatoptions = opt.formatoptions
+	+ 'c' -- autowrap comments to `textwidth`
+	- 'r' -- don't continue comments on `<CR>`
+	- 'o' -- ...or when opening a newline
+	- 'a' -- *don't autoformat*
+
 local indent = 2
 opt.tabstop = indent
 opt.shiftwidth = indent
