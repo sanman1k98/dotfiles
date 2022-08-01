@@ -121,6 +121,12 @@ return require('packer').startup(
 			end
 		}
 
+		use {
+			'TimUntersberger/neogit',
+			module = 'neogit',
+			config = function() require'plugins.configs.neogit' end
+		}
+
 		-- git signs in the number column
 		use {
 			'lewis6991/gitsigns.nvim',
