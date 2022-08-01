@@ -3,23 +3,29 @@ local opt = vim.opt
 opt.termguicolors = true
 opt.title = true
 
-opt.showtabline = 2
+-- window statusline
 opt.laststatus = 3
 
+-- show tabline if there is more than one tab
+opt.showtabline = 1
+
+-- show cursor location
 opt.cul = true
 
 opt.number = true
 opt.relativenumber = true
 opt.numberwidth = 4
+opt.signcolumn = 'yes'
 
 opt.scrolloff = 8
 opt.wrap = false
 opt.breakindent = true
 opt.linebreak = true
 
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
+local indent = 2
+opt.tabstop = indent
+opt.shiftwidth = indent
+opt.softtabstop = indent
 opt.autoindent = true
 opt.smartindent = true
 
@@ -32,11 +38,12 @@ opt.shortmess:append 'sI'
 -- show whitespace
 opt.list = true
 opt.listchars:append("space:⋅")
-opt.listchars:append("tab:··»")		-- third char "»" is always shown
+opt.listchars:append("tab:··")		-- third char "" is always shown
 opt.listchars:append("eol:↲")
 
 opt.mouse = 'nvi'
 
+-- integrate with system clipboard
 opt.clipboard = 'unnamedplus'
 
 opt.hidden = true
