@@ -156,12 +156,18 @@ return require('packer').startup(
 			disabled = true
 		}
 
-		-- lspconfigs
+		-- LSP related
 		use {
 			'neovim/nvim-lspconfig',
 			requires = { 'hrsh7th/cmp-nvim-lsp' },
 			event = "BufReadPre",
 			config = function() require'plugins.configs.lsp' end,
+		}
+
+		use {
+			'jose-elias-alvarez/null-ls.nvim',
+			after = 'nvim-lspconfig',
+			config = function() require'plugins.configs.null-ls' end,
 		}
 
 		use {
