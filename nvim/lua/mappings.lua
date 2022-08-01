@@ -8,7 +8,9 @@ map('i', 'kj', '<esc>')
 map('n', '<leader>;', ':')
 
 -- search through help tags and open in a new window
-map('n', '<leader>h', '<cmd>lua require"telescope.builtin".help_tags()<cr>')
+map('n', '<leader>h', function()
+	require'telescope.builtin'.help_tags()
+end)
 
 -- write file
 map('n', '<leader>w', '<cmd>w<cr>')
@@ -20,7 +22,10 @@ map('v', 'gw', '<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>')
 map('n', '<leader>va', function ()
 	require'telescope.builtin'.lsp_code_actions()
 end)
-map('n', '<leader>vr', '<cmd>lua vim.lsp.buf.rename()<cr>')
+
+map('n', '<leader>vr', function()
+	vim.lsp.buf.rename()
+end)
 
 -- fuzzy find files
 map("n", "<leader>ff", function ()
@@ -28,13 +33,14 @@ map("n", "<leader>ff", function ()
 end)
 
 -- buffers
-map('n', '<leader>fb', '<cmd>lua require"telescope.builtin".buffers()<cr>')
+map('n', '<leader>fb', function()
+	require'telescope.builtin'.buffers()
+end)
 
 -- search through commands
-map('n', '<leader>c', '<cmd>lua require"telescope.builtin".commands()<cr>')
+map('n', '<leader>c', function()
+	require'telescope.builtin'.commands()
+end)
 
 -- file tree
 map('n', '<leader>ft', '<cmd>NvimTreeFocus<cr>')
-
--- toggle diagnostics window
-map('n', '<leader>vd', '<cmd>TroubleToggle lsp_workspace_diagnostics<cr>', { silent = true })
