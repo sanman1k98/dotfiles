@@ -25,12 +25,7 @@ return require('packer').startup(
 		-- fancy notifications
 		use {
 			'rcarriga/nvim-notify',
-			config = function()
-				local present, notify = pcall(require, 'notify')
-				if present then
-					vim.notify = notify
-				end
-			end
+			config = function() require'plugins.configs.notify' end
 		}
 
 		-- telescope
