@@ -20,8 +20,17 @@ return require('packer').startup(
 		-- load package manager
 		use 'wbthomason/packer.nvim'
 
+		use 'nvim-lua/plenary.nvim'
+
+		-- fancy notifications
 		use {
-			'nvim-lua/plenary.nvim',
+			'rcarriga/nvim-notify',
+			config = function()
+				local present, notify = pcall(require, 'notify')
+				if present then
+					vim.notify = notify
+				end
+			end
 		}
 
 		-- telescope
