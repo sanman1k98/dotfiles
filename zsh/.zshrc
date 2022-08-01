@@ -29,8 +29,9 @@ compinit -u
 promptinit
 
 # aliases for work
-if [[ -e $HOME/.work_config/zsh/aliases.zsh ]]; then
-	source $HOME/.work_config/zsh/aliases.zsh
+work_aliases="$HOME/.work_config/zsh/alises.zsh"
+if [[ -e work_aliases ]]; then
+	source work_aliases
 fi
 
 # TODO: see if there is a better way to do this... the square brackets are
