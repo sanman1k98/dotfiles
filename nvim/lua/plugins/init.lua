@@ -52,7 +52,7 @@ return require('packer').startup(
 
 		-- indentation guides
 		use {
-			event = 'BufRead',
+			event = 'BufReadPre',
 			'lukas-reineke/indent-blankline.nvim',
 			config = function ()
 				local present, blankline = pcall(require, 'indent_blankline')
@@ -121,7 +121,7 @@ return require('packer').startup(
 		use {
 			'lewis6991/gitsigns.nvim',
 			requires = { 'nvim-lua/plenary.nvim' },
-			event = {"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"},
+			event = "BufReadPre",
 			config = function()
 				local present, gitsigns = pcall(require, 'gitsigns')
 				if present then
@@ -160,7 +160,7 @@ return require('packer').startup(
 		use {
 			'neovim/nvim-lspconfig',
 			requires = { 'hrsh7th/cmp-nvim-lsp' },
-			event = {"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"},
+			event = "BufReadPre",
 			config = function() require'plugins.configs.lsp' end,
 		}
 
