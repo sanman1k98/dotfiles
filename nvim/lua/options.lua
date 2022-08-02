@@ -45,7 +45,7 @@ opt.shortmess:append 'sI'
 -- show whitespace
 opt.list = true
 opt.listchars:append("space:⋅")
-opt.listchars:append("tab:··")		-- third char "" is always shown
+opt.listchars:append("tab: ")		-- first char "" is always shown
 opt.listchars:append("eol:↲")
 
 opt.mouse = 'nvi'
