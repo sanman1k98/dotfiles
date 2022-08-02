@@ -30,6 +30,11 @@ map {
 			'fuzzy find files'
 		},
 
+		['<leader>c'] = {
+			function() require'telescope.builtin'.commands() end,
+			'search for a command'
+		},
+
 		['<leader>ft'] = {
 			function()
 				require'nvim-tree.api'.tree.focus()
