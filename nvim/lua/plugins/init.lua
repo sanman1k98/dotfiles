@@ -102,23 +102,8 @@ return require('packer').startup(
 
 		-- status line
 		use {
-			'nvim-lualine/lualine.nvim',
-			after = {
-				'github-nvim-theme'
-			},
-			config = function ()
-				local present, lualine = pcall(require, 'lualine')
-				if present then 
-					lualine.setup {
-						options = {
-							theme = 'auto'
-						},
-						sections = {
-							lualine_x = {'filetype'}
-						}
-					}
-				end
-			end
+			'feline-nvim/feline.nvim',
+			config = function() require'plugins.configs.statusline' end
 		}
 
 		use {
