@@ -5,5 +5,7 @@ if not present then
 end
 
 neogit.setup {
-
+	integrations = {
+		diffview = true
+	}
 }

@@ -120,6 +120,14 @@ return require('packer').startup(
 			config = function() require'plugins.configs.statusline' end
 		}
 
+		-- git diffs
+
+		use {
+			'sindrets/diffview.nvim',
+			module = 'diffview',
+			config = function() require'plugins.configs.diffview' end
+		}
+
 		use {
 			'TimUntersberger/neogit',
 			module = 'neogit',
