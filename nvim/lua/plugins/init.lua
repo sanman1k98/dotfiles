@@ -54,6 +54,20 @@ return require('packer').startup(
 			end,
 		}
 
+		-- colorschemes
+		use {
+			'folke/tokyonight.nvim',
+			disable = true
+		}
+		use {
+			'projekt0n/github-nvim-theme',
+			module = 'github-theme',
+		}
+		use {
+			'catppuccin/nvim', as = 'catppuccin',
+			config = function() require'plugins.configs.theme' end
+		}
+
 		-- indentation guides
 		use {
 			event = 'BufReadPre',
@@ -130,25 +144,6 @@ return require('packer').startup(
 			'kyazdani42/nvim-tree.lua',
 			config = function () require'plugins.configs.tree' end,
 			module = 'nvim-tree'
-		}
-
-		-- colorschemes
-		use {
-			'projekt0n/github-nvim-theme',
-			config = function ()
-				require'github-theme'.setup {
-					theme_style = 'dark_default',
-					dark_sidebar = false,
-					function_style = 'italic',
-					variable_style = 'italic'
-				}
-			end,
-			after = 'nvim-web-devicons',
-		}
-		use {
-			'catppuccin/nvim', as = 'catppuccin',
-			opt = true,
-			disabled = true
 		}
 
 		-- LSP related
