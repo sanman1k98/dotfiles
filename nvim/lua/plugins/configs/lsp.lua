@@ -2,19 +2,50 @@ local present1, lsp = pcall(require, 'lspconfig')
 local present2, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
 
 if not (present1 or present2) then
-	print 'Plugins not found'
 	return
 end
 
-print 'Setting up LSPs...'
-
-local servers = {
-	'sumneko_lua'
-}
-
 local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local keymaps = function() end
+local attach_fn = function(_, bufnr)
+	local map = require'utils.map'
+	local mappings = {
+		n = {
+			['<leader>vr'] = {
+				function() vim.lsp.buf.rename() end,
+				{
+					buffer = bufnr,
+					desc = 'rename symbol'
+				}
+			},
+
+			['<leader>va'] = {
+				function() vim.lsp.buf.code_action() end,
+				{
+					buffer = bufnr,
+					desc = 'LSP code actions'
+				}
+			},
+
+			['<leader>vf'] = {
+				function() vim.diagnostic.open_float() end,
+				{
+					buffer = bufnr,
+					desc = 'LSP floating diagnostics'
+				}
+			},
+
+			['<leader>vs'] = {
+				function() vim.lsp.buf.signature_help() end,
+				{
+					buffer = bufnr,
+					desc = 'LSP signature help'
+				}
+			}
+		}
+	}
+	map(mappings)
+end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
@@ -22,7 +53,7 @@ table.insert(runtime_path, 'lua/?/init.lua')
 
 lsp.sumneko_lua.setup {
 	capabilities = capabilities,
-	on_attach = keymaps,
+	on_attach = attach_fn,
 	settings = {
 		Lua = {
 			runtime = {
@@ -41,4 +72,9 @@ lsp.sumneko_lua.setup {
 			telemetry = { enable = false, },
 		},
 	},
+}
+
+lsp.tsserver.setup{
+	capabilities = capabilities, 
+	on_attach = attach_fn
 }

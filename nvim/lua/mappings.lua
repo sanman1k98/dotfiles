@@ -25,11 +25,6 @@ map {
 			'write file'
 		},
 
-		['<leader>vr'] = {
-			function() vim.lsp.rename() end,
-			'rename a symbol'
-		},
-
 		['<leader>ff'] = {
 			function() require'telescope.builtin'.find_files() end,
 			'fuzzy find files'
