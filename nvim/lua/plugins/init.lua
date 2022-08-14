@@ -39,19 +39,7 @@ return require('packer').startup(
 		use {
 			'nvim-treesitter/nvim-treesitter',
 			run = ':TSUpdate',
-			config = function ()
-				local present, treesitter = pcall(require, 'nvim-treesitter.configs')
-				if not present then return end
-				treesitter.setup {
-					ensure_installed = {
-						'lua'
-					},
-					highlight = {
-						enable = true,
-						use_languagetree = true,
-					},
-				}
-			end,
+			config = function () require 'plugins.configs.treesitter' end,
 		}
 
 		-- colorschemes
