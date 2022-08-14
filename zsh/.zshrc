@@ -11,12 +11,11 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:
 
 setopt nobeep
 setopt interactivecomments
-setopt autocd
 setopt nocaseglob
-setopt autolist
 setopt menucomplete
 
 # history options
+setopt histreduceblanks
 setopt extendedhistory
 setopt sharehistory
 setopt appendhistory
