@@ -23,7 +23,7 @@ telescope.setup {
 			height = 0.80,
 			preview_cutoff = 120,
 		},
-		border = false -- TODO: set highlights to get that borderless look
+		-- TODO: set highlights to get that borderless look
 	},
 
 	pickers = {
