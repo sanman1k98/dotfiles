@@ -41,7 +41,23 @@ local attach_fn = function(_, bufnr)
 					buffer = bufnr,
 					desc = 'LSP signature help'
 				}
-			}
+			},
+    },
+
+    v = {
+      ['gw'] = {
+        function()
+          local p = function (tb) print(vim.inspect(tb)) end
+          local fn = vim.fn
+          local start = fn.getpos "'<"
+          local finish = fn.getpos "'>"
+          p(start); p(finish)
+        end,
+        {
+          buffer = bufnr,
+          desc = 'format selection'
+        }
+      }
 		}
 	}
 	map(mappings)
@@ -75,6 +91,6 @@ lsp.sumneko_lua.setup {
 }
 
 lsp.tsserver.setup{
-	capabilities = capabilities, 
+	capabilities = capabilities,
 	on_attach = attach_fn
 }
