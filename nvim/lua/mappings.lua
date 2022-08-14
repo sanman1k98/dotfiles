@@ -41,5 +41,21 @@ map {
 			end,
 			'focus file tree'
 		},
-	}
+
+		['<leader>ng'] = {
+			function()
+				require'neogit'.open()
+			end,
+			'open neogit'
+		}
+	},
+
+  v = {
+    ['<leader>so'] = {
+      function ()
+        vim.notify('TODO: implement this function', vim.log.levels.INFO)
+      end,
+      '":source" visual selection'
+    }
+  }
 }
