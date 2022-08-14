@@ -58,21 +58,9 @@ return require('packer').startup(
 
 		-- indentation guides
 		use {
-			event = 'BufReadPre',
 			'lukas-reineke/indent-blankline.nvim',
-			config = function ()
-				local present, blankline = pcall(require, 'indent_blankline')
-				if present then
-					blankline.setup {
-					show_first_indent_level = false,
-					show_current_context = true,
-					filetype_exclude = {'terminal', 'help', 'packer', 'man'},
-					bufname_exclue = {'README.md'},
-					show_end_of_line = true,
-					space_char_blankline = ' '
-				}
-				end
-			end
+			event = 'BufReadPre',
+			config = function () require'plugins.configs.indent' end
 		}
 
 		-- UI icons
