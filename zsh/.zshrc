@@ -6,6 +6,9 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 alias -g la='ls -lAG --color=always'
 alias -g lg='lazygit'
 
+# case insensitive completions
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+
 setopt nobeep
 setopt interactivecomments
 setopt autocd
