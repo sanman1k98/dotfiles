@@ -67,7 +67,7 @@ return require('packer').startup(
 		-- UI icons
 		use {
 			'kyazdani42/nvim-web-devicons',
-			config = function() 
+			config = function()
 				local present, devicons = pcall(require, 'nvim-web-devicons')
 				if present then
 					devicons.setup()
@@ -77,21 +77,15 @@ return require('packer').startup(
 
 		-- zen mode
 		use {
-			{
-				'folke/twilight.nvim',
-				module = 'twilight',
-				config = function () require'twilight'.setup() end,
-				disabled = true
-			},
+			{ 'folke/twilight.nvim', module = 'twilight', },
 			{
 				'folke/zen-mode.nvim',
-				cmd = 'ZenMode',
-				config = function () require'zen-mode'.setup() end,
-				disabled = true
+				module = 'zen-mode', after = 'twilight.nvim',
+				config = function() require'plugins.configs.zen' end,
 			}
 		}
 
-		-- status line
+		-- status line and winbar
 		use {
 			'feline-nvim/feline.nvim',
 			config = function() require'plugins.configs.statusline' end
@@ -114,7 +108,6 @@ return require('packer').startup(
 		-- git signs in the number column
 		use {
 			'lewis6991/gitsigns.nvim',
-			requires = { 'nvim-lua/plenary.nvim' },
 			event = "BufReadPre",
 			config = function()
 				local present, gitsigns = pcall(require, 'gitsigns')
