@@ -7,5 +7,6 @@ end
 -- change notify function globally
 
 vim.notify = notify.setup {
+	max_width = 35,
 	stages = 'fade',
 }

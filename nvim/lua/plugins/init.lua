@@ -25,6 +25,7 @@ return require('packer').startup(
 		-- fancy notifications
 		use {
 			'rcarriga/nvim-notify',
+			module = 'notify',
 			config = function() require'plugins.configs.notify' end
 		}
 
