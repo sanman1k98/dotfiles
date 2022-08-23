@@ -1,3 +1,5 @@
+-- TODO use `vim.validate` to validate the parameter specification.
+
 --[[
 
 This custom `map` function takes a table as an argument and and iterates
