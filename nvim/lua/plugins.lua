@@ -1,7 +1,21 @@
-
 local loaded, paq = pcall(require, "paq")
 
-local plugins = {
+local M = {}
+
+local mt = {
+  __add = function(self, list) return vim.list_extend(self, list) end,
+  __index = ( loaded and paq ) or nil,
+}
+
+local function opt_by_default(plugins)
+  return vim.tbl_map(function(p)
+    if type(p) == "string" then p = { p } end
+    if p.opt == nil then p.opt = true end
+    return p
+  end, plugins)
+end
+
+local start_plugins = {
   -- package manager
   "savq/paq-nvim",
 
@@ -18,7 +32,7 @@ local plugins = {
   "feline-nvim/feline.nvim",
 }
 
-local opt_plugins = {
+local opt_plugins = opt_by_default {
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -40,11 +54,6 @@ local opt_plugins = {
   "TimUntersberger/neogit",
   "lewis6991/gitsigns.nvim",
   "sindrets/diffview.nvim",
-
-  -- colorschemes
-  { "catppuccin/nvim", as = "catppuccin" },
-  "project0n/github-nvim-theme",
-  "folke/tokyonight.nvim",
 
   -- indentation lines
   "lukas-reineke/indent-blankline.nvim",
@@ -84,18 +93,21 @@ local opt_plugins = {
 
 }
 
-opt_plugins = vim.tbl_map(function(p)
-  if type(p) == "string" then
-    p = { p, opt = true }
-  else
-    p.opt = true
-  end
-end, opt_plugins)
+local colorscheme_plugins = opt_by_default {
 
-vim.list_extend(plugins, opt_plugins)
+  { "catppuccin/nvim", as = "catppuccin" },
+  "project0n/github-nvim-theme",
+  "folke/tokyonight.nvim",
 
-if not loaded then
-  require("bootstrap")(plugins)
-end
+}
 
-paq(plugins):install()
+setmetatable(M, mt)
+
+M = M
+  + start_plugins
+  + opt_plugins
+  + colorscheme_plugins
+
+paq(M)
+
+return M
