@@ -11,3 +11,6 @@ do -- plugins
   })
 end
 
+do -- colors
+  vim.cmd.colorscheme "catppuccin"
+end
