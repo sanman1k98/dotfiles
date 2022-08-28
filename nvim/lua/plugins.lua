@@ -1,11 +1,9 @@
-local loaded, paq = pcall(require, "paq")
-
+-- This module returns a list of plugins to be managed by Paq.
 local M = {}
 
-local mt = {
-  __add = function(self, list) return vim.list_extend(self, list) end,
-  __index = ( loaded and paq ) or nil,
-}
+local function append_plugins(list)
+  vim.list_extend(M, list)
+end
 
 local function opt_by_default(plugins)
   return vim.tbl_map(function(p)
@@ -15,7 +13,7 @@ local function opt_by_default(plugins)
   end, plugins)
 end
 
-local start_plugins = {
+append_plugins {
   -- package manager
   "savq/paq-nvim",
 
@@ -32,7 +30,7 @@ local start_plugins = {
   "feline-nvim/feline.nvim",
 }
 
-local opt_plugins = opt_by_default {
+append_plugins(opt_by_default {
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -86,28 +84,19 @@ local opt_plugins = opt_by_default {
   -- autopairs and delimiters
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
-	"kylechui/nvim-surround",
+  "kylechui/nvim-surround",
 
   -- comments
   "numToStr/Comment.nvim",
 
-}
+})
 
-local colorscheme_plugins = opt_by_default {
+append_plugins(opt_by_default {
 
   { "catppuccin/nvim", as = "catppuccin" },
   "project0n/github-nvim-theme",
   "folke/tokyonight.nvim",
 
-}
-
-setmetatable(M, mt)
-
-M = M
-  + start_plugins
-  + opt_plugins
-  + colorscheme_plugins
-
-paq(M)
+})
 
 return M
