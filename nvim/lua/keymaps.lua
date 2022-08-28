@@ -1,61 +1,54 @@
+local map = require "utils.map"
+
+-- set <space> as the leader key
 vim.g.mapleader = [[ ]]
-local map = require("utils.map")	-- custom map function
 
 map {
 	i = {
-		["kj"] = {
+		["kj"] = { "quickly leave insert mode",
 			"<esc>",
-			"quickly leave insert mode"
 		}
 	},
 
 	n = {
-		["<leader>;"] = {
+		["<leader>;"] = { "easily enter a command",
 			":",
-			"easily enter a command"
 		},
 
-		["<leader>h"] = {
+		["<leader>h"] = { "search help docs",
       function() require("telescope.builtin").help_tags() end,
-			"search help docs"
 		},
 
-		["<leader>w"] = {
+		["<leader>w"] = { "write file",
 			"<cmd> w <cr>",
-			"write file"
 		},
 
-		["<leader>ff"] = {
+		["<leader>ff"] = { "fuzzy find files",
 			function() require"telescope.builtin".find_files() end,
-			"fuzzy find files"
 		},
 
-		["<leader>c"] = {
+		["<leader>c"] = { "search for a command",
       function() require("telescope.builtin").commands() end,
-			"search for a command"
 		},
 
-		["<leader>ft"] = {
+		["<leader>ft"] = { "focus file tree",
 			function()
 				require("nvim-tree.api").tree.focus()
 			end,
-			"focus file tree"
 		},
 
-		["<leader>ng"] = {
+		["<leader>ng"] = { "open neogit",
 			function()
         require("neogit").open()
 			end,
-			"open neogit"
 		}
 	},
 
   v = {
-    ["<leader>so"] = {
+    ["<leader>so"] = { "':source' visual selection",
       function ()
         vim.notify("TODO: implement this function", vim.log.levels.INFO)
       end,
-      "':source' visual selection"
     }
   }
 }
