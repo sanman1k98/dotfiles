@@ -1,13 +1,12 @@
 -- false if nvim was started with "--noplugin"
-local load_plugins = vim.opt.loadplugins:get()
 local cmd = vim.cmd
-local au = vim.api.nvim_create_autocmd
--- create augroups and return a table containing their names and IDs
-local augroups = require "augroups"
+local au = require "utils.au"
+local load_plugins = vim.opt.loadplugins:get()
 
 
 
 do -- main configuration
+  require "augroups"
   require "options"
   require "keymaps"
   -- source matching file in "~/.config/nvim/colors/"
@@ -16,19 +15,10 @@ end
 
 
 do -- automatically apply changes without restarting nvim
-  local lua_dir = vim.fn.stdpath("config") .. "/lua"
-  local paths = {
-    lua_dir .. "/keymaps.lua",
-    lua_dir .. "/options.lua",
-  }
-  au("BufWritePost", {
-    group = augroups.user_config_reloader,
-    pattern = paths,
-    callback = function(tb)
-      local file_path = tb.match
-      cmd.source(file_path)
-    end
-  })
+  au.user.config_changed(function(t)
+    local file = t.file
+    vim.pretty_print("User config file changed! ", file)
+  end)
 end
 
 

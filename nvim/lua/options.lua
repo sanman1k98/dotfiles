@@ -1,5 +1,4 @@
-local augroups = require "augroups"
-local au = vim.api.nvim_create_autocmd
+local au = require "utils.au"
 local env = vim.fn.env
 local opt = vim.opt
 
@@ -27,28 +26,20 @@ do -- UI
 end
 
 
-do -- hightlight on yank
-  au("TextYankPost", {
-    callback = function()
-      vim.highlight.on_yank {
-        timeout = 200,      -- 200 milliseconds
-        on_macro = true,    -- highlight when executing macro
-      }
-    end
-  })
+do --highlight on yank
+  au.user.on_yank(function()
+    vim.highlight.on_yank {
+      timeout = 200,
+      on_macro = true
+    }
+  end)
 end
 
 
 do -- highlight current cursor location
   opt.cursorline = true
-  local toggle_cursorline = function(event, value)
-    au(event, {
-      group = augroups.user_cursorline_toggler,
-      callback = function() vim.opt_local.cursorline = value end
-    })
-  end
-  toggle_cursorline("WinLeave", false)  -- turn it off when we leave the buffer
-  toggle_cursorline("WinEnter", true)   -- turn it back on when we enter the buffer
+  au.user.leave_window(function() vim.opt_local.cursorline = false end)
+  au.user.enter_window(function() vim.opt_local.cursorline = true end)
 end
 
 
