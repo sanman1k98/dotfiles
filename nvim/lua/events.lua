@@ -1,6 +1,8 @@
-local au = require "utils.au"
-local doau = require "utils.doau"
-
+local au = require "utils.auto"
+local exec = require "utils.exec"
+-- Indexing this table with an arbitrary key name returns a callback when
+-- executed, triggers an user event with a pattern matching the key name.
+local trigger = exec.au.user
 
 
 do -- user config
@@ -15,25 +17,25 @@ do -- user config
   au("BufWritePost", {
     group = au.group.user_config_reload.id,
     pattern = pattern,
-    callback = doau.user.config_changed
+    callback = trigger.config_changed       -- ":doau User config_changed"
   })
 end
 
 do -- highlight on yank
   au("TextYankPost", {
     group = au.group.user_highlight_on_yank.id,
-    callback = doau.user.on_yank
+    callback = trigger.on_yank
   })
 end
 
 do -- toggle cursorline
   au("WinEnter", {
     group = au.group.user_toggle_cursorline.id,
-    callback = doau.user.enter_window
+    callback = trigger.enter_window
   })
   au("WinLeave", {
     group = au.group.user_toggle_cursorline.id,
-    callback = doau.user.leave_window
+    callback = trigger.leave_window
   })
 end
 
@@ -48,7 +50,7 @@ do -- re-register plugins
   au("BufWritePost", {
     group = au.group.user_register_plugins.id,
     pattern = filename,
-    callback = doau.user.plugins_changed
+    callback = trigger.plugins_changed
   })
 end
 
