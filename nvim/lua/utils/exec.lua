@@ -1,22 +1,23 @@
-local doau
+local exec
 
 local api = {}
 api.exec_autocmds = vim.api.nvim_exec_autocmds
 
 
 
-doau = {}
+exec = {}
+exec.au = {}
 
 do local mt = {}
   mt.__call = function(_, event, opts)
     api.exec_autocmds(event, opts)
   end
 
-  setmetatable(doau, mt)
+  setmetatable(exec.au, mt)
 end
 
 
-doau.user = {}
+exec.au.user = {}
 
 do local mt = {}
   mt.__call = function(_, custom_event, opts)
@@ -35,9 +36,9 @@ do local mt = {}
     return cb
   end
 
-  setmetatable(doau.user, mt)
+  setmetatable(exec.user, mt)
 end
 
 
 
-return doau
+return exec
