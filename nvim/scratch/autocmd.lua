@@ -2,6 +2,8 @@
 -- :au[tocmd] [group] {event} {aupat} [++once] [++nested] {cmd}
 local au = {}
 
+au.group = {}
+
 local managed_augroups = {}     -- mapping of group names to group IDs
 local managed_autocmds = {}     -- list of autocmds; see ":h nvim_get_autocmds()"
 
@@ -18,52 +20,75 @@ api.exec_autocmds = vim.api.nvim_exec_autocmds
 
 
 
-do -- create, get, and delete autocommand/groups
-  function au:get(opts)
-    if not opts then return managed_autocmds end
-    local id = opts.id
-    opts.id = nil
-    local matches = api.get_autocmds(opts)
-    if id == nil then return matches end
-    for _, a in ipairs(matches) do
-      if a.id == id then return a end
-    end
-    return nil
-  end
-
-  function au:add(event, opts)
-    local id = api.new_autocmd(event, opts)
-    local a = au:get {
-      group = opts.group,
-      event = event,
-      pattern = opts.pattern,
-      id = id               -- passing the ID returns a single dict
-    }
-    table.insert(managed_autocmds, a)
+do -- create, get, and delete groups
+  function au.group:new(name, opts)
+    local id = api.new_augroup(name, opts)
+    managed_augroups[name], managed_autocmds[id] = id, name
     return id
   end
 
-  function au:del(x)
-    if type(x) == "number" then
-      local au_id = x
-      for i = #managed_autocmds, 1, -1 do         -- iterate backwards
-        if managed_autocmds[i].id == au_id then
-          table.remove(managed_autocmds, i)       -- table.remove shifts the rest of the list
-          api.del_autocmd(au_id)
-          return
-        end
-      end
-      api.del_autocmd(au_id)
-      return
-    elseif type(x) == "string" then
-      local aug_name = x
+  function au.group:del(name)
+    managed_augroups[name] = nil
+    au:clear { group = name }
+    api.del_augroup(name)
+  end
+
+  function au.group:id(name)
+    local id = managed_augroups[name]
+    if not id then id = au.group:new(name, { clear = false }) end
+    return id
+  end
+
+  function au.group:name(id)
+    return managed_autocmds[id]
+  end
+end
+
+
+do -- create, get, and delete autocommands
+  function au:get(opts)
+    if not opts then
+      local list = {}
       for _, a in ipairs(managed_autocmds) do
-        if a.group_name == aug_name then au:del(a.id) end
+        a.buffer = nil
+        table.insert(list, au:get(a))
       end
-      managed_augroups[aug_name] = nil
-      api.del_augroup(aug_name)
-      return
+      return list
+    else
+      local id = opts.id
+      opts.id = nil
+      local matches = api.get_autocmds(opts)
+      if id == nil then return matches end
+      for _, a in ipairs(matches) do
+        if a.id == id then return a end
+      end
+      return nil
     end
+  end
+
+  function au:add(opts)
+    local event = opts.event
+    opts.callback = opts[1] or opts.callback
+    opts.event, opts[1] = nil, nil
+    local id = api.new_autocmd(event, opts)
+    table.insert(managed_autocmds, {
+      id = id,
+      group = opts.group,
+      event = event,
+      pattern = opts.pattern,
+      buffer = opts.buffer,
+    })
+  end
+
+  function au:del(id)
+    for i = #managed_autocmds, 1, -1 do         -- iterate backwards
+      if managed_autocmds[i].id == id then
+        table.remove(managed_autocmds, i)       -- table.remove shifts the rest of the list
+        api.del_autocmd(id)
+        return
+      end
+    end
+    api.del_autocmd(id)
   end
 
   function au:clear(opts)
@@ -71,7 +96,6 @@ do -- create, get, and delete autocommand/groups
     if opts.pattern and opts.buffer then
       error('Cannot use "pattern" and "buffer" key simultaneously', 2)
     end
-
     -- Go through each of the managed_autocmds and don't remove them if they
     -- don't match the specified opts.
     for i = #managed_autocmds, 1, -1 do
@@ -100,12 +124,10 @@ do -- create, get, and delete autocommand/groups
     api.clear_autocmds(opts)
   end
 
-  function au:group(name, opts)
-    managed_augroups[name] = api.new_augroup(name, opts)
-    return managed_augroups[name]
-  end
-
-  function au:exec(event, opts)
+  function au:exec(opts)
+    local event = opts.event
+    opts.callback = opts[1] or opts.callback
+    opts.event, opts[1] = nil, nil
     api.exec_autocmds(event, opts)
   end
 end
@@ -116,30 +138,6 @@ do -- custom augroups
 
   function au_mt:__index(key_as_group)
     local grp_tbl, grp_mt = {}, {}
-
-    function grp_tbl:get(opts)
-      opts = opts or {}
-      opts.group = key_as_group
-      return au:get(opts)
-    end
-
-    function grp_tbl:del()
-      au:del(key_as_group)
-    end
-
-    function grp_tbl:new(opts)
-      return au:group(key_as_group, opts)
-    end
-
-    function grp_tbl:clear(opts)
-      opts = opts or {}
-      opts.group = key_as_group
-      au:clear(opts)
-    end
-
-    function grp_tbl:id()
-      return managed_augroups[key_as_group]
-    end
 
     if not managed_augroups[key_as_group] then return grp_tbl end
 
@@ -165,15 +163,16 @@ do -- custom augroups
       function evnt_tbl:add(opts)
         if not opts then error() end
         opts.group = key_as_group
+        opts.event = key_as_event
         opts.callback = opts[1] or opts.callback
-        return au:add(key_as_event, opts)
+        return au:add(opts)
       end
 
       function evnt_tbl:__call(opts)
         opts = opts or {}
         opts.group = key_as_group
         opts.event = key_as_event
-        au:exec(key_as_event, opts)
+        au:exec(opts)
       end
 
       function evnt_mt:__index(key_as_pattern)
@@ -200,18 +199,20 @@ do -- custom augroups
           if not opts then error() end
           if opts.buffer then error('Cannot use "buffer" key when specifying "pattern"', 2) end
           opts.group = key_as_group
+          opts.event = key_as_event
           opts.pattern = key_as_pattern
           opts.callback = opts[1] or opts.callback
-          return au:add(key_as_event, opts)
+          return au:add(opts)
         end
 
         function pat_mt:__call(data, opts)
           opts = opts or {}
           if opts.buffer then error('Cannot use "buffer" key when specifying "pattern"', 2) end
           opts.group = key_as_group
+          opts.event = key_as_event
           opts.pattern = key_as_pattern
           opts.data = data
-          au:exec(key_as_event, opts)
+          au:exec(opts)
         end
 
         return setmetatable(pat_tbl, pat_mt)
