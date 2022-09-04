@@ -5,7 +5,7 @@ paq(plugins)
 
 
 do -- automatically reload plugins
-  local au = require "utils.au"
+  local au = require "utils.auto"
   au.user.plugins_changed(function()
     package.loaded.plugins = nil
     plugins = require "plugins"

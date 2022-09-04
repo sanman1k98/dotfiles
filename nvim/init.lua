@@ -1,16 +1,15 @@
 -- false if nvim was started with "--noplugin"
 local cmd = vim.cmd
-local au = require "utils.au"
-local load_plugins = vim.opt.loadplugins:get()
+local au = require "utils.auto"
 
 
 
 do -- main configuration
-  require "augroups"
+  -- require "events"
   require "options"
   require "keymaps"
-  -- source matching file in "~/.config/nvim/colors/"
-  cmd.colorscheme "catppuccin"
+
+  cmd.colorscheme "cat_mocha"
 end
 
 
@@ -22,10 +21,9 @@ do -- automatically apply changes without restarting nvim
 end
 
 
-do -- load plugin manager
+if vim.opt.loadplugins:get() then           -- false if "nvim --noplugin"
   local paq_loaded = pcall(require, "paq")
-  -- install if nvim is going to load plugins
-  if load_plugins and not paq_loaded then
+  if not paq_loaded then
     local bootstrap = require "utils.bootstrap"
     bootstrap.add_paq()   -- adds to packpath
   end
