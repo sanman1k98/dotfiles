@@ -23,7 +23,7 @@ au.get = function(opts, id)
   for _, a in ipairs(matches) do
     if a[id] == id then return a end
   end
-  error "Cannot find the autocmd we just created wtf"
+  -- error "Cannot find the autocmd we just created wtf"
 end
 
 au.new = function(event, opts)
@@ -71,7 +71,7 @@ do local mt = {}
 
   mt.__index = function(_, name)
     if not managed_augroups[name] then
-      managed_augroups[name] = api.new_augroup(name)
+      managed_augroups[name] = api.new_augroup(name, {})
     end
     return {
       id = managed_augroups[name],
