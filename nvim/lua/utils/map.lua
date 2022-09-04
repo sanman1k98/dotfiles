@@ -93,7 +93,7 @@ local validate_args = function(desc, rhs, opts)
         return type(x) == "table" and x.desc == nil
       end
     end,
-    "desc should be specified in the first position as a string for this mapping: " .. lhs
+    "desc should be specified in the first position as a string for this mapping: "
   }
 }
 end

@@ -1,7 +1,7 @@
 local M = {}
 
 local paq_path = vim.fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
-local paq_exists = not vim.fn.empty(vim.fn.glob(paq_path)) > 0
+local paq_exists = not (vim.fn.empty(vim.fn.glob(paq_path)) > 0)
 
 M.add_paq = function()
   if paq_exists then

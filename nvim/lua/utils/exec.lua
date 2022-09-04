@@ -36,7 +36,7 @@ do local mt = {}
     return cb
   end
 
-  setmetatable(exec.user, mt)
+  setmetatable(exec.au.user, mt)
 end
 
 
