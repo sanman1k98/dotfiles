@@ -1,5 +1,5 @@
-local au = require "utils.au"
-local env = vim.fn.env
+local au = require "utils.auto"
+local env = vim.env
 local opt = vim.opt
 
 
@@ -54,35 +54,35 @@ end
 
 
 do -- formatting
-  opt.formatoptions = { -- defaults:
+  opt.formatoptions = opt.formatoptions
 
-    "t",                -- auto-wrap text using "textwidth"
-    "c",                -- auto-wrap comments to "textwidth"; automatically inserts comment leader
-    "q",                -- allow formatting of comment with "gq"
-    "j",                -- remove comment leaders when joining lines
-  }
+    + "t"               -- auto-wrap text using "textwidth"
+    + "c"               -- auto-wrap comments to "textwidth"; automatically inserts comment leader
+    + "q"               -- allow formatting of comment with "gq"
+    + "j"               -- remove comment leaders when joining lines
+
 end
 
 
 do -- messages
-  opt.shortmess = {     -- defaults:
+  opt.shortmess = opt.shortmess
 
-    "f",                -- "(file 3 of 5)" -> "(3 of 5)"
-    "i",                -- "[Incomplete last line]" -> "[noeol]"
-    "l",                -- "999 lines, 888 bytes" -> "999L, 888B"
-    "n",                -- "[New File]" -> "[New]"
-    "x",                -- "[unix format]" -> "[unix]"
+    + "f"               -- "(file 3 of 5)" -> "(3 of 5)"
+    + "i"               -- "[Incomplete last line]" -> "[noeol]"
+    + "l"               -- "999 lines, 888 bytes" -> "999L, 888B"
+    + "n"               -- "[New File]" -> "[New]"
+    + "x"               -- "[unix format]" -> "[unix]"
 
-    "t",                -- truncate file message if it is too long to fit on the command line
-    "T",                -- truncate other messages in the middle if they are too long to fit on the command line
-    "o",                -- overwrite message for writing a file with subsequent message for reading a file
-    "O",                -- message for reading a file overwrites any previous message
-    "F",                -- don't give the file info when editing a file
-  }
-  opt.shortmess:append {
-    "I",                -- disable intro message
-    "s",                -- do not show messages when wrapping search
-  }
+    + "t"               -- truncate file message if it is too long to fit on the command line
+    + "T"               -- truncate other messages in the middle if they are too long to fit on the command line
+    + "o"               -- overwrite message for writing a file with subsequent message for reading a file
+    + "O"               -- message for reading a file overwrites any previous message
+    + "F"               -- don't give the file info when editing a file
+
+  opt.shortmess = opt.shortmess
+    + "I"               -- disable intro message
+    + "s"               -- do not show messages when wrapping search
+
 end
 
 
@@ -99,8 +99,8 @@ end
 do -- scrolling
   opt.scrolloff = 4
   opt.mousescroll = {
-    ver = 1,            -- default: 3
-    hor = 1,            -- default: 6
+    "ver:1",            -- default: 3
+    "hor:1",            -- default: 6
   }
 end
 
