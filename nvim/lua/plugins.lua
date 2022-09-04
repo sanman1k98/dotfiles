@@ -94,7 +94,7 @@ append_plugins(opt_by_default {
 append_plugins(opt_by_default {
 
   { "catppuccin/nvim", as = "catppuccin" },
-  "project0n/github-nvim-theme",
+  "projekt0n/github-nvim-theme",
   "folke/tokyonight.nvim",
 
 })
