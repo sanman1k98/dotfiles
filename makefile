@@ -8,8 +8,8 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 
 clean.nvim :
 	rm -rf $(XDG_DATA_HOME)/nvim/site/pack/*
-	rm $(XDG_CONFIG_HOME)/nvim/packer_compiled.lua
+	rm $(XDG_CONFIG_HOME)/nvim/plugin/packer_compiled.lua
 
 install.nvim :
-	nvim --headless -u NONE -c "lua require('plugins')"
+	nvim --headless -u NONE -c "lua require('utils.bootstrap').install_plugins()"
 
