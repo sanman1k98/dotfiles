@@ -1,4 +1,4 @@
-vim.cmd.packadd "catppuccin"
+vim.cmd.packadd { "catppuccin", bang = true }
 
 local loaded, catppuccin = pcall(require, "catppuccin")
 
@@ -19,4 +19,4 @@ catppuccin.setup()
 
 -- TODO set telescope highlight groups for borderless look
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.runtime "colors/catppuccin.lua"

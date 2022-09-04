@@ -1,4 +1,4 @@
-vim.cmd.packadd "tokyonight.nvim"
+vim.cmd.packadd { "tokyonight.nvim", bang = true }
 
 local loaded, tokyonight = pcall(require, "tokyonight.colors")
 
@@ -18,4 +18,4 @@ g.tokyonight_sidebars = {
 
 -- TODO use the tokyonight module to set highlight groups for telescope
 
-vim.cmd.colorscheme "tokyonight"
+vim.cmd.runtime "colors/tokyonight.vim"
