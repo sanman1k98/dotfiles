@@ -6,16 +6,14 @@ if not loaded then
   return
 end
 
-local flavors = {
-	"latte",
-	"frappe",
-	"macchiato",
-	"mocha"
+vim.g.catppuccin_flavour = "mocha"
+
+catppuccin.setup {
+  compile = {
+    enabled = true,
+    path = vim.fn.stdpath("cache") .. "/catpuccin",
+  }
 }
-
-vim.g.catppuccin_flavour = flavors[4]
-
-catppuccin.setup()
 
 -- TODO set telescope highlight groups for borderless look
 
