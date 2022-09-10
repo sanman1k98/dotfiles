@@ -6,6 +6,7 @@ local loader = function()
 
   local loaded1, ts = pcall(require, "nvim-treesitter.configs")
   if not loaded1 then
+    vim.notify("Treesitter configurations not loaded", vim.log.levels.ERROR)
     return 
   end
 
@@ -30,6 +31,7 @@ local loader = function()
 
   local loaded2, ts_context = pcall(require, "treesitter-context")
   if not loaded2 then
+    vim.notify("Treesitter context not loaded", vim.log.levels.WARN)
     return
   end
 
