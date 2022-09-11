@@ -28,7 +28,10 @@ nvim.profile :
 	@bat $(NVIM_LOG_FILE)
 
 nvim.test :
-# nvim --headless --noplugin
+	nvim --headless \
+		--noplugin \
+		-u ./nvim/tests/testing_init.lua \
+		-c "PlenaryBustedDirectory ./nvim/tests/ { minimal_init = './nvim/tests/testing_init.lua'}"
 
 nvim.clean.all : | nvim.clean.logs nvim.clean.plugins
 
