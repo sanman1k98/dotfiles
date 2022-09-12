@@ -17,7 +17,7 @@ describe("Demonstrate builtin keymap APIs", function()
     assert.is_true(vim.tbl_islist(mapargs))
   end)
 
-  pending("gets Neovim's default keymappings", function()
+  it("gets Neovim's default keymappings", function()
     local mapargs = vim.api.nvim_get_keymap("n")
     local nvim_default_mappings = {}
     for _, mapping in ipairs(mapargs) do
