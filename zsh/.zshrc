@@ -4,10 +4,25 @@ export EDITOR='nvim'
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
 
 #
-alias -g la='ls -lAG --color=always'
-alias -g lg='lazygit'
+#		Aliases
+#
 
-# case insensitive completions
+# for navigating around
+alias -g la='ls -lAG --color=always'
+
+# editor
+alias -g nv="nvim"
+alias -g vi="nvim --noplugin"
+
+# CLI tools
+alias -g lg='lazygit'
+alias -g g="git"
+
+
+
+#
+#		case insensitive completions
+#
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
 setopt nobeep
@@ -15,22 +30,28 @@ setopt interactivecomments
 setopt nocaseglob
 setopt menucomplete
 
-# history options
+#
+#		history options
+#
 setopt histreduceblanks
 setopt extendedhistory
 setopt sharehistory
 setopt appendhistory
 setopt histverify
 
+
 if [[ $(where brew) ]]; then
 	brew_completions="$(brew --prefix)/share/zsh/site-functions"
 	fpath+=brew_completions
 fi
 
+# initialize completion and prompt engine
 autoload -Uz compinit promptinit
 compinit -u
 promptinit
 
+# TODO: use XDG_CONFIG_DIRS
+#
 # aliases for work
 work_aliases="$HOME/.work_config/zsh/alises.zsh"
 if [[ -e work_aliases ]]; then
