@@ -1,10 +1,8 @@
 local mock = require "luassert.mock"
 local stub = require "luassert.stub"
 
-local print = vim.pretty_print
 
-
-describe("Demonstrate builtin keymap APIs", function()
+describe("Neovim's builtin API and `vim` module", function()
   local test_leader = " "
   local test_keymap = {
     mode = "n",
@@ -47,6 +45,56 @@ describe("Demonstrate builtin keymap APIs", function()
 
   it("deletes the new keymapping", function()
     vim.keymap.del(test_keymap.mode, test_keymap.lhs)
+  end)
+end)
+
+
+describe("User `utils.map` module", function()
+
+  describe("provides", function()
+    pending("an iterator function to traverse a table of mapping definitions", function()
+    end)
+
+    pending("a function to validate a table of mapping definitions", function()
+    end)
+
+    pending("a function to set mappings", function()
+    end)
+
+    pending("a function to delete mappings", function()
+    end)
+  end)
+
+  describe("iterates", function()
+    pending("through a table of mapping definitions", function()
+    end)
+  end)
+
+  describe("validates", function()
+    pending("a table of mapping definitions", function()
+    end)
+
+    pending("a single mapping definition", function()
+    end)
+  end)
+
+  describe("sets", function()
+    pending("a single mapping", function()
+    end)
+
+    pending("multiple mappings", function()
+    end)
+  end)
+
+  describe("deletes", function()
+    pending("a single mapping", function()
+    end)
+
+    pending("multiple mapping", function()
+    end)
+  end)
+
+  pending("is itself callable and can also set mappings", function()
   end)
 
 end)
