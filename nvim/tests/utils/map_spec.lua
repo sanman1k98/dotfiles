@@ -50,18 +50,27 @@ end)
 
 
 describe("User `utils.map` module", function()
+  local map = require "utils.map"
 
   describe("provides", function()
-    pending("an iterator function to traverse a table of mapping definitions", function()
+    it("an iterator function to traverse a table of mapping definitions", function()
+      assert.is_not_falsy(map.iter_args)
+      assert.is_true(type(map.iter_args) == "function")
     end)
 
-    pending("a function to validate a table of mapping definitions", function()
+    it("a function to validate a table of mapping definitions", function()
+      assert.is_not_falsy(map.validate)
+      assert.is_true(type(map.validate) == "function")
     end)
 
-    pending("a function to set mappings", function()
+    it("a function to set mappings", function()
+      assert.is_not_falsy(map.set)
+      assert.is_true(type(map.set) == "function")
     end)
 
-    pending("a function to delete mappings", function()
+    it("a function to delete mappings", function()
+      assert.is_not_falsy(map.del)
+      assert.is_true(type(map.del) == "function")
     end)
   end)
 
