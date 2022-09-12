@@ -6,12 +6,14 @@ local print = vim.pretty_print
 
 describe("Demonstrate builtin keymap APIs", function()
   local test_leader = " "
-  local test_mode = "n"
-  local test_lhs = "<leader>hi"
-  local test_rhs = function() vim.notify "Hello!" end
+  local test_keymap = {
+    mode = "n",
+    lhs = "<leader>hi",
+    rhs = function() vim.notify "Hello!" end,
+  }
 
   it("gets all the normal mode keymappings", function()
-    local mapargs = vim.api.nvim_get_keymap(test_mode)
+    local mapargs = vim.api.nvim_get_keymap("n")
     assert.is_true(vim.tbl_islist(mapargs))
   end)
 
@@ -30,17 +32,21 @@ describe("Demonstrate builtin keymap APIs", function()
   end)
 
   it("sets a keymapping that displays \"Hello!\"", function()
-    vim.keymap.set(test_mode, test_lhs, test_rhs)
+    vim.keymap.set(test_keymap.mode, test_keymap.lhs, test_keymap.rhs)
   end)
 
-  it("gets a normal mode keymapping", function()
+  it("gets the new keymapping that was just set", function()
     local is_abbrv, return_dict = false, true
-    local keymap = vim.fn.maparg(test_lhs, test_mode, is_abbrv, return_dict)
+    local keymap = vim.fn.maparg(
+      test_keymap.lhs,
+      test_keymap.mode,
+      is_abbrv,
+      return_dict)
     assert.is_not_true(vim.tbl_isempty(keymap))
   end)
 
-  it("deletes a keymapping from normal mode", function()
-    vim.keymap.del(test_mode, test_lhs)
+  it("deletes the new keymapping", function()
+    vim.keymap.del(test_keymap.mode, test_keymap.lhs)
   end)
 
 end)
