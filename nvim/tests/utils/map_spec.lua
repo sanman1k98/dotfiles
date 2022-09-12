@@ -15,6 +15,16 @@ describe("Demonstrate builtin keymap APIs", function()
     assert.is_true(vim.tbl_islist(mapargs))
   end)
 
+  pending("gets Neovim's default keymappings", function()
+    local mapargs = vim.api.nvim_get_keymap("n")
+    local nvim_default_mappings = {}
+    for _, mapping in ipairs(mapargs) do
+      if mapping.desc == "Nvim builtin" then
+        table.insert(nvim_default_mappings, mapping)
+      end
+    end
+  end)
+
   it("sets the global map leader key as <space>", function()
     vim.g.mapleader = test_leader
   end)
