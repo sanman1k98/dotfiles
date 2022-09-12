@@ -44,10 +44,11 @@ end
 
 
 do -- indenting
-  local width = 2
+  local width = 4
   opt.tabstop = width
   opt.shiftwidth = width
   opt.softtabstop = width
+  opt.expandtab = false
   opt.autoindent = true
   opt.smartindent = true
 end
