@@ -1,13 +1,10 @@
-export ZDOTDIR=$HOME/.config/zsh
-export HOMEBREW_BUNDLE_FILE=$HOME/.config/brew/Brewfile
-export LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
 
-typeset -U fpath
-fpath+=/usr/local/share/zsh-completions
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+export LG_CONFIG_FILE="${XDG_CONFIG_HOME}/lazygit/config.yml"
 
 typeset -U path 
-# openresty's version of LuaJIT
-path+=/usr/local/opt/luajit-openresty/bin
 
 # global PHP composer binaries
 path+=$HOME/.composer/vendor/bin
@@ -17,7 +14,11 @@ path+=/usr/local/opt/python@3.10/libexec/bin
 
 
 
-# work environment
-if [[ -e $HOME/.work_config/zsh/env.zsh ]]; then
-	source $HOME/.work_config/zsh/env.zsh
+# TODO: use XDG_CONFIG_DIRS
+#
+#		work environment
+#
+work_env="${HOME}/.work_config/zsh/env.zsh"
+if [[ -e work_env ]]; then
+	source work_end
 fi

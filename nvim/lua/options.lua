@@ -1,60 +1,117 @@
+local au = require "utils.auto"
+local env = vim.env
 local opt = vim.opt
 
-opt.termguicolors = true
-opt.title = true
 
--- window statusline
-opt.laststatus = 3
 
--- show tabline if there is more than one tab
-opt.showtabline = 1
+do -- UI
+  if env.TERM == "xterm-kitty" or env.COLORTERM == "truecolor" then
+    opt.termguicolors = true
+  end
 
--- show cursor location
-opt.cul = true
+  opt.helpheight = 12
+  opt.splitright = true
+  opt.splitbelow = true
 
-opt.number = true
-opt.relativenumber = true
-opt.numberwidth = 4
-opt.signcolumn = 'yes'
+  opt.pumheight = 30        -- max number of items to show in the popup menu
 
-opt.scrolloff = 8
-opt.wrap = false
-opt.breakindent = true
-opt.linebreak = true
+  opt.title = true          -- set window title to "titlestring"
+  opt.showtabline = 1       -- show tabline for more than one tab
+  opt.laststatus = 3        -- global statusline
 
--- default value is " "tcqj""
-opt.formatoptions = opt.formatoptions
-	+ 'c' -- autowrap comments to `textwidth`
-	- 'r' -- don't continue comments on `<CR>`
-	- 'o' -- ...or when opening a newline
-	- 'a' -- *don't autoformat*
+  opt.number = true         -- show current line number
+  opt.relativenumber = true -- show line numbers relative to cursor
+  opt.numberwidth = 4       -- set width of the number column
+  opt.signcolumn = "yes"    -- always display signcolumn
+end
 
-local indent = 2
-opt.tabstop = indent
-opt.shiftwidth = indent
-opt.softtabstop = indent
-opt.autoindent = true
-opt.smartindent = true
 
-opt.ignorecase = true
-opt.smartcase = true
+do --highlight on yank
+  au.user.on_yank(function()
+    vim.highlight.on_yank {
+      timeout = 200,
+      on_macro = true
+    }
+  end)
+end
 
--- disable nvim intro
-opt.shortmess:append 'sI'
 
--- show whitespace
-opt.list = true
-opt.listchars:append("space:⋅")
-opt.listchars:append("tab: ")		-- first char "" is always shown
-opt.listchars:append("eol:↲")
+do -- highlight current cursor location
+  opt.cursorline = true
+  au.user.leave_window(function() vim.opt_local.cursorline = false end)
+  au.user.enter_window(function() vim.opt_local.cursorline = true end)
+end
 
-opt.mouse = 'nvi'
 
--- integrate with system clipboard
-opt.clipboard = 'unnamedplus'
+do -- indenting
+  local width = 4
+  opt.tabstop = width
+  opt.shiftwidth = width
+  opt.softtabstop = width
+  opt.expandtab = false
+  opt.autoindent = true
+  opt.smartindent = true
+end
 
-opt.hidden = true
 
-opt.helpheight = 10
-opt.splitright = true
-opt.splitbelow = true
+do -- formatting
+  opt.formatoptions = opt.formatoptions
+
+    + "t"               -- auto-wrap text using "textwidth"
+    + "c"               -- auto-wrap comments to "textwidth"; automatically inserts comment leader
+    + "q"               -- allow formatting of comment with "gq"
+    + "j"               -- remove comment leaders when joining lines
+
+end
+
+
+do -- messages
+  opt.shortmess = opt.shortmess
+
+    + "f"               -- "(file 3 of 5)" -> "(3 of 5)"
+    + "i"               -- "[Incomplete last line]" -> "[noeol]"
+    + "l"               -- "999 lines, 888 bytes" -> "999L, 888B"
+    + "n"               -- "[New File]" -> "[New]"
+    + "x"               -- "[unix format]" -> "[unix]"
+
+    + "t"               -- truncate file message if it is too long to fit on the command line
+    + "T"               -- truncate other messages in the middle if they are too long to fit on the command line
+    + "o"               -- overwrite message for writing a file with subsequent message for reading a file
+    + "O"               -- message for reading a file overwrites any previous message
+    + "F"               -- don't give the file info when editing a file
+
+  opt.shortmess = opt.shortmess
+    + "I"               -- disable intro message
+    + "s"               -- do not show messages when wrapping search
+
+end
+
+
+do -- show whitespace
+  opt.list = true
+  opt.listchars:append {
+    space = "⋅",
+    tab = " ",
+    eol = "↲",
+  }
+end
+
+
+do -- scrolling
+  opt.scrolloff = 4
+  opt.mousescroll = {
+    "ver:1",            -- default: 3
+    "hor:1",            -- default: 6
+  }
+end
+
+
+do -- miscellaneous
+  opt.wrap = false
+  opt.breakindent = true
+  opt.linebreak = true
+
+  opt.ignorecase = true
+  opt.smartcase = true
+  opt.clipboard = "unnamedplus" -- integrate with system clipboard
+end

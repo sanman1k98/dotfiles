@@ -1,3 +1,5 @@
+-- TODO use `vim.validate` to validate the parameter specification.
+
 --[[
 
 This custom `map` function takes a table as an argument and and iterates
@@ -63,17 +65,91 @@ The following is from `:h vim.keymap.set()`
 
 ]]
 
-return function(tb)
-	for mode, mappings in pairs(tb) do
-		for lhs, mapping in pairs(mappings) do
+local M = {}
 
-			local rhs, opts = mapping[1], mapping[2]
-			if type(opts) == "string" then
-				opts = { desc = mapping[2] }
-			end
+local _validate = vim.validate
+
+local traverse = function(tb)
+  local fn = function(t)
+    for mode, maplist in pairs(t) do        -- each mode contains a list of mappings
+      for lhs, mapargs in pairs(maplist) do  -- each pair in the list has a "lhs" and corresponding args
+        local desc, rhs, opts = mapargs[1], mapargs[2], mapargs[3]
+        if opts == nil then opts = { desc = desc }
+        else opts.desc = desc end
+        coroutine.yield(mode, lhs, rhs, opts)
+      end
+    end
+  end
+  return coroutine.wrap(function() fn(tb) end)
+end
+
+local validate_args = function(desc, rhs, opts)
+  vim.validate {
+    arg1 = { desc, "string" },
+    arg2 = { rhs, {"string", "callable"} },
+    arg3 = { opts, function(x)
+      if x == nil then return true
+      else
+        return type(x) == "table" and x.desc == nil
+      end
+    end,
+    "desc should be specified in the first position as a string for this mapping: "
+  }
+}
+end
+
+
+M.validate_all = function(tb)
+
+  for mode, maplist in pairs(tb) do
+    -- TODO: add some more validation logic
+    _validate {
+      mode = { mode, function(m)
+        if type(m) ~= "string" then return false
+        else return true end
+      end
+      }
+    }
+
+    for lhs, mapargs in pairs(maplist) do
+      local desc, rhs, opts = mapargs[1], mapargs[2], mapargs[3]
+      validate_args(desc, rhs, opts)
+    end
+  end
+
+end
+
+
+M.clear_all = function(keymaps)
+  for mode, lhs in traverse(keymaps) do
+    vim.keymap.del(mode, lhs)
+  end
+end
+
+
+local map = function(tb)
+
+	for mode, maplist in pairs(tb) do        -- each mode contains a list of mappings
+		for lhs, mapargs in pairs(maplist) do  -- each pair in the list has a "lhs" and corresponding args
+
+			local desc, rhs, opts = mapargs[1], mapargs[2], mapargs[3]
+      validate_args(desc, rhs, opts)
+
+      if opts == nil then
+        opts = { desc = desc }
+      else
+        opts.desc = desc
+      end
 
 			vim.keymap.set(mode, lhs, rhs, opts)
 
 		end
 	end
 end
+
+return setmetatable(M, {
+  __call = function(self, args)
+    map(args)
+    return self
+  end
+})
