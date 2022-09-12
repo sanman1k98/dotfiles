@@ -1,4 +1,4 @@
-export MANPAGER='nvim --clean +Man!'
+export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
