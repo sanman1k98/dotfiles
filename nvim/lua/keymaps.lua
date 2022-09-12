@@ -23,6 +23,10 @@ map {
 			"<cmd> w <cr>",
 		},
 
+    ["<leader>e"] = { "edit a file",
+      ":e ",
+    },
+
 		["<leader>ff"] = { "fuzzy find files",
 			function() require"telescope.builtin".find_files() end,
 		},
