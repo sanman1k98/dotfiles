@@ -1,6 +1,7 @@
 local mock = require "luassert.mock"
 local stub = require "luassert.stub"
 
+local print = vim.pretty_print
 
 describe("Neovim's builtin API and `vim` module", function()
   local test_leader = " "
@@ -99,7 +100,12 @@ describe("User `utils.map` module", function()
     it("and returns arguments for `vim.keymap.set`", function()
       local keymap_args = {}
       for mode, lhs, rhs, opts in map.args(test_map_defs) do
-        table.insert(keymap_args, { mode, lhs, rhs, opts })
+        table.insert(keymap_args, {
+          mode = mode,
+          lhs = lhs,
+          rhs = rhs,
+          opts = opts
+        })
       end
       for _, args in ipairs(keymap_args) do
         assert.has_no.errors(function()
