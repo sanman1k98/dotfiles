@@ -1,6 +1,6 @@
 local M = {}
 
-function M.iter(tbl)
+function M.traverse(tbl)
 end
 
 function M.validate(tbl)

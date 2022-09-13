@@ -75,8 +75,8 @@ describe("User `utils.map` module", function()
 
   describe("provides", function()
     it("an iterator function to traverse a table of mapping definitions", function()
-      assert.is_not_falsy(map.iter)
-      assert.is_true(type(map.iter) == "function")
+      assert.is_not_falsy(map.traverse)
+      assert.is_true(type(map.traverse) == "function")
     end)
 
     it("a function to validate a table of mapping definitions", function()
@@ -98,7 +98,7 @@ describe("User `utils.map` module", function()
   describe("iterates", function()
     it("through a table of mapping definitions; generates var-list matching the parameters of `vim.keymap.set`", function()
       local keymap_args = {}
-      for mode, lhs, rhs, opts in map.iter(test_map_defs) do
+      for mode, lhs, rhs, opts in map.traverse(test_map_defs) do
         table.insert(keymap_args, { mode, lhs, rhs, opts })
       end
       for _, args in ipairs(keymap_args) do
