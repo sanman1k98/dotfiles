@@ -52,6 +52,27 @@ end)
 describe("User `utils.map` module", function()
   local map = require "utils.map"
 
+  local test_map_defs = {
+    n = {
+      ["<leader>hi"] = { "salutations",
+        function() vim.notify "Hello!" end
+      },
+      ["<leader>bb"] = { "parting words",
+        function()
+          vim.notify "Goodbye!"
+          vim.defer_fn(function()
+            vim.cmd "qa"
+          end, 5000)
+        end
+      },
+    },
+    i = {
+      ["kj"] = { "shortcut to normal mode",
+        "<esc>"
+      },
+    }
+  }
+
   describe("provides", function()
     it("an iterator function to traverse a table of mapping definitions", function()
       assert.is_not_falsy(map.iter)
@@ -75,7 +96,21 @@ describe("User `utils.map` module", function()
   end)
 
   describe("iterates", function()
-    pending("through a table of mapping definitions", function()
+    it("through a table of mapping definitions; generates var-list matching the parameters of `vim.keymap.set`", function()
+      local keymap_args = {}
+      for mode, lhs, rhs, opts in map.iter(test_map_defs) do
+        table.insert(keymap_args, { mode, lhs, rhs, opts })
+      end
+      for _, args in ipairs(keymap_args) do
+        assert.has_no.errors(function()
+          vim.validate {  -- copied from `vim.keymap.set`
+            mode = { args.mode, { 's', 't' } },
+            lhs = { args.lhs, 's' },
+            rhs = { args.rhs, { 's', 'f' } },
+            opts = { args.opts, 't', true },
+          }
+        end)
+      end
     end)
   end)
 
