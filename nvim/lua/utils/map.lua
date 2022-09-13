@@ -1,6 +1,6 @@
 local M = {}
 
-function M.traverse(tbl)
+function M.args(tbl)
 end
 
 function M.validate(tbl)
