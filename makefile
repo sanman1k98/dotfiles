@@ -11,6 +11,7 @@ NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 .PHONY : \
 	nvim.profile \
 	nvim.bootstrap \
+	nvim.test \
 	nvim.clean.all \
 	nvim.clean.plugins \
 	nvim.clean.logs
@@ -30,7 +31,7 @@ nvim.profile :
 	@bat $(NVIM_LOG_FILE)
 
 nvim.test :
-	nvim --headless \
+	XDG_CONFIG_HOME="./" nvim --headless \
 		--noplugin \
 		-u ./nvim/tests/testing_init.lua \
 		-c "PlenaryBustedDirectory ./nvim/tests/ { minimal_init = './nvim/tests/testing_init.lua'}"
