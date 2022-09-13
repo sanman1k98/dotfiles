@@ -54,8 +54,8 @@ describe("User `utils.map` module", function()
 
   describe("provides", function()
     it("an iterator function to traverse a table of mapping definitions", function()
-      assert.is_not_falsy(map.iter_args)
-      assert.is_true(type(map.iter_args) == "function")
+      assert.is_not_falsy(map.iter)
+      assert.is_true(type(map.iter) == "function")
     end)
 
     it("a function to validate a table of mapping definitions", function()
