@@ -156,7 +156,15 @@ describe("User `utils.map` module", function()
   end)
 
   describe("sets", function()
-    pending("a single mapping", function()
+    it("a single mapping", function()
+      -- order in which indices are enumerated is not specified
+      local mode = next(test_definitions)              -- returns an index: a mode short name
+      local lhs, info = next(test_definitions[mode])   -- returns an index and its associated value: an lhs and its info
+      assert.has_no.errors(function()
+        map.set { [mode] = { [lhs] = info } }
+      end)
+      local new_mapping = vim.fn.maparg(lhs, mode, false, true)
+      assert.is_not_true(vim.tbl_isempty(new_mapping))
     end)
 
     pending("multiple mappings", function()
