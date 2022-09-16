@@ -17,6 +17,7 @@ describe("Neovim's builtin API and `vim` module", function()
   end)
 
   it("gets Neovim's default keymappings from a list of maparg-like dicts", function()
+    local mapargs = vim.api.nvim_get_keymap("")
     local nvim_default_mappings = {}
     for _, mapping in ipairs(mapargs) do
       if mapping.desc == "Nvim builtin" then
