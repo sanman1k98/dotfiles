@@ -153,6 +153,9 @@ describe("User `utils.map` module", function()
 
     pending("a single mapping definition", function()
     end)
+
+    pending("a mapping's info", function()
+    end)
   end)
 
   describe("sets", function()
@@ -169,13 +172,16 @@ describe("User `utils.map` module", function()
 
     pending("multiple mappings", function()
     end)
+
+    pending("the rest of the mappings even if the first one failed", function()
+    end)
   end)
 
   describe("deletes", function()
     pending("a single mapping", function()
     end)
 
-    pending("multiple mapping", function()
+    pending("multiple mappings", function()
     end)
   end)
 
