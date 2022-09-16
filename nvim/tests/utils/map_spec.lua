@@ -62,7 +62,7 @@ end)
 describe("User `utils.map` module", function()
   local map = require "utils.map"
 
-  local test_map_defs = {
+  local test_definitions = {
     n = {
       ["<leader>hi"] = { "salutations",
         function() vim.notify "Hello!" end
@@ -75,11 +75,28 @@ describe("User `utils.map` module", function()
           end, 5000)
         end
       },
+      ["<leader>w"] = { "write file",
+        function() vim.cmd.write() end
+      },
+      ["<leader>so"] = { "source current file",
+        function()
+          vim.cmd.source()
+          vim.notify("Sourced " .. vim.api.nvim_buf_get_name(0))
+        end
+      },
     },
     i = {
       ["kj"] = { "shortcut to normal mode",
         "<esc>"
       },
+    },
+    v = {
+      ["<leader>so"] = { "source selection",
+        function()
+          vim.cmd.source { range = { "'<", "'>" } }
+          vim.notify "Sourced selection"
+        end
+      }
     }
   }
 
@@ -107,16 +124,16 @@ describe("User `utils.map` module", function()
 
   describe("traverses", function()
     it("and returns arguments for `vim.keymap.set`", function()
-      local keymap_args = {}
-      for mode, lhs, rhs, opts in map.args(test_map_defs) do
-        table.insert(keymap_args, {
+      local args_list = {}
+      for mode, lhs, rhs, opts in map.args(test_definitions) do
+        table.insert(args_list, {
           mode = mode,
           lhs = lhs,
           rhs = rhs,
           opts = opts
         })
       end
-      for _, args in ipairs(keymap_args) do
+      for _, args in ipairs(args_list) do
         assert.has_no.errors(function()
           vim.validate {  -- copied from `vim.keymap.set`
             mode = { args.mode, { 's', 't' } },
