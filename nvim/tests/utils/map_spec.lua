@@ -154,7 +154,25 @@ describe("User `utils.map` module", function()
     pending("a single mapping definition", function()
     end)
 
-    pending("a mapping's info", function()
+    it("a mapping's info", function()
+      local info = { "parting words",
+        function()
+          vim.notify "Goodbye!"
+          vim.defer_fn(function()
+            vim.cmd "qa"
+          end, 5000)
+        end
+      }
+      assert.has_no.errors(function()
+        map.validate_info(info)
+      end)
+      local bad_info = { -- first element should be a description
+        "<leader>bad"
+      }
+      assert.has_errors(function()
+        map.validate_info(bad_info)
+      end)
+      map.validate_info(bad_info)
     end)
   end)
 
