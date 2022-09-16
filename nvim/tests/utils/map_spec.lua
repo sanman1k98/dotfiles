@@ -46,6 +46,16 @@ describe("Neovim's builtin API and `vim` module", function()
   it("deletes the new keymapping", function()
     vim.keymap.del(test_keymap.mode, test_keymap.lhs)
   end)
+
+  it("returns an empty dict for a mapping that does not exist anymore", function()
+    local is_abbrv, return_dict = false, true
+    local keymap = vim.fn.maparg(
+      test_keymap.lhs,
+      test_keymap.mode,
+      is_abbrv,
+      return_dict)
+    assert.is_true(vim.tbl_isempty(keymap))
+  end)
 end)
 
 
