@@ -11,13 +11,12 @@ describe("Neovim's builtin API and `vim` module", function()
     rhs = function() vim.notify "Hello!" end,
   }
 
-  it("gets all the normal mode keymappings", function()
+  it("gets all the normal mode keymappings maparg-like dicts", function()
     local mapargs = vim.api.nvim_get_keymap("n")
     assert.is_true(vim.tbl_islist(mapargs))
   end)
 
-  it("gets Neovim's default keymappings", function()
-    local mapargs = vim.api.nvim_get_keymap("n")
+  it("gets Neovim's default keymappings from a list of maparg-like dicts", function()
     local nvim_default_mappings = {}
     for _, mapping in ipairs(mapargs) do
       if mapping.desc == "Nvim builtin" then
