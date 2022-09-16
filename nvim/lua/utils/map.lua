@@ -18,6 +18,9 @@ function M.validate(tbl)
 end
 
 function M.set(tbl)
+  for mode, lhs, rhs, opts in M.args(tbl) do
+    vim.keymap.set(mode, lhs, rhs, opts)
+  end
 end
 
 function M.del(tbl)
