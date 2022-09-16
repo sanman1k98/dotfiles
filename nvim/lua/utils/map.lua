@@ -3,8 +3,8 @@ local M = {}
 function M.args(tbl)
   local iter = function(t)
     for mode, mappings in pairs(tbl) do
-      for lhs, def in pairs(mappings) do
-        local desc, rhs, opts = def[1], def[2], def[3]
+      for lhs, info in pairs(mappings) do
+        local desc, rhs, opts = info[1], info[2], info[3]
         opts = opts or {}
         opts.desc = desc
         coroutine.yield(mode, lhs, rhs, opts)
