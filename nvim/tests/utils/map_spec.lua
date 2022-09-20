@@ -65,10 +65,10 @@ describe("User `utils.map` module", function()
 
   local test_definitions = {
     n = {
-      ["<leader>hi"] = { "salutations",
+      ["<leader>hi"] = { desc = "salutations",
         function() vim.notify "Hello!" end
       },
-      ["<leader>bb"] = { "parting words",
+      ["<leader>bb"] = { desc = "parting words",
         function()
           vim.notify "Goodbye!"
           vim.defer_fn(function()
@@ -76,10 +76,10 @@ describe("User `utils.map` module", function()
           end, 5000)
         end
       },
-      ["<leader>w"] = { "write file",
+      ["<leader>w"] = { desc = "write file",
         function() vim.cmd.write() end
       },
-      ["<leader>so"] = { "source current file",
+      ["<leader>so"] = { desc = "source current file",
         function()
           vim.cmd.source()
           vim.notify("Sourced " .. vim.api.nvim_buf_get_name(0))
@@ -87,12 +87,12 @@ describe("User `utils.map` module", function()
       },
     },
     i = {
-      ["kj"] = { "shortcut to normal mode",
+      ["kj"] = { desc = "shortcut to normal mode",
         "<esc>"
       },
     },
     v = {
-      ["<leader>so"] = { "source selection",
+      ["<leader>so"] = { desc = "source selection",
         function()
           vim.cmd.source { range = { "'<", "'>" } }
           vim.notify "Sourced selection"
