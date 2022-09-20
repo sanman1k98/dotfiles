@@ -172,7 +172,6 @@ describe("User `utils.map` module", function()
       assert.has_errors(function()
         map.validate_info(bad_info)
       end)
-      map.validate_info(bad_info)
     end)
   end)
 
@@ -200,6 +199,17 @@ describe("User `utils.map` module", function()
     end)
 
     pending("multiple mappings", function()
+    end)
+  end)
+
+  describe("errors", function()
+    pending("when validating an invalid table of mappings", function()
+    end)
+
+    pending("another situation that should error", function()
+    end)
+
+    pending("yet another situation that should error", function()
     end)
   end)
 
