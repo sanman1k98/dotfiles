@@ -17,6 +17,20 @@ end
 function M.validate(tbl)
 end
 
+function M.validate_info(info)
+  vim.validate {
+    ["info.desc"] = { info.desc, function(x)
+      return type(x) == "string"
+    end, "a description of the mapping" },
+    ["info[1]"] = { info[1], function(x)
+      return type(x) == "string" or type(x) == "function"
+    end, "a string or a Lua function for the rhs of the mapping" },
+    ["info.opts"] = { info.opts, function(x)
+      return type(x) == "table" or x == nil
+    end, "an optional \"opts\" table to pass to `vim.keymap.set`"}
+  }
+end
+
 function M.set(tbl)
   for mode, lhs, rhs, opts in M.args(tbl) do
     vim.keymap.set(mode, lhs, rhs, opts)
