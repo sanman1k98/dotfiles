@@ -155,7 +155,7 @@ describe("User `utils.map` module", function()
     end)
 
     it("a mapping's info", function()
-      local info = { "parting words",
+      local info = { desc = "parting words",
         function()
           vim.notify "Goodbye!"
           vim.defer_fn(function()
@@ -166,7 +166,7 @@ describe("User `utils.map` module", function()
       assert.has_no.errors(function()
         map.validate_info(info)
       end)
-      local bad_info = { -- first element should be a description
+      local bad_info = { -- must contain a "desc" field
         "<leader>bad"
       }
       assert.has_errors(function()
