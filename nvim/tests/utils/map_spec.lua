@@ -158,7 +158,10 @@ describe("User `utils.map` module", function()
   end)
 
   describe("validates", function()
-    pending("a table of mapping definitions", function()
+    it("a table of mapping definitions", function()
+      assert.has_no_errors(function()
+        map.validate(test_definitions)
+      end)
     end)
 
     it("a single mapping definition", function()
