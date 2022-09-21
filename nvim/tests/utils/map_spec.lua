@@ -153,7 +153,22 @@ describe("User `utils.map` module", function()
     pending("a table of mapping definitions", function()
     end)
 
-    pending("a single mapping definition", function()
+    it("a single mapping definition", function()
+      -- order in which indices are enumerated is not specified
+      local mode = next(test_definitions)               -- returns an index: a mode short name
+      local lhs, info = next(test_definitions[mode])    -- returns an index and its associated value: an lhs and its info
+      local s = spy.on(vim, "validate")
+      assert.has_no_errors(function()
+        map.validate { [mode] = { [lhs] = info } }
+      end)
+      assert.spy(s).was_called(2)                       -- once to validate the mode, and lhs, again when calling `map.validate_info`
+      vim.validate:clear()
+      info.desc = nil
+      assert.has_errors(function()
+        map.validate { [mode] = { [lhs] = info } }
+      end)
+      assert.spy(s).was_called(2)
+      vim.validate:revert()
     end)
 
     it("a mapping's info", function()
