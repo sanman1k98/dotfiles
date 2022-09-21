@@ -33,7 +33,20 @@ end
 
 function M.set(tbl)
   for mode, lhs, rhs, opts in M.args(tbl) do
-    vim.keymap.set(mode, lhs, rhs, opts)
+    local validinfo, validationmsg = pcall(M.validate_info, tbl[mode][lhs])
+    if not validinfo then
+      assert(not validinfo, "validation logic is faulty; should error when a description is not supplied")
+      local m = string.format("`info` table for mapping %q in mode %q is invalid: %s", lhs, mode, validationmsg)
+      vim.notify(m, vim.log.levels.ERROR)
+      goto continue
+    end
+    local set, errmsg = pcall(vim.keymap.set, mode, lhs, rhs, opts)
+    if not set then
+      local m = string.format("error setting keymap %q in mode %q: %s", lhs, mode, errmsg)
+      vim.notify(m, vim.log.levels.ERROR)
+      goto continue
+    end
+    ::continue::
   end
 end
 
