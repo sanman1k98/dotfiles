@@ -1,5 +1,7 @@
 local mock = require "luassert.mock"
 local stub = require "luassert.stub"
+local spy = require "luassert.spy"
+local match = require "luassert.match"
 
 local print = vim.pretty_print
 
@@ -190,7 +192,35 @@ describe("User `utils.map` module", function()
     pending("multiple mappings", function()
     end)
 
-    pending("the rest of the mappings even if the first one failed", function()
+    it("the rest of the mappings even if the first one failed", function()
+      local first_def_bad = {
+        n = {
+          ["<leader>a"] = { dsec = "misspelled field name for a string description",
+            function()
+            end
+          },
+          ["<leader>s"] = { desc = "should be set even after the first one errored",
+            function()
+            end
+          },
+          ["<leader>d"] = { desc = "should also be set",
+            function()
+            end
+          },
+        }
+      }
+      local s = spy.on(vim, "notify")
+      assert.has_no.errors(function()
+        map.set(first_def_bad)
+      end)
+      assert.spy(s).was_called_with(match.is_string(), vim.log.levels.ERROR)
+      vim.notify:revert()
+      local first_mapping = vim.fn.maparg("<leader>a", "n", false, true)
+      local second_mapping = vim.fn.maparg("<leader>s", "n", false, true)
+      local third_mapping = vim.fn.maparg("<leader>d", "n", false, true)
+      assert.is_true(vim.tbl_isempty(first_mapping))
+      assert.is_not_true(vim.tbl_isempty(second_mapping))
+      assert.is_not_true(vim.tbl_isempty(third_mapping))
     end)
   end)
 
