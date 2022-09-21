@@ -103,6 +103,14 @@ describe("User `utils.map` module", function()
     }
   }
 
+  local test_mode = next(test_definitions)
+  local test_lhs, test_info = next(test_definitions[test_mode])
+  local test_single_definition = {
+    [test_mode] = {
+      [test_lhs] = test_info
+    }
+  }
+
   describe("provides", function()
     it("an iterator to traverse a table of mapping definitions", function()
       assert.is_not_falsy(map.args)
@@ -154,20 +162,18 @@ describe("User `utils.map` module", function()
     end)
 
     it("a single mapping definition", function()
-      -- order in which indices are enumerated is not specified
-      local mode = next(test_definitions)               -- returns an index: a mode short name
-      local lhs, info = next(test_definitions[mode])    -- returns an index and its associated value: an lhs and its info
       local s = spy.on(vim, "validate")
       assert.has_no_errors(function()
-        map.validate { [mode] = { [lhs] = info } }
+        map.validate(test_single_definition)
       end)
-      assert.spy(s).was_called(2)                       -- once to validate the mode, and lhs, again when calling `map.validate_info`
+      assert.spy(s).was_called(3)
       vim.validate:clear()
-      info.desc = nil
+      local bad_info = vim.deepcopy(test_info)
+      bad_info.desc = nil
       assert.has_errors(function()
-        map.validate { [mode] = { [lhs] = info } }
+        map.validate { [test_mode] = { [test_lhs] = bad_info } }
       end)
-      assert.spy(s).was_called(2)
+      assert.spy(s).was_called(3)
       vim.validate:revert()
     end)
 
@@ -194,13 +200,10 @@ describe("User `utils.map` module", function()
 
   describe("sets", function()
     it("a single mapping", function()
-      -- order in which indices are enumerated is not specified
-      local mode = next(test_definitions)              -- returns an index: a mode short name
-      local lhs, info = next(test_definitions[mode])   -- returns an index and its associated value: an lhs and its info
       assert.has_no.errors(function()
-        map.set { [mode] = { [lhs] = info } }
+        map.set(test_single_definition)
       end)
-      local new_mapping = vim.fn.maparg(lhs, mode, false, true)
+      local new_mapping = vim.fn.maparg(test_lhs, test_mode, false, true)
       assert.is_not_true(vim.tbl_isempty(new_mapping))
     end)
 
