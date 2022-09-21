@@ -189,7 +189,10 @@ describe("User `utils.map` module", function()
       assert.is_not_true(vim.tbl_isempty(new_mapping))
     end)
 
-    pending("multiple mappings", function()
+    it("multiple mappings", function()
+      assert.has_no_errors(function()
+        map.set(test_definitions)
+      end)
     end)
 
     it("the rest of the mappings even if the first one failed", function()
