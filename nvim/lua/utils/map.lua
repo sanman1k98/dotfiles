@@ -30,12 +30,12 @@ end
 function M.set(tbl)
   for mode, lhs, rhs, opts in M.args(tbl) do
     if not opts.desc then
-      local m = string.format("no description supplied")
+      local m = string.format("No description supplied for keymap %q in mode %q.", lhs, mode)
       vim.notify(m, vim.log.levels.WARN)
     end
     local set, errmsg = pcall(vim.keymap.set, mode, lhs, rhs, opts)
     if not set then
-      local m = string.format("error setting keymap %q in mode %q:\n%s", lhs, mode, errmsg)
+      local m = string.format("Error setting keymap %q in mode %q:\n%s", lhs, mode, errmsg)
       vim.notify(m, vim.log.levels.ERROR)
       goto continue
     end
