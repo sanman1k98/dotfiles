@@ -23,6 +23,9 @@ function M.args(tbl)
   return coroutine.wrap(function() iter(tbl) end)
 end
 
+function M.get(tbl, buf)
+end
+
 -- TODO: better error messages
 function M.set(tbl)
   for mode, lhs, rhs, opts in M.args(tbl) do
