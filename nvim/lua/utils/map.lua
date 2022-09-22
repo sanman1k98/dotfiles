@@ -13,13 +13,11 @@ end
 
 function M.args(tbl)
   local iter = function(t)
-    for mode, mappings in pairs(tbl) do
-      for lhs, info in pairs(mappings) do
-        local rhs = info[1]
-        local opts = info.opts or {}
-        opts.desc, opts.buffer = info.desc, info.buffer
-        coroutine.yield(mode, lhs, rhs, opts)
-      end
+    for mode, lhs, info in M.iter(tbl) do
+      local rhs = info[1]
+      local opts = info.opts or {}
+      opts.desc, opts.buffer = info.desc, info.buffer
+      coroutine.yield(mode, lhs, rhs, opts)
     end
   end
   return coroutine.wrap(function() iter(tbl) end)
