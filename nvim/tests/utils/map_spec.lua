@@ -112,14 +112,11 @@ describe("User `utils.map` module", function()
   }
 
   describe("provides", function()
-    it("an iterator to traverse a table of mapping definitions", function()
+    it("iterators to traverse a table of mapping definitions", function()
       assert.is_not_falsy(map.args)
       assert.is_true(type(map.args) == "function")
-    end)
-
-    it("a function to validate a table of mapping definitions", function()
-      assert.is_not_falsy(map.validate)
-      assert.is_true(type(map.validate) == "function")
+      assert.is_not_falsy(map.iter)
+      assert.is_true(type(map.iter) == "function")
     end)
 
     it("a function to set mappings", function()
@@ -134,6 +131,9 @@ describe("User `utils.map` module", function()
   end)
 
   describe("traverses", function()
+    pending("and returns the mode, lhs, and information for each mapping", function()
+    end)
+    
     it("and returns arguments for `vim.keymap.set`", function()
       local args_list = {}
       for mode, lhs, rhs, opts in map.args(test_definitions) do
@@ -155,49 +155,8 @@ describe("User `utils.map` module", function()
         end)
       end
     end)
-  end)
 
-  describe("validates", function()
-    it("a table of mapping definitions", function()
-      assert.has_no_errors(function()
-        map.validate(test_definitions)
-      end)
-    end)
-
-    it("a single mapping definition", function()
-      local s = spy.on(vim, "validate")
-      assert.has_no_errors(function()
-        map.validate(test_single_definition)
-      end)
-      assert.spy(s).was_called(3)
-      vim.validate:clear()
-      local bad_info = vim.deepcopy(test_info)
-      bad_info.desc = nil
-      assert.has_errors(function()
-        map.validate { [test_mode] = { [test_lhs] = bad_info } }
-      end)
-      assert.spy(s).was_called(3)
-      vim.validate:revert()
-    end)
-
-    it("a mapping's info", function()
-      local info = { desc = "parting words",
-        function()
-          vim.notify "Goodbye!"
-          vim.defer_fn(function()
-            vim.cmd "qa"
-          end, 5000)
-        end
-      }
-      assert.has_no.errors(function()
-        map.validate_info(info)
-      end)
-      local bad_info = { -- must contain a "desc" field
-        "<leader>bad"
-      }
-      assert.has_errors(function()
-        map.validate_info(bad_info)
-      end)
+    pending("and returns arguments for `vim.keymap.set` that contain the buffer specified", function()
     end)
   end)
 
@@ -246,6 +205,12 @@ describe("User `utils.map` module", function()
       assert.is_not_true(vim.tbl_isempty(second_mapping))
       assert.is_not_true(vim.tbl_isempty(third_mapping))
     end)
+
+    pending("and warns when a mapping does not have a description", function()
+    end)
+
+    pending("buffer local mappings", function()
+    end)
   end)
 
   describe("deletes", function()
@@ -254,16 +219,8 @@ describe("User `utils.map` module", function()
 
     pending("multiple mappings", function()
     end)
-  end)
 
-  describe("errors", function()
-    pending("when validating an invalid table of mappings", function()
-    end)
-
-    pending("another situation that should error", function()
-    end)
-
-    pending("yet another situation that should error", function()
+    pending("buffer-local mappings", function()
     end)
   end)
 
