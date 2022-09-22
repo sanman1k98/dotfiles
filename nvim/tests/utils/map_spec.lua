@@ -119,6 +119,11 @@ describe("User `utils.map` module", function()
       assert.is_true(type(map.iter) == "function")
     end)
 
+    it("a function to get mappings", function()
+      assert.is_not_falsy(map.get)
+      assert.is_true(type(map.get) == "function")
+    end)
+
     it("a function to set mappings", function()
       assert.is_not_falsy(map.set)
       assert.is_true(type(map.set) == "function")
@@ -180,6 +185,29 @@ describe("User `utils.map` module", function()
         assert.is_true(opts.buffer)
       end
     end)
+
+    pending("through a list of 'maparg()-like' dictionaries and returns the mode, lhs, and info", function()
+    end)
+
+    pending("through a list of modes", function()
+    end)
+
+    pending("through lists of multiple lhs in various modes", function()
+    end)
+  end)
+
+  describe("gets", function()
+    pending("a single mapping given a mode and lhs", function()
+    end)
+
+    pending("mappings from multiple modes", function()
+    end)
+
+    pending("mappings given the same table used to set them", function()
+    end)
+
+    pending("buffer-local mappings", function()
+    end)
   end)
 
   describe("sets", function()
@@ -238,6 +266,8 @@ describe("User `utils.map` module", function()
     end)
 
     pending("buffer local mappings", function()
+      map.set(test_definitions, true)       -- `true` for the current buffer
+      local mappings = vim.api.nvim_buf_get_keymap(0, "n")    -- "0" for the current buffer
     end)
   end)
 
@@ -249,6 +279,9 @@ describe("User `utils.map` module", function()
     end)
 
     pending("buffer-local mappings", function()
+    end)
+
+    pending("mappings given the table used to set them in the first place", function()
     end)
   end)
 
