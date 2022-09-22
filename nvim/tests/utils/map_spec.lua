@@ -131,7 +131,16 @@ describe("User `utils.map` module", function()
   end)
 
   describe("traverses", function()
-    pending("and returns the mode, lhs, and information for each mapping", function()
+    it("and returns the mode, lhs, and information for each mapping", function()
+      for mode, lhs, info in map.iter(test_definitions) do
+        assert.has_no_errors(function()
+          vim.validate {
+            mode = { mode, "s" },
+            lhs = { lhs, "s" },
+            info = { info, "t" },
+          }
+        end)
+      end
     end)
     
     it("and returns arguments for `vim.keymap.set`", function()
