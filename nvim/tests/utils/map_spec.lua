@@ -200,17 +200,12 @@ describe("User `utils.map` module", function()
     it("the rest of the mappings even if the first one failed", function()
       local first_def_bad = {
         n = {
-          ["<leader>a"] = { dsec = "misspelled field name for a string description",
-            function()
-            end
-          },
+          ["<leader>a"] = { desc = "doesn't define an rhs!", },
           ["<leader>s"] = { desc = "should be set even after the first one errored",
-            function()
-            end
+            function() end
           },
           ["<leader>d"] = { desc = "should also be set",
-            function()
-            end
+            function() end
           },
         }
       }
