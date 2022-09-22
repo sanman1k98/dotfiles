@@ -165,7 +165,20 @@ describe("User `utils.map` module", function()
       end
     end)
 
-    pending("and returns arguments for `vim.keymap.set` that contain the buffer specified", function()
+    it("and returns arguments for `vim.keymap.set` that contain the buffer specified", function()
+      local buf_local= {
+        n = {
+          ["<leader>"] = { desc = "toggle the `list` option",
+            function()
+              vim.opt.list = not vim.opt.list:get()
+            end,
+            buffer = true,
+          }
+        }
+      }
+      for _, _, _, opts in map.args(buf_local) do
+        assert.is_true(opts.buffer)
+      end
     end)
   end)
 
