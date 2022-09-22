@@ -1,5 +1,8 @@
 local M = {}
 
+function M.iter(tbl)
+end
+
 function M.args(tbl)
   local iter = function(t)
     for mode, mappings in pairs(tbl) do
