@@ -1,6 +1,14 @@
 local M = {}
 
 function M.iter(tbl)
+  local iter = function(t)
+    for mode, mappings in pairs(tbl) do
+      for lhs, info in pairs(mappings) do
+        coroutine.yield(mode, lhs, info)
+      end
+    end
+  end
+  return coroutine.wrap(function() iter(tbl) end)
 end
 
 function M.args(tbl)
