@@ -223,7 +223,18 @@ describe("User `utils.map` module", function()
       assert.is_not_true(vim.tbl_isempty(third_mapping))
     end)
 
-    pending("and warns when a mapping does not have a description", function()
+    it("and warns when a mapping does not have a description", function()
+      local notify = stub(vim, "notify")
+      map.set {
+        n = {
+          ["<leader>a"] = { -- no "desc" field
+            function() end
+          },
+        }
+      }
+      assert.stub(notify).was_called_with(match.is_string(), vim.log.levels.WARN)
+      local mapping = vim.fn.maparg("<leader>a", "n", false, true)
+      assert.is_not_true(vim.tbl_isempty(mapping))
     end)
 
     pending("buffer local mappings", function()
