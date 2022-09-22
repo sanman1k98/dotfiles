@@ -4,9 +4,10 @@ function M.args(tbl)
   local iter = function(t)
     for mode, mappings in pairs(tbl) do
       for lhs, info in pairs(mappings) do
-        local desc, rhs = info.desc, info[1]
+        local rhs = info[1]
         local opts = info.opts or {}
-        opts.desc = desc
+        opts.desc = info.desc
+        opts.buffer = info.buffer
         coroutine.yield(mode, lhs, rhs, opts)
       end
     end
@@ -40,15 +41,11 @@ end
 -- TODO: better error messages
 function M.validate_info(info)
   vim.validate {
-    ["info.desc"] = { info.desc, function(x)
-      return type(x) == "string"
-    end, "a description of the mapping" },
-    ["info[1]"] = { info[1], function(x)
-      return type(x) == "string" or type(x) == "function"
-    end, "a string or a Lua function for the rhs of the mapping" },
-    ["info.opts"] = { info.opts, function(x)
-      return type(x) == "table" or x == nil
-    end, "an optional \"opts\" table to pass to `vim.keymap.set`"}
+    ["info"] = { info, "t" },
+    ["info[1]"] = { info[1], {"s", "f"} },
+    ["info.desc"] = { info.desc, "s", true },
+    ["info.buffer"] = { info.buffer, "n", true },
+    ["info.opts"] = { info.opts, "t", true },
   }
 end
 
