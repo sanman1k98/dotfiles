@@ -186,7 +186,17 @@ describe("User `utils.map` module", function()
       end
     end)
 
-    pending("through a list of 'maparg()-like' dictionaries and returns the mode, lhs, and info", function()
+    it("through a list of 'maparg()-like' dictionaries and returns the mode, lhs, and info", function()
+      local mappings = vim.api.nvim_get_keymap("n")
+      for mode, lhs, info in map.iter(mappings) do
+        assert.has_no_errors(function()
+          vim.validate {
+            mode = { mode, "s" },
+            lhs = { lhs, "s" },
+            info = { info, "t" },
+          }
+        end)
+      end
     end)
 
     pending("through a list of modes", function()
