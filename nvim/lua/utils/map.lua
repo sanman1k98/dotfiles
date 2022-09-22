@@ -1,19 +1,46 @@
-local M = {}
+local map = {}
 
-function M.iter(tbl)
+function map.iter(tbl)
   local iter = function(t)
-    for mode, mappings in pairs(tbl) do
-      for lhs, info in pairs(mappings) do
-        coroutine.yield(mode, lhs, info)
+    -- we will assume the whole table is a list if the first element exists
+    local list = t[1]
+    if list then
+      if type(list) == "table" then
+        for _, maparg in ipairs(t) do
+          coroutine.yield(maparg.mode, maparg.lhs, maparg)
+        end
+        return
+      elseif type(list) == "string" then
+        for _, mode in ipairs(t) do
+          coroutine.yield(mode)
+        end
+        return
+      else error("List of unsupported type", 2) end
+    else                                -- assume table with mode short-names as field names
+      local _, v = next(t)
+      -- we will assume whether all modes contain lists by only checking the first one
+      local lhs_list = v[1] and type(v[1]) == "string"
+      for mode, mappings in pairs(t) do
+        if lhs_list then                -- assume all fields contains a list of lhs
+          for _, lhs in ipairs(mappings) do
+            coroutine.yield(mode, lhs)
+          end
+          return
+        else
+          for lhs, info in pairs(mappings) do
+            coroutine.yield(mode, lhs, info)
+          end
+          return
+        end
       end
     end
   end
   return coroutine.wrap(function() iter(tbl) end)
 end
 
-function M.args(tbl)
+function map.args(tbl)
   local iter = function(t)
-    for mode, lhs, info in M.iter(tbl) do
+    for mode, lhs, info in map.iter(tbl) do
       local rhs = info[1]
       local opts = info.opts or {}
       opts.desc, opts.buffer = info.desc, info.buffer
@@ -23,12 +50,12 @@ function M.args(tbl)
   return coroutine.wrap(function() iter(tbl) end)
 end
 
-function M.get(tbl, buf)
+function map.get(tbl, buf)
 end
 
 -- TODO: better error messages
-function M.set(tbl)
-  for mode, lhs, rhs, opts in M.args(tbl) do
+function map.set(tbl)
+  for mode, lhs, rhs, opts in map.args(tbl) do
     if not opts.desc then
       local m = string.format("No description supplied for keymap %q in mode %q.", lhs, mode)
       vim.notify(m, vim.log.levels.WARN)
@@ -43,7 +70,7 @@ function M.set(tbl)
   end
 end
 
-function M.del(tbl)
+function map.del(tbl)
 end
 
-return M
+return map
