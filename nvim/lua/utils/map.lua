@@ -1,5 +1,32 @@
 local map = {}
 
+do
+  map.modes = {
+    "",
+    "n",
+    "v",
+    "s",
+    "x",
+    "o",
+    "!",
+    "i",
+    "l",
+    "c",
+    "t",
+  }
+
+  local mt = {}
+
+  function mt:__call()
+    local iter = function()
+      for _, m in ipairs(map.modes) do coroutine.yield(m) end
+    end
+    return coroutine.wrap(function() iter() end)
+  end
+
+  setmetatable(map.modes, mt)
+end
+
 function map.iter(tbl)
   local iter = function(t)
     -- we will assume the whole table is a list if the first element exists
@@ -40,7 +67,7 @@ end
 
 function map.args(tbl)
   local iter = function(t)
-    for mode, lhs, info in map.iter(tbl) do
+    for mode, lhs, info in map.iter(t) do
       local rhs = info[1]
       local opts = info.opts or {}
       opts.desc, opts.buffer = info.desc, info.buffer
