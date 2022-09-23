@@ -218,27 +218,33 @@ describe("User `utils.map` module", function()
       end
     end)
 
-    pending("through a list of modes", function()
-      local modes = {
-        "n",
-        "v",
-        "i",
-        "o",
-        "x",
-        "",
-        "c",
-        "!",
-      }
-      for mode in map.iter(modes) do
+    it("through a list of modes", function()
+      local modes = {}
+      local count = 0
+      for m in map.iter(map.modes) do
+        count = count + 1
+        table.insert(modes, m)
       end
+      assert.are_equal(#map.modes, count)
+      assert.are_same(map.modes, modes)
     end)
 
-    pending("through lists of multiple lhs in various modes", function()
+    it("through lists of multiple lhs in various modes", function()
       local tbl = {}
-      for mode, lhs in map.iter(test_definitions) do
-        table.insert(tbl[mode], lhs)
+      do  -- create the list of strings representing lhs for each mode
+        for mode, lhs in map.iter(test_definitions) do
+          local m = tbl[mode] or {}
+          table.insert(m, lhs)
+        end
+        for _, mappings in pairs(tbl) do
+          assert.is_true(vim.tbl_islist(mappings))
+          for _, lhs in ipairs(mappings) do
+            assert.is_true(type(lhs) == "string")
+          end
+        end
       end
       for mode, lhs in map.iter(tbl) do
+        assert.is_true(type(lhs) == "string")
       end
     end)
   end)
