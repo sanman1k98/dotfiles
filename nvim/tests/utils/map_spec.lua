@@ -112,6 +112,25 @@ describe("User `utils.map` module", function()
   }
 
   describe("provides", function()
+    describe("a list of mode short-names", function()
+      it("accessed from index \"modes\"", function()
+        assert.is_not_falsy(map.modes)
+        assert.is_true(vim.tbl_islist(map.modes))
+        assert.are_equal(#map.modes, 11)
+      end)
+
+      it("which can be iterated through using a generic for-loop", function()
+        local modes = {}
+        local count = 0
+        for m in map.modes() do
+          count = count + 1
+          table.insert(modes, m)
+        end
+        assert.are_equal(#map.modes, count)
+        assert.are_same(map.modes, modes)
+      end)
+    end)
+
     it("iterators to traverse a table of mapping definitions", function()
       assert.is_not_falsy(map.args)
       assert.is_true(type(map.args) == "function")
@@ -200,17 +219,42 @@ describe("User `utils.map` module", function()
     end)
 
     pending("through a list of modes", function()
+      local modes = {
+        "n",
+        "v",
+        "i",
+        "o",
+        "x",
+        "",
+        "c",
+        "!",
+      }
+      for mode in map.iter(modes) do
+      end
     end)
 
     pending("through lists of multiple lhs in various modes", function()
+      local tbl = {}
+      for mode, lhs in map.iter(test_definitions) do
+        table.insert(tbl[mode], lhs)
+      end
+      for mode, lhs in map.iter(tbl) do
+      end
     end)
   end)
 
   describe("gets", function()
     pending("a single mapping given a mode and lhs", function()
+      local builtin = vim.api.nvim_get_keymap("")[1]
+      local mapping = map.get { [builtin.mode] = { builtin.lhs } }
+      assert.is_not_true(vim.tbl_isempty(mapping))
+      assert.is_true(vim.tbl_islist(mapping))
     end)
 
     pending("mappings from multiple modes", function()
+      local mappings = map.get { "n", "v", "i", }
+      assert.is_not_true(vim.tbl_isempty(mappings))
+      assert.is_true(vim.tbl_islist(mappings))
     end)
 
     pending("mappings given the same table used to set them", function()
