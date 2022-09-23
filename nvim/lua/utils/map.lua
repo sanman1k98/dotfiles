@@ -46,7 +46,7 @@ function map.iter(tbl)
     else                                -- assume table with mode short-names as field names
       local _, v = next(t)
       -- we will assume whether all modes contain lists by only checking the first one
-      local lhs_list = v[1] and type(v[1]) == "string"
+      local lhs_list = v and type(v) == "table" and v[1] and type(v[1]) == "string"
       for mode, mappings in pairs(t) do
         if lhs_list then                -- assume all fields contains a list of lhs
           for _, lhs in ipairs(mappings) do
