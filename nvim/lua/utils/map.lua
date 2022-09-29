@@ -40,9 +40,22 @@ do
 
   local mt = {}
 
-  function mt:__call()
+  function mt:__call(tbl)
+    tbl = tbl or map.modes
     local iter = function()
-      for _, m in ipairs(map.modes) do coroutine.yield(m) end
+      for k, v in pairs(tbl) do
+        if type(k) == "number" then   -- tbl is a list
+          if type(v) == "table" then  -- assume maparg()-like dict
+            assert(type(v.mode) == "string" and #v.mode <= 1)
+            coroutine.yield(v.mode)
+          else
+            assert(type(v) == "string")
+            coroutine.yield(v)
+          end
+        else
+          coroutine.yield(k)
+        end
+      end
     end
     return coroutine.wrap(function() iter() end)
   end
