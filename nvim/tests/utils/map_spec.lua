@@ -264,7 +264,7 @@ describe("User `utils.map` module", function()
 
     it("and returns arguments for `vim.keymap.set` that contain the buffer specified", function()
       local buf_local= {
-        n = {
+        normal = {
           ["<leader>"] = { desc = "toggle the `list` option",
             function()
               vim.opt.list = not vim.opt.list:get()
@@ -359,7 +359,7 @@ describe("User `utils.map` module", function()
       assert.has_no.errors(function()
         map.set(test_single_definition)
       end)
-      local new_mapping = vim.fn.maparg(test_lhs, test_mode, false, true)
+      local new_mapping = map.get(test_single_definition)
       assert.is_not_true(vim.tbl_isempty(new_mapping))
     end)
 
@@ -367,6 +367,8 @@ describe("User `utils.map` module", function()
       assert.has_no_errors(function()
         map.set(test_definitions)
       end)
+      local mappings = map.get(test_definitions)
+      assert.is_not_true(vim.tbl_isempty(mappings))
     end)
 
     it("the rest of the mappings even if the first one failed", function()
@@ -393,6 +395,9 @@ describe("User `utils.map` module", function()
       assert.is_true(vim.tbl_isempty(first_mapping))
       assert.is_not_true(vim.tbl_isempty(second_mapping))
       assert.is_not_true(vim.tbl_isempty(third_mapping))
+      local mappings = map.get(first_def_bad)
+      assert.is_not_true(vim.tbl_isempty(mappings))
+      assert.are_equal(#mappings, 2)
     end)
 
     it("and warns when a mapping does not have a description", function()
