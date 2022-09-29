@@ -112,22 +112,65 @@ describe("User `utils.map` module", function()
   }
 
   describe("provides", function()
-    describe("a list of mode short-names", function()
-      it("accessed from index \"modes\"", function()
-        assert.is_not_falsy(map.modes)
-        assert.is_true(vim.tbl_islist(map.modes))
-        assert.are_equal(#map.modes, 11)
+    describe("a table representing mapping modes", function()
+      it("which when iterated using `ipairs` returns seven map command prefixes", function()
+        local count = 0
+        for _, v in ipairs(map.modes) do
+          assert.is_true(type(v) == "string")
+          assert.are_equal(#v, 1)
+          count = count + 1
+        end
+        assert.are_equal(#map.modes, 7)
+        assert.are_equal(count, 7)
       end)
 
-      it("which can be iterated through using a generic for-loop", function()
-        local modes = {}
+      it("which can be iterated using `pairs`", function()
         local count = 0
-        for m in map.modes() do
+        for _, v in pairs(map.modes) do
+          assert.is_true(type(v) == "string")
+          assert.are_equal(#v, 1)
           count = count + 1
-          table.insert(modes, m)
         end
-        assert.are_equal(#map.modes, count)
-        assert.are_same(map.modes, modes)
+        assert.are_equal(#map.modes, 7)
+        assert.are_equal(count, 7)
+      end)
+
+      it("indexable by name and returns the associated map command prefix", function()
+        assert.are_equal(map.modes.normal, "n")
+        assert.are_equal(map.modes.select, "s")
+        assert.are_equal(map.modes.visual, "x")
+        assert.are_equal(map.modes.operator_pending, "o")
+        assert.are_equal(map.modes.insert, "i")
+        assert.are_equal(map.modes.command_line, "c")
+        assert.are_equal(map.modes.terminal, "t")
+      end)
+
+      it("indexable by map command prefix and returns itself", function()
+        assert.are_equal(map.modes.n, "n")
+        assert.are_equal(map.modes.s, "s")
+        assert.are_equal(map.modes.x, "x")
+        assert.are_equal(map.modes.o, "o")
+        assert.are_equal(map.modes.i, "i")
+        assert.are_equal(map.modes.c, "c")
+        assert.are_equal(map.modes.t, "t")
+      end)
+
+      it("and can be indexed by map command prefixes like 'v' or '!' which returns a list of modes", function()
+        assert.is_true(vim.tbl_islist(map.modes[""]))
+        for _, m in ipairs(map.modes[""]) do
+          assert.is_true(type(m) == "string" and #m <= 1)
+          assert.is_true(vim.tbl_contains(map.modes, m))
+        end
+        assert.is_true(vim.tbl_islist(map.modes["v"]))
+        for _, m in ipairs(map.modes["v"]) do
+          assert.is_true(type(m) == "string" and #m <= 1)
+          assert.is_true(vim.tbl_contains(map.modes, m))
+        end
+        assert.is_true(vim.tbl_islist(map.modes["!"]))
+        for _, m in ipairs(map.modes["!"]) do
+          assert.is_true(type(m) == "string" and #m <= 1)
+          assert.is_true(vim.tbl_contains(map.modes, m))
+        end
       end)
     end)
 
