@@ -65,42 +65,45 @@ do
   setmetatable(map.modes, mt)
 end
 
+-- returns the mode, lhs, and info given a table
 function map.iter(tbl)
-  local iter = function(t)
-    -- we will assume the whole table is a list if the first element exists
-    local list = t[1]
-    if list then
-      if type(list) == "table" then
-        for _, maparg in ipairs(t) do
-          coroutine.yield(maparg.mode, maparg.lhs, maparg)
-        end
-        return
-      elseif type(list) == "string" then
-        for _, mode in ipairs(t) do
+  local iter = function()
+    for k, v in pairs(tbl) do
+      if type(k) == "number" then   -- tbl is a list of maparg()-like dicts
+        if type(v) == "table" then
+          local mode, lhs, info = v.mode, v.lhs, v
+          assert(type(mode) == "string" and #mode == 1)
+          coroutine.yield(mode, lhs, info)
+        else
+          assert(type(v) == "string")
+          local mode = v
+          if #mode > 1 then
+            mode = map.modes[mode]
+            assert(mode ~= nil)
+          end
           coroutine.yield(mode)
         end
-        return
-      else error("List of unsupported type", 2) end
-    else                                -- assume table with mode short-names as field names
-      local _, v = next(t)
-      -- we will assume whether all modes contain lists by only checking the first one
-      local lhs_list = v and type(v) == "table" and v[1] and type(v[1]) == "string"
-      for mode, mappings in pairs(t) do
-        if lhs_list then                -- assume all fields contains a list of lhs
-          for _, lhs in ipairs(mappings) do
+      else
+        assert(type(k) == "string")
+        local mode = k
+        if #mode > 1 then
+          mode = map.modes[mode]
+          assert(mode ~= nil)
+        end
+        for lhs, info in pairs(v) do
+          if type(lhs) == "string" then
+            assert(type(info) == "table")
+            coroutine.yield(mode, lhs, info)
+          else
+            assert(type(info) == "string")
+            lhs = info
             coroutine.yield(mode, lhs)
           end
-          return
-        else
-          for lhs, info in pairs(mappings) do
-            coroutine.yield(mode, lhs, info)
-          end
-          return
         end
       end
     end
   end
-  return coroutine.wrap(function() iter(tbl) end)
+  return coroutine.wrap(function() iter() end)
 end
 
 function map.args(tbl)
