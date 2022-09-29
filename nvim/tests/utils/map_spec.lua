@@ -409,9 +409,12 @@ describe("User `utils.map` module", function()
       assert.is_not_true(vim.tbl_isempty(mapping))
     end)
 
-    pending("buffer local mappings", function()
+    it("buffer local mappings", function()
       map.set(test_definitions, true)       -- `true` for the current buffer
-      local mappings = vim.api.nvim_buf_get_keymap(0, "n")    -- "0" for the current buffer
+      local mappings = map.get(test_definitions, 0)    -- "0" for the current buffer
+      assert.is_not_true(vim.tbl_isempty(mappings))
+      local definitions_size = map.count(test_definitions)
+      assert.are_equal(definitions_size, #mappings)
     end)
   end)
 
