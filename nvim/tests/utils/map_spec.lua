@@ -310,23 +310,45 @@ describe("User `utils.map` module", function()
   end)
 
   describe("gets", function()
-    pending("a single mapping given a mode and lhs", function()
+    it("a single mapping given a mode and lhs", function()
       local builtin = vim.api.nvim_get_keymap("")[1]
-      local mapping = map.get { [builtin.mode] = { builtin.lhs } }
-      assert.is_not_true(vim.tbl_isempty(mapping))
-      assert.is_true(vim.tbl_islist(mapping))
+      assert.are_equal(builtin.desc, "Nvim builtin")
+      local mappings = map.get { [builtin.mode] = { builtin.lhs } }
+      assert.is_not_true(vim.tbl_isempty(mappings))
+      assert.is_true(vim.tbl_islist(mappings))
+      assert.are_equal(1, #mappings)
+      local mapping = mappings[1]
+      assert.are_same(mapping, builtin)
     end)
 
-    pending("mappings from multiple modes", function()
-      local mappings = map.get { "n", "v", "i", }
+    it("mappings from a list containing a single mode", function()
+      local builtin = vim.api.nvim_get_keymap("")
+      local mappings = map.get { "" }
+      assert.are_same(builtin, mappings)
+    end)
+
+    it("mappings from multiple modes", function()
+      local mappings = map.get(map.modes)
       assert.is_not_true(vim.tbl_isempty(mappings))
       assert.is_true(vim.tbl_islist(mappings))
     end)
 
-    pending("mappings given the same table used to set them", function()
+    it("mappings given the same table used to set them", function()
+      assert.has_no.errors(function()
+        map.set(test_single_definition)
+      end)
+      local mapping = map.get(test_single_definition)
+      assert.is_not_true(vim.tbl_isempty(mapping))
+      assert.is_true(vim.tbl_islist(mapping))
+      assert.are_equal(test_mode, mapping[1].mode)
+      assert.are_equal(vim.api.nvim_replace_termcodes(test_lhs, true, true, true), mapping[1].lhs)
+      vim.keymap.del(test_mode, test_lhs)
     end)
 
-    pending("buffer-local mappings", function()
+    it("buffer-local mappings", function()
+      local mapargs = vim.api.nvim_buf_get_keymap(0, "")
+      local mappings = map.get({ "" }, true)
+      assert.are_equal(#mapargs, #mappings)
     end)
   end)
 
