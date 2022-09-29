@@ -118,6 +118,16 @@ function map.args(tbl)
   return coroutine.wrap(function() iter(tbl) end)
 end
 
+function map.count(tbl)
+  local count = 0
+  for _, lhs in map.iter(tbl) do
+    if lhs then
+      count = count + 1
+    end
+  end
+  return count
+end
+
 function map.get(tbl, buf)
   vim.validate {
     tbl = { tbl, "t" },
