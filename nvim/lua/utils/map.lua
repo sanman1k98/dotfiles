@@ -109,7 +109,7 @@ end
 function map.args(tbl)
   local iter = function(t)
     for mode, lhs, info in map.iter(t) do
-      local rhs = info[1]
+      local rhs = info[1] or info.rhs or info.callback 
       local opts = info.opts or {}
       opts.desc, opts.buffer = info.desc, info.buffer
       coroutine.yield(mode, lhs, rhs, opts)
