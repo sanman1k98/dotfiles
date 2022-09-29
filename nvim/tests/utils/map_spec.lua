@@ -215,6 +215,19 @@ describe("User `utils.map` module", function()
   end)
 
   describe("traverses", function()
+    describe("by calling `map.modes` as a function in a generic for-loop", function()
+      it("through a list of modes", function()
+        local modes = {}
+        local count = 0
+        for m in map.modes(map.modes) do
+          count = count + 1
+          table.insert(modes, m)
+        end
+        assert.are_equal(#map.modes, count)
+        assert.are_same(map.modes, modes)
+      end)
+    end)
+
     it("and returns the mode, lhs, and information for each mapping", function()
       for mode, lhs, info in map.iter(test_definitions) do
         assert.has_no_errors(function()
@@ -276,17 +289,6 @@ describe("User `utils.map` module", function()
           }
         end)
       end
-    end)
-
-    it("through a list of modes", function()
-      local modes = {}
-      local count = 0
-      for m in map.iter(map.modes) do
-        count = count + 1
-        table.insert(modes, m)
-      end
-      assert.are_equal(#map.modes, count)
-      assert.are_same(map.modes, modes)
     end)
 
     it("through lists of multiple lhs in various modes", function()
