@@ -122,8 +122,9 @@ function map.get(tbl, buf)
 end
 
 -- TODO: better error messages
-function map.set(tbl)
+function map.set(tbl, buf)
   for mode, lhs, rhs, opts in map.args(tbl) do
+    opts.buffer = opts.buffer or buf
     if not opts.desc then
       local m = string.format("No description supplied for keymap %q in mode %q.", lhs, mode)
       vim.notify(m, vim.log.levels.WARN)
