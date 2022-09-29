@@ -173,7 +173,11 @@ function map.set(tbl, buf)
   end
 end
 
-function map.del(tbl)
+function map.del(tbl, buf)
+  for mode, lhs, info in map.iter(tbl) do
+    local opts = { buffer = info.buffer or buf } 
+    vim.keymap.del(mode, lhs, opts)
+  end
 end
 
 return map
