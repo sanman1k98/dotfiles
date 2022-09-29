@@ -174,6 +174,23 @@ describe("User `utils.map` module", function()
       end)
     end)
 
+    describe("iterators", function()
+      it("that returns the mode, lhs, and info given a table containing mapping information", function()
+        assert.is_not_falsy(map.iter)
+        assert.is_true(type(map.iter) == "function")
+      end)
+
+      it("that return arguments to `vim.keymap.set` given a table containing mapping information", function()
+        assert.is_not_falsy(map.args)
+        assert.is_true(type(map.args) == "function")
+      end)
+
+      it("that returns the modes from a table", function()
+        assert.is_not_falsy(map.modes)
+        assert.is_true(vim.is_callable(map.modes))
+      end)
+    end)
+
     it("iterators to traverse a table of mapping definitions", function()
       assert.is_not_falsy(map.args)
       assert.is_true(type(map.args) == "function")
