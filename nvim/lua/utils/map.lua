@@ -190,4 +190,14 @@ function map.del(tbl, buf)
   end
 end
 
+do
+  local mt = {}
+
+  function mt:__call(tbl, buf)
+    map.set(tbl, buf)
+  end
+
+  setmetatable(map, mt)
+end
+
 return map
