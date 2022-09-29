@@ -119,6 +119,40 @@ function map.args(tbl)
 end
 
 function map.get(tbl, buf)
+  vim.validate {
+    tbl = { tbl, "t" },
+    buf = { buf, {"b", "n"}, true },
+  }
+  local api_get = vim.api.nvim_get_keymap
+  if buf then
+    buf = buf == true and 0 or buf
+    api_get = function(m)
+      return vim.api.nvim_buf_get_keymap(buf, m)
+    end
+  end
+  local tmplist, in_tmplist = {}, {}
+  for mode in map.iter(tbl) do
+    if not in_tmplist[mode] then
+      vim.list_extend(tmplist, api_get(mode))
+      in_tmplist[mode] = true
+      if type(map.modes[mode]) == "table" then
+        for _, m in ipairs(map.modes[mode]) do
+          in_tmplist[m] = true
+        end
+      end
+    end
+  end
+  local mappings = {}
+  for mode, lhs in map.iter(tbl) do
+    for tmpmode, tmplhs, tmpinfo in map.iter(tmplist) do
+      if tmpmode == mode or type(map.modes[mode]) == "table" and vim.tbl_contains(map.modes[mode], tmpmode) then
+        if not lhs or tmplhs == vim.api.nvim_replace_termcodes(lhs, true, true, true) then
+          table.insert(mappings, tmpinfo)
+        end
+      end
+    end
+  end
+  return mappings
 end
 
 -- TODO: better error messages
