@@ -1,18 +1,41 @@
 local map = {}
 
+map.modes = {
+  [1] = "n",        -- Normal
+  [2] = "s",        -- Select
+  [3] = "x",        -- Visual
+  [4] = "o",        -- Operator-pending
+  [5] = "i",        -- Insert
+  [6] = "c",        -- Command-line
+  [7] = "t",        -- Terminal
+}
+
 do
-  map.modes = {
-    "",
-    "n",
-    "v",
-    "s",
-    "x",
-    "o",
-    "!",
-    "i",
-    "l",
-    "c",
-    "t",
+  local m = {}
+
+  m.n, m.normal            = map.modes[1], map.modes[1]
+  m.s, m.select            = map.modes[2], map.modes[2]
+  m.x, m.visual            = map.modes[3], map.modes[3]
+  m.o, m.operator_pending  = map.modes[4], map.modes[4]
+  m.i, m.insert            = map.modes[5], map.modes[5]
+  m.c, m.command_line      = map.modes[6], map.modes[6]
+  m.t, m.terminal          = map.modes[7], map.modes[7]
+
+  m[""]  = {
+    m.normal,
+    m.select,
+    m.visual,
+    m.operator_pending,
+  }
+
+  m["v"] = {
+    m.select,
+    m.visual,
+  }
+
+  m["!"] = {
+    m.insert,
+    m.command_line,
   }
 
   local mt = {}
@@ -23,6 +46,8 @@ do
     end
     return coroutine.wrap(function() iter() end)
   end
+
+  mt.__index = m
 
   setmetatable(map.modes, mt)
 end
