@@ -172,6 +172,9 @@ describe("User `utils.map` module", function()
           assert.is_true(vim.tbl_contains(map.modes, m))
         end
       end)
+
+      pending("which is read-only", function()
+      end)
     end)
 
     describe("iterators", function()
