@@ -12,6 +12,9 @@ path+=$HOME/.composer/vendor/bin
 # unversioned symlinks pointing to `python3` binaries
 path+=/usr/local/opt/python@3.10/libexec/bin
 
+#	Node version manager working directory
+#
+export NVM_DIR="${XDG_DATA_HOME}/nvm"
 
 
 # TODO: use XDG_CONFIG_DIRS

@@ -46,6 +46,11 @@ if [[ $(where brew) ]]; then
 fi
 
 # initialize completion and prompt engine
+
+#	load Node version manager
+#
+test -e "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" && source $_
+
 autoload -Uz compinit promptinit
 compinit -u
 promptinit
