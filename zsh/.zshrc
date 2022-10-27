@@ -1,37 +1,56 @@
+
+#
+#		environment variables for CLI tools
+#
+
 export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 
+# Homebrew prefix
+export HOMEBREW_PREFIX="$(brew --prefix)"
+
+# prompt configuration
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
+
+# lazygit configuration
+export LG_CONFIG_FILE="${XDG_CONFIG_HOME}/lazygit/config.yml"
+
+
 
 #
 #		Aliases
 #
 
-# for navigating around
+# navigation
 alias -g la='ls -lAG --color=always'
 
 # editor
 alias -g nv="nvim"
 alias -g vi="nvim --noplugin"
 
-# CLI tools
+# other
 alias -g lg='lazygit'
 alias -g g="git"
 
+# TODO: use XDG_CONFIG_DIRS
+# work
+work_aliases="$HOME/.work_config/zsh/aliases.zsh"
+if [[ -e work_aliases ]]; then
+	source work_aliases
+fi
+
 
 
 #
-#		case insensitive completions
+#		interactive shell options
 #
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
 setopt nobeep
 setopt interactivecomments
 setopt nocaseglob
 setopt menucomplete
 
-#
-#		history options
+#	history options
 #
 setopt histreduceblanks
 setopt extendedhistory
@@ -39,39 +58,35 @@ setopt sharehistory
 setopt appendhistory
 setopt histverify
 
+#	case insensitive completion
+#
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
-if [[ $(where brew) ]]; then
-	brew_completions="$(brew --prefix)/share/zsh/site-functions"
-	fpath+=brew_completions
-fi
 
-# initialize completion and prompt engine
+
+#	zsh completions for Homebrew itself
+#
+test -d "${HOMEBREW_PREFIX}/share/zsh/site-functions" && fpath+="$_"
 
 #	load Node version manager
 #
 test -e "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" && source $_
 
+#	initialize completion and prompt engines
+#
 autoload -Uz compinit promptinit
 compinit -u
 promptinit
 
-# TODO: use XDG_CONFIG_DIRS
+#	load autosuggestions and syntax highlighting
 #
-# aliases for work
-work_aliases="$HOME/.work_config/zsh/alises.zsh"
-if [[ -e work_aliases ]]; then
-	source work_aliases
-fi
+test -e "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" && source $_
+test -e "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && source $_
 
-# TODO: see if there is a better way to do this... the square brackets are
-# probably redundant.
+#	initialize prompt
 #
-# Source starship prompt very last
-if [[ $(where starship) ]]; then
-	source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if command -v "starship" &>/dev/null; then
 	eval $(starship init zsh)
 else
-	echo "starship prompt not installed."
-	prompt off
+	echo "starship prompt not installed." && prompt off
 fi
