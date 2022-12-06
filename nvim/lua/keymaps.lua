@@ -45,13 +45,18 @@ map {
 			function()
         require("neogit").open()
 			end,
-		}
+		},
+    ["<leader>lc"] = { desc = "toggle displaying whitespace chars",
+      function()
+        vim.opt.list = not vim.opt.list:get()
+      end,
+    },
 	},
 
   v = {
     ["<leader>so"] = { desc = "':source' visual selection",
       function ()
-        vim.notify("TODO: implement this function", vim.log.levels.INFO)
+        vim.notify("TODO: implement this function")
       end,
     }
   }
