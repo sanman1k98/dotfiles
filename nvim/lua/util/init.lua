@@ -1,0 +1,29 @@
+local M = {}
+
+M.notify = (function()
+  return vim.notify
+end)()  -- immediately invoked function expression
+
+function M.err(msg)
+  M.notify(msg, vim.log.levels.ERROR)
+end
+
+function M.warn(msg)
+  M.notify(msg, vim.log.levels.WARN)
+end
+
+function M.info(msg)
+  M.notify(msg, vim.log.levels.INFO)
+end
+
+function M.is_headless()
+  return #vim.api.nvim_list_uis() == 0
+end
+
+return setmetatable(M, {  -- make this module load its submodules
+  __index = function(self, k)
+    local submod = require("util." .. k)
+    rawset(self, k, submod)
+    return submod
+  end,
+})
