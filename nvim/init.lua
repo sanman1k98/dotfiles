@@ -1,15 +1,15 @@
-local configure = require "core"
+local conf = require "conf"
 local util = require "util"
 local auto = util.require "luauto" -- returns a lazy module
 
-configure "globals"
-configure "options"
+conf "globals"
+conf "options"
 
 util.lazy.setup "plugins"
 
 auto.cmd.User.VeryLazy(function()
-  configure "autocmds"
-  configure "keymaps"
+  conf "autocmds"
+  conf "keymaps"
   return true
 end)
 
