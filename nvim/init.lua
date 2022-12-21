@@ -1,15 +1,16 @@
+local configure = require "core"
 local util = require "util"
-local auto = util.mod.lazy "luauto" -- returns a lazy module
+local auto = util.require "luauto" -- returns a lazy module
 
-util.globals()
+configure "globals"
+configure "options"
 
 util.lazy.setup "plugins"
 
-require "core.autocmds"
-require "core.options"
-
 auto.cmd.User.VeryLazy(function()
-  require "core.keymaps"
+  configure "autocmds"
+  configure "keymaps"
+  return true
 end)
 
 vim.cmd.colorscheme "catppuccin"
