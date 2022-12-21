@@ -1,18 +1,20 @@
-local deps = {
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  "nvim-treesitter/nvim-treesitter-context",
-}
-
-local plugin = {
+local ts = {
   "nvim-treesitter/nvim-treesitter",
-  run = vim.cmd.TSUpdate,
-  opt = false,
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "nvim-treesitter/nvim-treesitter-context",
+  },
+  build = vim.cmd.TSUpdate,
+  event = "BufReadPre",
 }
 
-plugin.config = function()
+ts.config = function()
   require("nvim-treesitter.configs").setup {
     ensure_installed = {
       "lua",
+      "vim",
+      "bash",
+      "markdown",
     },
     auto_install = true,
     highlight = {
@@ -35,6 +37,4 @@ plugin.config = function()
   require("treesitter-context").setup()
 end
 
-local spec = { unpack(deps) }
-spec[#spec + 1] = plugin
-return spec
+return ts

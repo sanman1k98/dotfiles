@@ -1,8 +1,6 @@
 local plugin = {
   "L3MON4D3/LuaSnip",
-  requires = {
-    "rafamadriz/friendly-snippets",
-  },
+  dependencies = "rafamadriz/friendly-snippets",
   event = "InsertEnter",
 }
 

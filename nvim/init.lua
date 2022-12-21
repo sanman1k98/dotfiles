@@ -1,10 +1,15 @@
-require "util.globals"
+local util = require "util"
+local auto = util.mod.lazy "luauto" -- returns a lazy module
 
--- local projects
-vim.opt.rtp:prepend "~/Projects/luauto.nvim"
+util.globals()
 
-require "core.options"
+util.lazy.setup "plugins"
+
 require "core.autocmds"
-require "core.keymaps"
+require "core.options"
 
-vim.cmd.colorscheme "cat_mocha"
+auto.cmd.User.VeryLazy(function()
+  require "core.keymaps"
+end)
+
+vim.cmd.colorscheme "catppuccin"
