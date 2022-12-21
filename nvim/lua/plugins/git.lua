@@ -1,12 +1,29 @@
-local plugin = {
+local gitsigns = {
   "lewis6991/gitsigns.nvim",
+  event = "BufReadPre"
 }
 
-plugin.config = function()
-  local gitsigns = require "gitsigns"
-  gitsigns.setup {
-    -- :h gitsigns
+gitsigns.config = function()
+  local gs = require "gitsigns"
+  gs.setup {
+    -- TODO: configuration and keymaps
   }
 end
 
-return plugin
+local diffview = {
+  "sindrets/diffview.nvim",
+  cmd = {
+    "DiffviewOpen",
+    "DiffviewClose",
+    "DiffviewTogleFiles",
+    "DiffviewFocusFiles",
+  },
+  config = function()
+    require("diffview").setup()
+  end,
+}
+
+return {
+  gitsigns,
+  diffview,
+}

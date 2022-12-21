@@ -1,18 +1,13 @@
 local plugin = {
   "echasnovski/mini.nvim",
-  opt = false,
+  event = "InsertEnter",
 }
 
 plugin.config = function()
-  local auto = require "luauto"
-  local au = auto.cmd
-
-  au.InsertEnter(function()
-    require("mini.pairs").setup()
-    require("mini.surround").setup()
-    require("mini.comment").setup()
-    return true
-  end)
+  require("mini.pairs").setup()
+  require("mini.surround").setup()
+  require("mini.comment").setup()
+  return true
 end
 
 return plugin
