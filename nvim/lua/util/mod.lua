@@ -93,8 +93,9 @@ function mod.name(file)
   end
   local names = { vim.fs.basename(file):sub(1, -5) } -- remove '.lua' extension
   for parent in vim.fs.parents(file) do
-    if parent == "lua" then break end
-    table.insert(names, 1, parent)  -- prepend parent dirname
+    local dirname = vim.fs.basename(parent)
+    if dirname == "lua" then break end
+    table.insert(names, 1, dirname)  -- prepend parent dirname
   end
   if #names > 1 and names[#names] == "init" then
     table.remove(names)
