@@ -1,4 +1,11 @@
-local M = {}
+local M = setmetatable({}, {  -- make this module load its submodules
+  __index = function(self, k)
+    local modname = "util."..k
+    local submod = require(modname)
+    rawset(self, k, submod)
+    return submod
+  end,
+})
 
 M.notify = (function()
   return vim.notify
@@ -20,10 +27,4 @@ function M.is_headless()
   return #vim.api.nvim_list_uis() == 0
 end
 
-return setmetatable(M, {  -- make this module load its submodules
-  __index = function(self, k)
-    local submod = require("util." .. k)
-    rawset(self, k, submod)
-    return submod
-  end,
-})
+return M
