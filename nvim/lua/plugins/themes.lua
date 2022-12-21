@@ -1,6 +1,6 @@
 return {  -- configurations are in the colors directory 
-  { "catppuccin/nvim", as = "catppuccin" },
-  { "rose-pine/neovim", as = "rose-pine" },
+  { "catppuccin/nvim", name = "catppuccin" },
+  { "rose-pine/neovim", name = "rose-pine" },
   "projekt0n/github-nvim-theme",
   "folke/tokyonight.nvim",
   "rebelot/kanagawa.nvim",
