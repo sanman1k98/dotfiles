@@ -1,5 +1,3 @@
-vim.cmd.packadd "github-nvim-theme"
-
 local loaded, gh = pcall(require, "github-theme")
 
 if not loaded then
