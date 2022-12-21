@@ -1,5 +1,3 @@
-local auto = require "luauto"
-local autocmd, augroup = auto.cmd, auto.group
 local env = vim.env
 local opt = vim.opt
 
