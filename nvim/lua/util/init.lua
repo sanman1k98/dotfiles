@@ -27,4 +27,27 @@ function M.is_headless()
   return #vim.api.nvim_list_uis() == 0
 end
 
+--- Returns a module that will only be loaded when you do something with it.
+---@return table: a lazy module
+---@see noice.util.lazy
+function M.require(modname)
+  local m = nil
+  local load = function()
+    if not m then
+      m = require(modname)
+      package.loaded[modname] = m
+    end
+    return m
+  end
+  if type(package.loaded[modname]) == "table" then
+    return package.loaded[modname]
+  else
+    return setmetatable({}, {
+      __index = function(_, k) return load()[k] end,
+      __newindex = function(_, k, v) load()[k] = v end,
+      __call = function(_, ...) return load()(...) end,
+    })
+  end
+end
+
 return M
