@@ -1,10 +1,9 @@
+local M = {}
 local util = require "util"
 
-_G.pp = vim.pretty_print
+M.pp = vim.pretty_print
 
-_G.table.unpack = unpack
-
-function _G.d(...)
+function M.d(...)
   if _G.DEBUG == false then return end
   local here = debug.getinfo(1, "S")
   local level = 2
@@ -20,5 +19,11 @@ function _G.d(...)
   local stuff = vim.deepcopy({...})
   for _, o in pairs(stuff) do
     util.info(vim.inspect(o))
+  end
+end
+
+return function()
+  for k, v in pairs(M) do
+    _G[k] = v
   end
 end
