@@ -1,6 +1,7 @@
 local env = vim.env
 local opt = vim.opt
 
+vim.g.mapleader = " "
 
 
 -- UI
