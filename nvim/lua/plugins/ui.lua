@@ -13,6 +13,11 @@ noice.config = function()
   })
 end
 
+local bufferline = {
+  "akinsho/bufferline.nvim",
+  event = "VeryLazy",
+}
+
 local statusline = {
   "feline-nvim/feline.nvim",
   event = "VimEnter",
@@ -38,7 +43,7 @@ local icons = {
   end,
 }
 
-local screensaver = {
+local dashboard = {
   "folke/drop.nvim",
   -- event = "VimEnter",
   config = function()
@@ -50,5 +55,6 @@ return {
   icons,
   noice,
   statusline,
-  screensaver,
+  bufferline,
+  dashboard,
 }
