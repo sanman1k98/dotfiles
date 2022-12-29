@@ -1,4 +1,4 @@
-local plugin = {
+local spec = {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
@@ -6,11 +6,15 @@ local plugin = {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "saadparwaiz1/cmp_luasnip",
+    "echasnovski/mini.nvim",
   },
 }
 
-plugin.config = function()
+spec.config = function()
   local cmp = require "cmp"
+  require("mini.pairs").setup()
+  require("mini.surround").setup()
+  require("mini.comment").setup()
 
   cmp.setup {
     snippet = {
@@ -35,4 +39,4 @@ plugin.config = function()
   }
 end
 
-return plugin
+return spec
