@@ -5,7 +5,7 @@ local neotree = {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
-  cmd = "NeoTree"
+  cmd = "Neotree"
 }
 
 neotree.config = function()
