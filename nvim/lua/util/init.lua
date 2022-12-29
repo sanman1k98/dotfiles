@@ -7,9 +7,10 @@ local M = setmetatable({}, {  -- make this module load its submodules
   end,
 })
 
-M.notify = (function()
-  return vim.notify
-end)()  -- immediately invoked function expression
+function M.notify(msg, lvl, opts)
+  opts = opts or { title = "$MYVIMRC" }
+  return vim.notify(msg, lvl, opts)
+end
 
 function M.err(msg)
   M.notify(msg, vim.log.levels.ERROR)
