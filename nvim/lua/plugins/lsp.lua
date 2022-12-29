@@ -1,16 +1,15 @@
-local deps = {
-  "neovim/nvim-lspconfig",
-  "williamboman/mason-lspconfig.nvim",
-  "hrsh7th/cmp-nvim-lsp",
-  "folke/neodev.nvim",
-}
-
-local plugin = {
+local spec = {
   "williamboman/mason.nvim",
+  dependencies = {
+    "neovim/nvim-lspconfig",
+    "williamboman/mason-lspconfig.nvim",
+    "hrsh7th/cmp-nvim-lsp",
+    "folke/neodev.nvim",
+  },
   event = "VimEnter",
 }
 
-plugin.config = function()
+spec.config = function()
   require("mason").setup()
   require("mason-lspconfig").setup {
     ensure_installed = { "sumneko_lua" },
@@ -46,6 +45,4 @@ plugin.config = function()
   }
 end
 
-local spec = { unpack(deps) }
-spec[#spec + 1] = plugin
 return spec
