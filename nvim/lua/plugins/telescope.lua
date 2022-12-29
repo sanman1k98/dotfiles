@@ -1,6 +1,7 @@
 local plugin = {
   "nvim-telescope/telescope.nvim",
-  requires = "nvim-lua/plenary.nvim",
+  dependencies = "nvim-lua/plenary.nvim",
+  cmd = "Telescope",
 }
 
 plugin.config = function()
