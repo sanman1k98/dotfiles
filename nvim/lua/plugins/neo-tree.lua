@@ -9,8 +9,13 @@ local neotree = {
 }
 
 neotree.config = function()
+  vim.g.neo_tree_remove_legacy_commands = 1
   require("neo-tree").setup {
-    -- :h neotree
+    default_component_configs = {
+      indent = {
+        with_markers = false,
+      }
+    },
   }
 end
 
