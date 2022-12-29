@@ -32,7 +32,9 @@ spec.config = function()
   -- automatically setup servers installed by Mason
   require("mason-lspconfig").setup_handlers {
     function(server)  -- for servers that don't have a dedicated handler
-      require("lspconfig")[server].setup {}
+      require("lspconfig")[server].setup {
+        on_attach = require "conf.keymaps.lsp",
+      }
     end,
     sumneko_lua = function()
       require("neodev").setup({
@@ -40,7 +42,9 @@ spec.config = function()
           plugins = false,
         }
       })
-      require("lspconfig").sumneko_lua.setup {}
+      require("lspconfig").sumneko_lua.setup {
+        on_attach = require "conf.keymaps.lsp",
+      }
     end,
   }
 end
