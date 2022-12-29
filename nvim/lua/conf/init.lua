@@ -1,11 +1,7 @@
-local util = require "util"
-local this = util.mod.name()
+local submods = require("util.mod").submods()
 
-return function(submod)
-  local modname = ("%s.%s"):format(this, submod)
-  local mod = require(modname)
-  if type(mod) == "function" then
-    return mod()
-  end
-  return mod
-end
+return submods
+
+-- Note: calling `require` in return statement will not work! This is because
+-- when `util.mod.submods()` calls `debug.getinfo()` to get the path to this
+-- file, the "source" field will be "[C]".

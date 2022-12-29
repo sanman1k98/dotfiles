@@ -1,6 +1,6 @@
 local conf = require "conf"
 local util = require "util"
-local auto = util.require "luauto" -- returns a lazy module
+local auto = util.mod.defer "luauto" -- returns a lazy module
 
 conf "globals"
 conf "options"
