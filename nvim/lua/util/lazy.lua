@@ -1,7 +1,6 @@
 local M = {}
 
--- allows for easy config switching using git worktrees
-local package_root = vim.fn.stdpath("config").."/pack"
+local package_root = vim.fn.stdpath("data").."/lazy"
 local install_path = package_root.."/lazy.nvim"
 
 function M.clone()
