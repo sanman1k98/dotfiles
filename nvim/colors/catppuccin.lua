@@ -8,6 +8,8 @@ catppuccin.setup {
   flavour = "mocha",
   integrations = {
     neotree = true,
+    which_key = true,
+    mini = true,
   },
   compile = {
     enabled = true,
