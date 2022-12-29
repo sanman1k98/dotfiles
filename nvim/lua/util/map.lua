@@ -1,37 +1,49 @@
+local map = {}
 local Mode = {}
 
-function Mode:__index(lhs)
-  return (function(rhs, opts)
-    vim.keymap.set(self._mode, lhs, rhs, opts)
-  end)
+local function merge(...)
+  return vim.tbl_extend("force", ...)
 end
 
-function Mode:__call(mappings)
+local function use_vim(mappings, opts)
+  local set = vim.keymap.set
+  local mode, prefix = opts.mode, opts.prefix or ""
+  opts.mode, opts.prefix = nil, nil
   for lhs, info in pairs(mappings) do
-    if type(info) ~= "table" then
-      vim.keymap.set(self._mode, lhs, info)
+    lhs = prefix..lhs
+    if type(info) == "table" then
+      local rhs, desc = info[1], info[2] or info.desc
+      info[1], info[2] = nil, nil
+      set(mode, lhs, rhs, merge(opts, info, { desc = desc }))
     else
-      local rhs, opts = info[1], info
-      opts[1] = nil
-      vim.keymap.set(self._mode, lhs, rhs, opts)
+      set(mode, lhs, info, opts)
     end
   end
 end
 
+function Mode:__call(mappings, opts)
+  opts = opts or {}
+  opts.mode = self._mode
+  use_vim(mappings, opts)
+end
+
 local aliases = {
   normal      = "n",
-  visual      = "v",
+  visual      = "v",  -- actually visual and select mode
   op_pending  = "o",
   insert      = "i",
   command     = "c",
   terminal    = "t",
 }
 
-return setmetatable({}, {
-  __index = function(_, k)
+return setmetatable(map, {
+  __index = function(self, k)
     if #k > 1 then
       k = aliases[k]
     end
-    return setmetatable({ _mode = k }, Mode)
+    local shortname = k
+    local mode = setmetatable({ _mode = shortname }, Mode)
+    rawset(self, k, mode)
+    return mode
   end,
 })
