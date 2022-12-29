@@ -9,6 +9,8 @@ plugin.config = function()
   telescope.setup {
     -- :h telescope
   }
+  telescope.load_extension "notify"
+  telescope.load_extension "noice"
 end
 
 return plugin
