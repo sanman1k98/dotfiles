@@ -1,11 +1,11 @@
-local plugin = {
+local spec = {
   "L3MON4D3/LuaSnip",
   dependencies = "rafamadriz/friendly-snippets",
   event = "InsertEnter",
 }
 
-plugin.config = function()
+spec.config = function()
   require("luasnip.loaders.from_vscode").lazy_load()
 end
 
-return plugin
+return spec
