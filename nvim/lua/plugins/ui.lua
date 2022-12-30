@@ -8,14 +8,25 @@ local noice = {
 }
 
 noice.config = function()
-  require("noice").setup({
-    -- :h noice
-  })
+  require("noice").setup {
+    lsp = {
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
+    },
+    presets = {
+      bottom_search = true,
+      command_palette = true,
+      lsp_doc_border = false,
+    },
+  }
 end
 
 local bufferline = {
   "akinsho/bufferline.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
 }
 
 local statusline = {
