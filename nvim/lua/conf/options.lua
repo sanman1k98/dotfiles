@@ -2,6 +2,7 @@ local env = vim.env
 local opt = vim.opt
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 
 -- UI
@@ -31,6 +32,7 @@ opt.numberwidth = 4       -- set width of the number column
 opt.signcolumn = "yes"    -- always display signcolumn
 
 opt.cursorline = true     -- cursorline
+opt.conceallevel = 3      -- hide markup for bold and italic
 
 
 -- indenting
@@ -104,4 +106,3 @@ opt.linebreak = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.clipboard = "unnamedplus" -- integrate with system clipboard
-
