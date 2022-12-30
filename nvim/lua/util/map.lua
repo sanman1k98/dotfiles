@@ -37,13 +37,11 @@ local aliases = {
 }
 
 return setmetatable(map, {
-  __index = function(self, k)
+  __index = function(_, k)
     if #k > 1 then
       k = aliases[k]
     end
     local shortname = k
-    local mode = setmetatable({ _mode = shortname }, Mode)
-    rawset(self, k, mode)
-    return mode
+    return setmetatable({ _mode = shortname }, Mode)
   end,
 })
