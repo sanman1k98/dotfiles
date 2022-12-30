@@ -23,3 +23,6 @@ configstore
 # ignore valet files except the config
 valet
 !valet/config.json
+
+# for some reason lazygit stores this in `$XDG_CONFIG_HOME` for me
+lazygit/state.yml
