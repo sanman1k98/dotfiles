@@ -7,23 +7,6 @@ local M = setmetatable({}, {  -- make this module load its submodules
   end,
 })
 
-function M.notify(msg, lvl, opts)
-  opts = opts or { title = "$MYVIMRC" }
-  return vim.notify(msg, lvl, opts)
-end
-
-function M.err(msg)
-  M.notify(msg, vim.log.levels.ERROR)
-end
-
-function M.warn(msg)
-  M.notify(msg, vim.log.levels.WARN)
-end
-
-function M.info(msg)
-  M.notify(msg, vim.log.levels.INFO)
-end
-
 function M.is_headless()
   return #vim.api.nvim_list_uis() == 0
 end
