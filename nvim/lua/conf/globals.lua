@@ -1,28 +1,31 @@
 local M = {}
 local util = require "util"
 
-_G.CONFIG_DEBUG = nil
-
 M.pp = vim.pretty_print
 
+local function get_location()
+  local info = debug.getinfo(3, "S")
+  local src = info.source:sub(2)
+  src = vim.loop.fs_realpath(src) or src
+  return vim.fn.fnamemodify(src, ":~:.")..":"..info.linedefined
+end
+
+local function dump(...)
+  local stuff = {...}
+  stuff = #stuff == 1 and stuff[1] or stuff
+  local msg = vim.inspect(vim.deepcopy(stuff))
+  local loc = get_location()
+  return (function()
+    util.notify.info(msg, loc)
+  end)
+end
+
 function M.d(...)
-  if _G.CONFIG_DEBUG == false then return end
-  local here = debug.getinfo(1, "S")
-  local level = 2
-  local info = debug.getinfo(level, "S")
-  while info and info.source == here.source do
-    level = level + 1
-    info = debug.getinfo(level, "S")
-  end
-  info = info or here
-  local source = info.source:sub(2)
-  source = vim.loop.fs_realpath(source) or source
-  source = vim.fn.fnamemodify(source, ":~:.")..":"..info.linedefined
-  local stuff = vim.deepcopy({...})
-  util.info(vim.inspect { stuff, source = source })
-  -- for _, thing in ipairs(stuff) do
-  --   util.info(vim.inspect(thing))
-  -- end
+  dump(...)()
+end
+
+function M.dd(...)
+  vim.schedule(dump(...))
 end
 
 local function set_globals()
