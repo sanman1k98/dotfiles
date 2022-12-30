@@ -4,7 +4,7 @@ local noice = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
   },
-  event = "VimEnter",
+  event = "VeryLazy",
 }
 
 noice.config = function()

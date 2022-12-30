@@ -6,7 +6,7 @@ local spec = {
     "hrsh7th/cmp-nvim-lsp",
     "folke/neodev.nvim",
   },
-  event = "VimEnter",
+  event = "VeryLazy",
 }
 
 spec.config = function()
