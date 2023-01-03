@@ -81,7 +81,7 @@ local function parse(mappings, opts)
         co.yield(lhs, false, opts)
       elseif not optkey(k) and type(info) == "table" then -- 
         if info[1] then -- has rhs value for mapping
-          co.yield(lhs, info[0], merge(opts, info))
+          co.yield(lhs, info[1], merge(opts, info))
         else  -- subnode to parse
           subgroups[lhs] = info
         end

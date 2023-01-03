@@ -69,3 +69,10 @@ map.visual {
   [">"] = { ">gv" },
 }
 
+map.mode.normal {
+  ["<leader>"] = {
+    h = {
+      i = "<cmd>echo 'Hello!'",
+    }
+  }
+}
