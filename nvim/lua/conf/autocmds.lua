@@ -1,6 +1,9 @@
 local auto = require "luauto"
 local autocmd, augroup = auto.cmd, auto.group
 
+autocmd.User.VeryLazy(function()
+  require("util.map").loadall()
+end)
 
 -- highlight on yank
 autocmd.TextYankPost(function()
