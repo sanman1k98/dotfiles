@@ -1,16 +1,9 @@
 local conf = require "conf"
-local util = require "util"
-local auto = util.mod.defer "luauto" -- returns a lazy module
 
-conf "globals"
 conf "options"
-
-util.lazy.setup "plugins"
-
-auto.cmd.User.VeryLazy(function()
-  conf "autocmds"
-  conf "keymaps"
-  return true
-end)
+conf "lazy"
+conf "autocmds"
+conf "keymaps"
+conf "globals"
 
 vim.cmd.colorscheme "catppuccin"
