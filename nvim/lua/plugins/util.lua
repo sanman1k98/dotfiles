@@ -17,7 +17,7 @@ return {
     init = function()
       local g = vim.g
       g.startuptime_sort = 0
-      g.startuptime_event_width = 0   -- fit width
+      g.startuptime_event_width = 0   -- dynamic
     end,
   },
   "echasnovski/mini.nvim",
