@@ -1,7 +1,8 @@
--- TODO: maybe rename this file to `misc.lua`
-
 return {
+  -- dependency for a lot of plugins
   "nvim-lua/plenary.nvim",
+
+  -- me
   {
     dir = "~/Projects/luauto.nvim",
     lazy = false,
@@ -11,6 +12,8 @@ return {
       _G.vim.augroup = auto.group
     end,
   },
+
+  -- profiling
   {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
@@ -20,5 +23,7 @@ return {
       g.startuptime_event_width = 0   -- dynamic
     end,
   },
+
+  -- lotta useful Lua modules
   "echasnovski/mini.nvim",
 }
