@@ -1,38 +1,33 @@
-local env = vim.env
 local opt = vim.opt
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 
 -- UI
-if env.TERM == "xterm-kitty" or env.COLORTERM == "truecolor" then
-  opt.termguicolors = true
-end
+opt.termguicolors = true
 
-if vim.o.loadplugins then
-  opt.cmdheight = 0
-end
+opt.cmdheight = 0
 
-opt.laststatus = 3        -- global statusline
-
-opt.helpheight = 12
+opt.helpheight = 20
 opt.splitright = true
 opt.splitbelow = true
 
-opt.pumheight = 30        -- max number of items to show in the popup menu
+opt.pumheight = 20            -- max number of items to show in the popup menu
 
-opt.title = true          -- set window title to "titlestring"
-opt.showtabline = 1       -- show tabline for more than one tab
-opt.laststatus = 3        -- global statusline
+opt.title = true              -- set window title to "titlestring"
+opt.showtabline = 1           -- show tabline for more than one tab
+opt.laststatus = 3            -- global statusline
 
-opt.number = true         -- show current line number
-opt.relativenumber = true -- show line numbers relative to cursor
-opt.numberwidth = 4       -- set width of the number column
-opt.signcolumn = "yes"    -- always display signcolumn
+opt.number = true             -- show current line number
+opt.relativenumber = true     -- show line numbers relative to cursor
+opt.numberwidth = 4           -- set width of the number column
+opt.signcolumn = "yes"        -- always display signcolumn
 
-opt.cursorline = true     -- cursorline
-opt.conceallevel = 3      -- hide markup for bold and italic
+opt.conceallevel = 3          -- hide markup for bold and italic
+
+opt.cursorline = true         -- highlight location of cursor
+opt.cursorlineopt = {
+  "number",                 -- the number in the numbercol
+  "line",                   -- the text line
+}
 
 
 -- indenting
@@ -43,7 +38,6 @@ opt.softtabstop = width
 opt.expandtab = false
 opt.autoindent = true
 opt.smartindent = true
-
 
 
 -- formatting
