@@ -1,3 +1,5 @@
+-- TODO: decide if we really need a dedicated file just for autocmds...
+
 local auto = require "luauto"
 local autocmd, augroup = auto.cmd, auto.group
 
@@ -5,27 +7,33 @@ autocmd.User.VeryLazy(function()
   require("util.map").loadall()
 end)
 
--- highlight on yank
 autocmd.TextYankPost(function()
   vim.highlight.on_yank()
 end)
 
+local function set_cul(set)
+  return (function()
+    vim.opt_local.cul = set
+  end)
+end
 
--- highlight current cursor location
-local cul = function(toggle)
-  return function() vim.opt_local.cul = toggle end
+local function cul_hl(set)
+  return (function()
+    vim.opt_local.culopt = set
+  end)
 end
 
 augroup.cursorline(function(au)
   au:clear()
-  au.WinEnter(cul(true))
-  au.WinLeave(cul(false))
-  au.FileType["mason"](cul(false))
-end)
-
-
--- manage plugins
-autocmd.VimEnter(function()
-  require "plugins"
-  return true
+  -- enable cursorline for the active window
+  au.WinEnter(set_cul(true))
+  au.WinLeave(set_cul(false))
+  -- only highlight the number in insert mode
+  au.InsertEnter(cul_hl { "number" } )
+  au.InsertLeave(cul_hl { "number", "line" } )  -- default
+  -- disbale cursorline for these filetypes
+  au.FileType[{
+    "mason",
+    "TelescopePrompt",
+  }](set_cul(false))
 end)
