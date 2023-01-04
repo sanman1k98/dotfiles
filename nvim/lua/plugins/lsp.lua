@@ -29,22 +29,24 @@ spec.config = function()
     base_config.capabilities = updated_capabilities
   end
 
+  local on_attach = require "conf.keymaps.lsp"
+
+  local function common_setup(server)
+    require("lspconfig")[server].setup {
+      on_attach = on_attach,
+    }
+  end
+
   -- automatically setup servers installed by Mason
   require("mason-lspconfig").setup_handlers {
-    function(server)  -- for servers that don't have a dedicated handler
-      require("lspconfig")[server].setup {
-        on_attach = require "conf.keymaps.lsp",
-      }
-    end,
+    common_setup,   -- index 1 used as default handler
     sumneko_lua = function()
       require("neodev").setup({
         library = {
           plugins = false,
         }
       })
-      require("lspconfig").sumneko_lua.setup {
-        on_attach = require "conf.keymaps.lsp",
-      }
+      common_setup "sumneko_lua"
     end,
   }
 end
