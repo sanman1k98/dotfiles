@@ -1,5 +1,3 @@
--- TODO: decide if we really need a dedicated file just for autocmds...
-
 local auto = require "luauto"
 local autocmd, augroup = auto.cmd, auto.group
 
@@ -33,6 +31,7 @@ augroup.cursorline(function(au)
   au.InsertLeave(cul_hl { "number", "line" } )  -- default
   -- disbale cursorline for these filetypes
   au.FileType[{
+    "alpha",
     "mason",
     "TelescopePrompt",
   }](set_cul(false))
