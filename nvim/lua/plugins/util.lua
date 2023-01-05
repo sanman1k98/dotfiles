@@ -2,17 +2,6 @@ return {
   -- dependency for a lot of plugins
   "nvim-lua/plenary.nvim",
 
-  -- me
-  {
-    dir = "~/Projects/luauto.nvim",
-    lazy = false,
-    init = function()
-      local auto = require "luauto"
-      _G.vim.autocmd = auto.cmd
-      _G.vim.augroup = auto.group
-    end,
-  },
-
   -- profiling
   {
     "dstein64/vim-startuptime",
