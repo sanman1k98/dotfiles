@@ -6,4 +6,4 @@ conf "autocmds"
 conf "keymaps"
 conf "globals"
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "tokyonight"
