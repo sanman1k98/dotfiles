@@ -5,7 +5,7 @@ if not loaded then
 end
 
 tokyonight.setup {
-  style = "night",
+  style = "moon",
 }
 
 tokyonight.load()
