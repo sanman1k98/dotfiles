@@ -1,14 +1,19 @@
 return {
-  -- icons
+  -- libs for other plugins
   "nvim-tree/nvim-web-devicons",
+  "MunifTanjim/nui.nvim",
+
+  -- notifications
+  {
+    "rcarriga/nvim-notify",
+    event = "VeryLazy",
+    config = {
+    },
+  },
 
   -- UI
   {
     "folke/noice.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
     event = "VeryLazy",
     config = {
       lsp = {
@@ -26,23 +31,21 @@ return {
     },
   },
 
-  -- statusline
-  {
-    "feline-nvim/feline.nvim",
-    event = "VeryLazy",
-    config = require "plugins.ui.feline",
-  },
-
   -- bufferline
   {
     "akinsho/bufferline.nvim",
-  },
-
-  -- dashboard
-  {
-    "goolord/alpha-nvim",
-    event = "VimEnter",
-    config = require "plugins.ui.alpha",
+    event = "VeryLazy",
+    config = {
+      options = {
+        always_show_bufferline = false,
+        -- mode = "tabs",
+        offsets = {
+          filetype = "neo-tree",
+          text = "File Explorer",
+          text_align = "center",
+        },
+      },
+    },
   },
 
   -- screensaver
@@ -55,5 +58,9 @@ return {
     },
   },
 
-}
+  -- `alpha-nvim` spec and config
+  require "plugins.ui.dashboard",
 
+  -- various statusline specs and configs
+  require("plugins.ui.statusline").lualine,
+}
