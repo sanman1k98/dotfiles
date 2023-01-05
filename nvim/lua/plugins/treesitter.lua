@@ -5,7 +5,7 @@ local ts = {
     "nvim-treesitter/nvim-treesitter-context",
   },
   build = vim.cmd.TSUpdate,
-  event = "BufReadPre",
+  event = "BufReadPost",
 }
 
 ts.config = function()
