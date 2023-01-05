@@ -15,6 +15,7 @@ ts.config = function()
       "vim",
       "bash",
       "markdown",
+      "markdown_inline",
     },
     auto_install = true,
     highlight = {
