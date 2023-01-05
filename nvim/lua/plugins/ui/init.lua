@@ -40,9 +40,11 @@ return {
         always_show_bufferline = false,
         -- mode = "tabs",
         offsets = {
-          filetype = "neo-tree",
-          text = "File Explorer",
-          text_align = "center",
+          {
+            filetype = "neo-tree",
+            text = "File Explorer",
+            text_align = "center",
+          },
         },
       },
     },
