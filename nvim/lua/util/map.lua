@@ -150,7 +150,7 @@ function M.dequeue()
 end
 
 function M.dequeue_all()
-  while #M._queue > 1 do
+  while #M._queue > 0 do
     M.dequeue()
   end
   M.wk.register(M.wk_labels)
