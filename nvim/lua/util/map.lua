@@ -1,8 +1,20 @@
-local notify = require "util.notify"
 local M = {}
-M.mode = {}
+
 M.defer = true
 M.queue = {}
+M._queue = {}
+M.wk_labels = {}
+M.wk = {
+  register = function() end,
+}
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
+  callback = function()
+    vim.schedule(M.dequeue_all)
+  end,
+})
 
 local MYALIASES = {
   normal      = "n",
@@ -24,11 +36,6 @@ local OPTKEYS = {
   mode              = false,
   buffer            = true,
   desc              = true,
-  -- expr              = true,
-  -- nowait            = true,
-  -- unique            = true,
-  -- noremap           = true,
-  -- replace_keycodes  = true,
 }
 
 local function optkey(k)
@@ -52,6 +59,23 @@ local function fixopts(opts)
     end
   end
   return fixed
+end
+
+local function extractopts(tree)
+  local opts = {}
+  local keys = {
+    mode = true,
+    buffer = true,
+    cond = true,
+    prefix = true,
+  }
+  for k, v in pairs(tree) do
+    if keys[k] then
+      opts[k] = v
+      tree[k] = nil
+    end
+  end
+  return opts
 end
 
 --- Get the opts from a group of mappings
@@ -109,6 +133,68 @@ local function parse(mappings, opts)
       end
     end
   end)
+end
+
+function M.dequeue()
+  local mapping = vim.deepcopy(table.remove(M._queue))
+  local mode, lhs, rhs, opts = unpack(mapping)
+  if type(opts.cond) == "function" and not opts.cond() then
+    return
+  end
+  opts = fixopts(opts)
+  if rhs then
+    vim.keymap.set(mode, lhs, rhs, opts)
+  else
+    vim.keymap.del(mode, lhs, opts)
+  end
+end
+
+function M.dequeue_all()
+  while #M._queue > 1 do
+    M.dequeue()
+  end
+  M.wk.register(M.wk_labels)
+  M.wk_labels = nil
+end
+
+function M.process(tree, opts)
+  local lazykeys = {}
+  opts = merge(opts or {}, extractopts(tree))
+  if opts.cond == false then
+    return lazykeys
+  end
+  opts.mode = opts.mode or "n"
+  opts.prefix = opts.prefix or ""
+  for k, v in pairs(tree) do
+    local lhs = opts.prefix..k
+    if k == "name" then
+      M.wk_labels[opts.prefix] = { mode = opts.mode, name = v }
+    elseif type(v) == "string" or vim.is_callable(v) then
+      table.insert(M._queue, { opts.mode, lhs, v, opts })
+      table.insert(lazykeys, { lhs, mode = opts.mode })
+    elseif type(v) == "table" then
+      if v[1] then
+        if opts.cond == false then
+          goto continue
+        end
+        local mode = v.mode or opts.mode
+        table.insert(M._queue, { mode, lhs, v[1], merge(opts, v) })
+        table.insert(lazykeys, { lhs, mode = mode })
+      else
+        local subtree_opts = merge(opts, { prefix = lhs })
+        vim.list_extend(lazykeys, M.process(v, subtree_opts))
+      end
+    end
+    ::continue::
+  end
+  return lazykeys
+end
+
+function M.register(mappings)
+  local lazykeys = M.process(mappings)
+  if M.defer then return lazykeys end
+  vim.schedule_wrap(M.dequeue_all)
+  return lazykeys
 end
 
 --- Sets a group of mappings (defaults to normal mode).
