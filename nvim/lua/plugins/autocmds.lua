@@ -4,9 +4,9 @@ local function autocmds()
   _G.vim.autocmd = auto.cmd
   _G.vim.augroup = auto.group
 
-  vim.autocmd.User.VeryLazy(function()
-    require("util.map").loadall()
-  end)
+  -- vim.autocmd.User.VeryLazy(function()
+  --   require("util.map").loadall()
+  -- end)
 
   vim.autocmd.TextYankPost(function()
     vim.highlight.on_yank()

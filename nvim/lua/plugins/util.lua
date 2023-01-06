@@ -15,27 +15,4 @@ return {
 
   -- lotta useful Lua modules
   "echasnovski/mini.nvim",
-
-  -- popup for keymaps
-  {
-    "folke/which-key.nvim",
-    cmd = "WhichKey",
-    config = {
-      plugins = {
-        marks = true,
-        registers = true,
-        spelling = {
-          enabled = true,
-          suggestions = 20,
-        },
-      },
-      key_labels = {
-        ["<leader>"] = "SPACE",
-        ["<cr>"] = "RETURN",
-        ["<tab>"] = "TAB",
-      },
-      show_help = false,
-      show_keys = true,
-    }
-  }
 }
