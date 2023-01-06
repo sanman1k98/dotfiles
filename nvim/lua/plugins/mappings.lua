@@ -5,7 +5,13 @@ vim.g.maplocalleader = " "
 local function mappings()
   local map = require "util.map"
 
-  map.register {
+  map.insert {
+    ["kj"] = "<esc>",
+    ["<c-f>"] = "<right>",
+    ["<c-b>"] = "<left>",
+  }
+
+  map.normal {
     ["<leader>"] = {
       [";"] = { ":", "enter command-line" },
       w = { vim.cmd.write, "write file" },
@@ -53,16 +59,10 @@ return {
   cmd = "WhichKey",
   event = "VeryLazy",
   config = function()
-    local wk = require "which-key"
-    wk.setup {
-      plugins = {
-        marks = true,
-        registers = true,
-        spelling = {
-          enabled = true,
-          suggestions = 20,
-        },
-      },
+    local map = require "util.map"
+    map.wk = require "which-key"
+    map.wk.setup {
+      plugins = {},
       key_labels = {
         ["<leader>"] = "SPACE",
         ["<cr>"] = "RETURN",
@@ -71,6 +71,7 @@ return {
       show_help = false,
       show_keys = true,
     }
-    require("util.map").wk = wk
+    map.defer = false
+    map.dequeue_all()
   end,
 }
