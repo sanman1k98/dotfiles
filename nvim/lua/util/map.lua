@@ -143,10 +143,9 @@ function M.dequeue_all()
   end
   ---@diagnostic disable-next-line:redundant-parameter
   M.wk.register(M.wk_labels)
-  M.wk_labels = nil
 end
 
-function M.process(tree, opts)
+function M.lazykeys(tree, opts)
   local lazykeys = {}
   opts = merge(opts or {}, extractopts(tree))
   if opts.cond == false then
@@ -159,8 +158,41 @@ function M.process(tree, opts)
     if k == "name" then
       M.wk_labels[opts.prefix] = { mode = opts.mode, name = v }
     elseif type(v) == "string" or vim.is_callable(v) then
+      table.insert(lazykeys, { lhs, v, mode = opts.mode })
+    elseif type(v) == "table" then
+      if v[1] then
+        if v.cond == false then
+          goto continue
+        end
+        v.desc = v[2] or v.desc
+        v[2] = v[1]
+        v[1] = lhs
+        v.buffer = v.buffer or opts.buffer
+        v.mode = v.mode or opts.mode
+        table.insert(lazykeys, v)
+      else
+        local subtree_opts = merge(opts, { prefix = lhs })
+        vim.list_extend(lazykeys, M.lazykeys(v, subtree_opts))
+      end
+    end
+    ::continue::
+  end
+  return lazykeys
+end
+
+function M.process(tree, opts)
+  opts = merge(opts or {}, extractopts(tree))
+  if opts.cond == false then
+    return
+  end
+  opts.mode = opts.mode or "n"
+  opts.prefix = opts.prefix or ""
+  for k, v in pairs(tree) do
+    local lhs = opts.prefix..k
+    if k == "name" then
+      M.wk_labels[opts.prefix] = { mode = opts.mode, name = v }
+    elseif type(v) == "string" or vim.is_callable(v) then
       table.insert(M._queue, { opts.mode, lhs, v, opts })
-      table.insert(lazykeys, { lhs, mode = opts.mode })
     elseif type(v) == "table" then
       if v[1] then
         if opts.cond == false then
@@ -168,15 +200,13 @@ function M.process(tree, opts)
         end
         local mode = v.mode or opts.mode
         table.insert(M._queue, { mode, lhs, v[1], merge(opts, v) })
-        table.insert(lazykeys, { lhs, mode = mode })
       else
         local subtree_opts = merge(opts, { prefix = lhs })
-        vim.list_extend(lazykeys, M.process(v, subtree_opts))
+        M.process(v, subtree_opts)
       end
     end
     ::continue::
   end
-  return lazykeys
 end
 
 function M.set(mappings)

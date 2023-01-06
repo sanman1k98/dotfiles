@@ -1,7 +1,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  keys = require("util.map").set {  -- returns LazyKeys[]
+  keys = require("util.map").lazykeys {  -- returns LazyKeys[]
     prefix = "<leader>f",
     name = "fuzzy",
     ["<cr>"] = { vim.cmd.Telescope, "Telescope builtin" },
