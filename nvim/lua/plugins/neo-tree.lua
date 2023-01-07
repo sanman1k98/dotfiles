@@ -4,6 +4,9 @@ return {
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
   end,
+  keys = require("util.map").lazykeys {
+    ["<leader>te"] = { "<cmd>Neotree toggle filesystem<cr>", "file explorer" },
+  },
   config = {
     add_blank_line_at_top = true,
     hide_root_node = true,
