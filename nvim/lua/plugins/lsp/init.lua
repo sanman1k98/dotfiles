@@ -1,54 +1,66 @@
-local spec = {
-  "williamboman/mason.nvim",
-  dependencies = {
-    "neovim/nvim-lspconfig",
-    "williamboman/mason-lspconfig.nvim",
-    "hrsh7th/cmp-nvim-lsp",
-    "folke/neodev.nvim",
+return {
+  -- LSP servers
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    config = true,
   },
-  event = "VeryLazy",
-}
 
-spec.config = function()
-  require("mason").setup()
-  require("mason-lspconfig").setup {
-    ensure_installed = { "sumneko_lua" },
-  }
+  -- LSP configs
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
+    config = function() -- so we don't have to specify capabilities for every server
+      local lsp_util = require "lspconfig.util"
+      local cmp  = require "cmp_nvim_lsp"
 
-  do  -- so we don't have to specify capabilities for every server
-    local lsp_util = require "lspconfig.util"
-    local cmp  = require "cmp_nvim_lsp"
+      local base_config = lsp_util.default_config -- extended by all server configs
+      local updated_capabilities = vim.tbl_deep_extend(
+        "force",
+        base_config.capabilities,   -- vim.lsp.protocol.make_client_capabilities()
+        cmp.default_capabilities()  -- cmp supports additional capabilities
+      )
 
-    local base_config = lsp_util.default_config -- extended by all server configs
-    local updated_capabilities = vim.tbl_deep_extend(
-      "force",
-      base_config.capabilities,   -- vim.lsp.protocol.make_client_capabilities()
-      cmp.default_capabilities()  -- cmp supports additional capabilities
-    )
-
-    base_config.capabilities = updated_capabilities
-  end
-
-  local on_attach = require "conf.keymaps.lsp"
-
-  local function common_setup(server)
-    require("lspconfig")[server].setup {
-      on_attach = on_attach,
-    }
-  end
-
-  -- automatically setup servers installed by Mason
-  require("mason-lspconfig").setup_handlers {
-    common_setup,   -- index 1 used as default handler
-    sumneko_lua = function()
-      require("neodev").setup({
-        library = {
-          plugins = false,
-        }
-      })
-      common_setup "sumneko_lua"
+      base_config.capabilities = updated_capabilities
     end,
-  }
-end
+  },
 
-return spec
+  -- configure lua-language-server for nvim
+  {
+    "folke/neodev.nvim",
+    config = {
+      library = {
+        plugins = false,
+      }
+    }
+  },
+
+  -- automatic LSP setup
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "folke/neodev.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    config = function()
+      local mason_lspconfig = require "mason-lspconfig"
+      mason_lspconfig.setup {
+        ensure_installed = vim.tbl_keys(require("plugins.lsp.servers")),
+      }
+      mason_lspconfig.setup_handlers {
+        function(server)
+          local configs = require "plugins.lsp.servers"
+          local opts = configs[server] or {}
+          opts.on_attach = function(client, bufnr)
+            require("plugins.lsp.keymaps").on_attach(client, bufnr)
+          end
+          require("lspconfig")[server].setup(opts)
+        end,
+      }
+    end,
+  },
+}
