@@ -4,14 +4,6 @@ local function autocmds()
   _G.vim.autocmd = auto.cmd
   _G.vim.augroup = auto.group
 
-  -- vim.autocmd.User.VeryLazy(function()
-  --   require("util.map").loadall()
-  -- end)
-
-  vim.autocmd.TextYankPost(function()
-    vim.highlight.on_yank()
-  end)
-
   local function set_cul(set)
     return (function()
       vim.opt_local.cul = set
@@ -38,6 +30,28 @@ local function autocmds()
       "mason",
       "TelescopePrompt",
     }](set_cul(false))
+  end)
+
+  -- close certain filetypes with `q`
+  vim.autocmd.FileType[{
+    "qf",
+    "help",
+    "man",
+    "notify",
+    "lspinfo",
+    "startuptime",
+  }](function(e)
+    vim.bo[e.buf].buflisted = false
+    vim.keymap.set("n", "q", vim.cmd.close, { buffer = e.buf })
+  end)
+
+  vim.autocmd.TextYankPost(function()
+    vim.highlight.on_yank()
+  end)
+
+  -- check if we need to reload the file
+  vim.autocmd[{ "FocusGained", "TermClose", "TermLeave" }](function()
+    vim.cmd.checktime()
   end)
 end
 
