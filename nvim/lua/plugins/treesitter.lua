@@ -4,7 +4,7 @@ local ts = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-treesitter/nvim-treesitter-context",
   },
-  build = vim.cmd.TSUpdate,
+  build = ":TSUpdate",
   event = "BufReadPost",
 }
 
