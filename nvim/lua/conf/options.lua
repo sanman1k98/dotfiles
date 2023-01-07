@@ -9,6 +9,7 @@ opt.cmdheight = 0
 opt.helpheight = 20
 opt.splitright = true
 opt.splitbelow = true
+opt.splitkeep = "screen"      -- keep text on same screen line
 
 opt.pumheight = 20            -- max number of items to show in the popup menu
 
