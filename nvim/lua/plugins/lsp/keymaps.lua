@@ -39,8 +39,8 @@ function M.on_attach(client, bufnr)
       cond = has "signatureHelp",
     },
 
-    ["<leader>c"] = {
-      name = "code",
+    ["<leader>e"] = {
+      name = "edit",
       a = { desc = "code actions",
         vim.lsp.buf.code_action,
         cond = has "codeAction"
