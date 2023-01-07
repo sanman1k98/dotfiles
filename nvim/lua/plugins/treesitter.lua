@@ -14,6 +14,7 @@ ts.config = function()
       "lua",
       "vim",
       "bash",
+      "regex",
       "markdown",
       "markdown_inline",
     },
