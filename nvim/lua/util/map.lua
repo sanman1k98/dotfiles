@@ -210,10 +210,10 @@ function M.process(tree, opts)
 end
 
 function M.set(mappings)
-  local lazykeys = M.process(mappings)
-  if M.defer then return lazykeys end
-  vim.schedule_wrap(M.dequeue_all)
-  return lazykeys
+  M.process(mappings)
+  if not M.defer then
+    M.dequeue_all()
+  end
 end
 
 --- Sets a group of mappings (defaults to normal mode).
