@@ -14,7 +14,7 @@ opt.pumheight = 20            -- max number of items to show in the popup menu
 
 opt.title = true              -- set window title to "titlestring"
 opt.showtabline = 1           -- show tabline for more than one tab
-opt.laststatus = 3            -- global statusline
+opt.laststatus = 0            -- no statusline on startup
 
 opt.number = true             -- show current line number
 opt.relativenumber = true     -- show line numbers relative to cursor
