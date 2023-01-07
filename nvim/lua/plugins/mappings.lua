@@ -21,9 +21,9 @@ local function mappings()
         ["lc"] = { desc = "list chars",
           function() vim.opt_local.list = not vim.opt_local.list:get() end,
         },
-        ["e"] = { desc = "file explorer",
-          "<cmd>Neotree toggle filesystem<cr>"
-        },
+        -- ["e"] = { desc = "file explorer",
+        --   "<cmd>Neotree toggle filesystem<cr>"
+        -- },
         ["nc"] = { desc = "number column",
           function()
             local set = vim.wo.number
