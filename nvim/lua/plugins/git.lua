@@ -25,7 +25,6 @@ local diffview = {
 
 local neogit = {
   "TimUntersberger/neogit",
-  dependencies = "nvim-lua/plenary.nvim",
   cmd = "Neogit",
   config = function()
     local ng = require "neogit"
