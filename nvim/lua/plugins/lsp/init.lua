@@ -2,6 +2,7 @@ return {
   -- LSP servers
   {
     "williamboman/mason.nvim",
+    event = "VeryLazy",
     cmd = "Mason",
     config = true,
   },
@@ -13,10 +14,10 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function() -- so we don't have to specify capabilities for every server
-      local lsp_util = require "lspconfig.util"
+      local lspconfig_util = require "lspconfig.util"
       local cmp  = require "cmp_nvim_lsp"
 
-      local base_config = lsp_util.default_config -- extended by all server configs
+      local base_config = lspconfig_util.default_config -- extended by all server configs
       local updated_capabilities = vim.tbl_deep_extend(
         "force",
         base_config.capabilities,   -- vim.lsp.protocol.make_client_capabilities()
@@ -40,11 +41,10 @@ return {
   -- automatic LSP setup
   {
     "williamboman/mason-lspconfig.nvim",
-    event = "VeryLazy",
+    event = "BufReadPre",
     dependencies = {
-      "williamboman/mason.nvim",
-      "folke/neodev.nvim",
       "neovim/nvim-lspconfig",
+      "folke/neodev.nvim",
     },
     config = function()
       local mason_lspconfig = require "mason-lspconfig"
