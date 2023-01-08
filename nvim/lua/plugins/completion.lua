@@ -39,4 +39,4 @@ spec.config = function()
   }
 end
 
-return spec
+return {}
