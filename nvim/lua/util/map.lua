@@ -145,7 +145,7 @@ function M.dequeue_all()
   M.wk.register(M.wk_labels)
 end
 
-function M.lazykeys(tree, opts)
+function M._lazykeys(tree, opts)
   local lazykeys = {}
   opts = merge(opts or {}, extractopts(tree))
   if opts.cond == false then
@@ -172,7 +172,7 @@ function M.lazykeys(tree, opts)
         table.insert(lazykeys, v)
       else
         local subtree_opts = merge(opts, { prefix = lhs })
-        vim.list_extend(lazykeys, M.lazykeys(v, subtree_opts))
+        vim.list_extend(lazykeys, M._lazykeys(v, subtree_opts))
       end
     end
     ::continue::
@@ -214,6 +214,17 @@ function M.set(mappings)
   if not M.defer then
     M.dequeue_all()
   end
+end
+
+function M.lazykeys(mappings)
+  if not vim.tbl_islist(mappings) then
+    return M._lazykeys(mappings)
+  end
+  local lazykeys = {}
+  for _, m in ipairs(mappings) do
+    vim.list_extend(lazykeys, M._lazykeys(m))
+  end
+  return lazykeys
 end
 
 --- Sets a group of mappings (defaults to normal mode).
