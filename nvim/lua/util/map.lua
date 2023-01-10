@@ -1,78 +1,74 @@
+---@class KeymapOpts @Valid options for `vim.keymap.set()` and `vim.keymap.del()`.
+---@field desc? string
+---@field expr? boolean
+---@field remap? boolean
+---@field buffer? integer
+---@field nowait? boolean
+---@field silent? boolean
+---@field unique? boolean
+---@field replace_termcodes? boolean
+
+---@class KeymapArglist @Arguments passed to `vim.keymap.set()`
+---@field [1] string|string[] mode
+---@field [2] string lhs
+---@field [3] string|fun() rhs
+---@field [4] KeymapOpts? opts
+
+---@alias key string A single key in a key sequence
+
+---@class KeymapNodeOpts: KeymapOpts @Defines KeymapOpts to be merged with KeymapInfo or to be applied to children KeymapNodes
+---@field name? string `which-key` group label
+---@field prefix? string prepended to all top-level key(s)
+---@field mode? string|string[]
+---@field cond? boolean|fun():boolean if false or returns false all KeymapNodes 
+
+---@class KeymapInfo: KeymapOpts @Use to set or delete a keymap
+---@field [1] boolean|string|function rhs; false deletes a keymap
+---@field [2]? string desc
+---@field mode? string|string[]
+---@field cond? boolean|fun():boolean if false or returns false the keymap will not be set
+
+---@alias KeymapNode KeymapNodeOpts|table<key, KeymapNode|KeymapInfo>
+
+---@alias KeymapNodeKeys key[] List of keys in a KeymapNode whose corresponding value references either a KeymapInfo or another KeymapNode.
+
+---@alias KeymapTree KeymapNode Root KeymapNode
+
+---@class LazyKeys: KeymapOpts @Keymaps for lazy to load plugins on
+---@field [1] string lhs
+---@field [2]? string|fun() rhs
+---@field mode? string|string[]
+
+local opt_names = {
+  "desc",
+  "expr",
+  "remap",
+  "buffer",
+  "nowait",
+  "silent",
+  "unique",
+  "replace_termcodes",
+}
+
+local nodeopt_names = {
+  "name",
+  "mode",
+  "cond",
+  "prefix",
+}
+
+---@class map
 local M = {}
 
 M.defer = true
-M.queue = {}
+
 M._queue = {}
-M.wk_labels = {}
-M.wk = {
-  register = function() end,
-}
+M._wk_mappings = {}
 
-local MYALIASES = {
-  normal      = "n",
-  visual      = "v",  -- actually visual and select mode
-  select      = "x",
-  op_pending  = "o",
-  insert      = "i",
-  command     = "c",
-  terminal    = "t",
-}
-
--- false if not actual mapargs
-local OPTKEYS = {
-  [1]               = false,
-  [2]               = false,
-  prefix            = false,
-  name              = false,
-  cond              = false,
-  mode              = false,
-  buffer            = true,
-  desc              = true,
-}
-
-local function maparg(k)
-  return OPTKEYS[k]
-end
-
-local function merge(...)
-  return vim.tbl_extend("force", ...)
-end
-
-local function fixopts(opts)
-  local fixed = {}
-  fixed.desc = opts[2] or opts.desc
-  for k, v in pairs(opts) do
-    if maparg(k) then
-      fixed[k] = v
-    end
-  end
-  return fixed
-end
-
-local function extractopts(tree)
-  local opts = {}
-  local keys = {
-    mode = true,
-    buffer = true,
-    cond = true,
-    prefix = true,
-  }
-  for k, v in pairs(tree) do
-    if keys[k] then
-      opts[k] = v
-      tree[k] = nil
-    end
-  end
-  return opts
-end
-
-function M.dequeue()
-  local mapping = vim.deepcopy(table.remove(M._queue))
-  local mode, lhs, rhs, opts = unpack(mapping)
-  if type(opts.cond) == "function" and not opts.cond() then
-    return
-  end
-  opts = fixopts(opts)
+function M._dequeue()
+  local mapping = table.remove(M._queue)
+  local mode, lhs, rhs, opts, cond = unpack(mapping)
+  if cond and not cond() then return end
   if rhs then
     vim.keymap.set(mode, lhs, rhs, opts)
   else
@@ -80,101 +76,176 @@ function M.dequeue()
   end
 end
 
-function M.dequeue_all()
+function M._loadall()
   while #M._queue > 0 do
-    M.dequeue()
+    M._dequeue()
   end
-  ---@diagnostic disable-next-line:redundant-parameter
-  M.wk.register(M.wk_labels)
+  if M.wk then
+    M.wk.register(M._wk_mappings)
+  end
 end
 
-function M._lazykeys(tree, opts)
-  local lazykeys = {}
-  opts = merge(opts or {}, extractopts(tree))
-  if opts.cond == false then
-    return lazykeys
+function M.loadall()
+  M.defer = false
+  local loaded, wk = pcall(require, "which-key")
+  M.wk = loaded and wk or nil
+  M._loadall()
+end
+
+---@param k string
+---@return boolean #True if `k` is a field name in KeymapNodeOpts.
+local function is_opt(k)
+  for _, opt in ipairs(nodeopt_names) do
+    if k == opt then return true end
   end
-  opts.mode = opts.mode or "n"
+  for _, opt in ipairs(opt_names) do
+    if k == opt then return true end
+  end
+  return false
+end
+
+--- Get `opts` and a list of keys to traverse for a given `node`.
+---@param node KeymapNode
+---@param opts? table A table to set KeymapNodeOpts. (If omitted, a new table will be created.)
+---@return KeymapNodeOpts opts The mutated `opts` table.
+---@return KeymapNodeKeys keys
+local function parsenode(node, opts)
+  opts = opts or {}
+  local keys = {}
+  for k, v in pairs(node) do
+    if is_opt(k) then opts[k] = v
+    else table.insert(keys, k)
+    end
+  end
   opts.prefix = opts.prefix or ""
-  for k, v in pairs(tree) do
+  opts.mode = opts.mode or "n"
+  return opts, keys
+end
+
+---@param opts KeymapNodeOpts
+---@param info KeymapInfo
+---@return KeymapOpts
+local function mergeinfo(opts, info)
+  local ret = {}
+  for _, k in ipairs(opt_names) do
+    ret[k] = info[k] or opts[k]
+  end
+  ret.desc = ret.desc or info[2]
+  return ret
+end
+
+--- Recursively find keymaps to set or delete and add them to `M._queue`. Set `M._wk_mappings` for any group names found.
+---@param node KeymapNode
+---@param opts? KeymapNodeOpts Passed down from parent KeymapNode.
+function M._process(node, opts)
+  local keys; opts, keys = parsenode(node, opts)    -- get opts and list of keys for `node`
+  M._wk_mappings[opts.prefix] = opts.name           -- set group label
+  if opts.cond == false then return end             -- check condition after setting group label
+  for _, k in ipairs(keys) do                       -- iterate through list of keys
     local lhs = opts.prefix..k
-    if k == "name" then
-      M.wk_labels[opts.prefix] = { mode = opts.mode, name = v }
-    elseif type(v) == "string" or vim.is_callable(v) then
-      table.insert(lazykeys, { lhs, v, mode = opts.mode })
-    elseif type(v) == "table" then
-      if v[1] then
-        if v.cond == false then
-          goto continue
-        end
-        v.desc = v[2] or v.desc
-        v[2] = v[1]
-        v[1] = lhs
-        v.buffer = v.buffer or opts.buffer
-        v.mode = v.mode or opts.mode
-        table.insert(lazykeys, v)
-      else
-        local subtree_opts = merge(opts, { prefix = lhs })
-        vim.list_extend(lazykeys, M._lazykeys(v, subtree_opts))
-      end
+    local v = node[k]
+    if                                              -- check if `v`:
+      v == false                                    -- deletes a mapping
+      or type(v) == "string" or vim.is_callable(v)  -- sets a mapping
+    then
+      local cond = vim.is_callable(opts.cond) and opts.cond
+      table.insert(M._queue, {                      -- add it to the queue
+        opts.mode,
+        lhs,
+        v,                                          -- rhs or false
+        mergeinfo(opts, {}),  --[[@as KeymapOpts]]
+        cond or nil,
+      })
+      goto continue
+    end
+    assert(type(v) == "table")
+    if v[1] ~= nil then                             -- `v` is type KeymapInfo
+      local info = v  --[[@as KeymapInfo]]
+      local mode = info.mode or opts.mode
+      local rhs = info[1]
+      local o = mergeinfo(opts, info)
+      local cond = info.cond or opts.cond
+      table.insert(M._queue, {                      -- add it to the queue
+        mode,
+        lhs,
+        rhs,                                        -- rhs or false
+        o,  --[[@as KeymapOpts]]
+        vim.is_callable(cond) and cond or nil
+      })
+    elseif v.desc then
+      v[1] = v.desc; v.desc = nil
+      M._wk_mappings[lhs] = v
+    else
+      local o = vim.tbl_extend("force", opts, { prefix = lhs })
+      M._process(v --[[@as KeymapTree]], o)
     end
     ::continue::
   end
-  return lazykeys
 end
 
-function M.process(tree, opts)
-  opts = merge(opts or {}, extractopts(tree))
-  if opts.cond == false then
-    return
-  end
-  opts.mode = opts.mode or "n"
-  opts.prefix = opts.prefix or ""
-  for k, v in pairs(tree) do
+---@param node KeymapNode
+---@param opts? KeymapNodeOpts
+---@return LazyKeys[]
+function M._lazykeys(node, opts)
+  local ret = {}
+  local keys; opts, keys = parsenode(node, opts)    -- get opts and list of keys for `node`
+  M._wk_mappings[opts.prefix] = opts.name           -- set group label
+  if opts.cond == false then return ret end         -- check condition after setting group label
+  for _, k in ipairs(keys) do                       -- iterate through list of keys
     local lhs = opts.prefix..k
-    if k == "name" then
-      M.wk_labels[opts.prefix] = { mode = opts.mode, name = v }
-    elseif type(v) == "string" or vim.is_callable(v) then
-      table.insert(M._queue, { opts.mode, lhs, v, opts })
-    elseif type(v) == "table" then
-      if v[1] then
-        if opts.cond == false then
-          goto continue
-        end
-        local mode = v.mode or opts.mode
-        table.insert(M._queue, { mode, lhs, v[1], merge(opts, v) })
-      else
-        local subtree_opts = merge(opts, { prefix = lhs })
-        M.process(v, subtree_opts)
-      end
+    local v = node[k]
+    if
+      v == true
+      or type(v) == "string"
+      or vim.is_callable(v)
+    then
+      local t = mergeinfo(opts, {})
+      local rhs = v ~= true and v or nil
+      t[1], t[2], t.mode = lhs, rhs, opts.mode
+      table.insert(ret, t --[[@as LazyKeys]])
+      goto continue
+    end
+    assert(type(v) == "table")
+    if v[1] or v.desc then                            -- `v` is type KeymapInfo
+      local info = v  --[[@as KeymapInfo]]
+      local t = mergeinfo(opts, info)
+      local rhs = info[1] ~= true and info[1] or nil
+      t[1], t[2], t.mode = lhs, rhs, info.mode or opts.mode
+      table.insert(ret, t --[[@as LazyKeys]])
+    else
+      local o = vim.tbl_extend("force", opts, { prefix = lhs })
+      vim.list_extend(ret, M._lazykeys(v, o))
     end
     ::continue::
   end
+  return ret
 end
 
-function M.set(mappings)
-  M.process(mappings)
+---@param keymaps KeymapTree|KeymapTree[]
+function M.set(keymaps)
+  if not keymaps[1] then
+    M._process(keymaps)
+  else
+    for _, m in ipairs(keymaps) do
+      M._process(m)
+    end
+  end
   if not M.defer then
-    M.dequeue_all()
+    M._loadall()
   end
 end
 
-function M.lazykeys(mappings)
-  if not vim.tbl_islist(mappings) then
-    return M._lazykeys(mappings)
+---@param keymaps KeymapTree|KeymapTree[]
+---@return LazyKeys[]
+function M.lazykeys(keymaps)
+  if not keymaps[1] then
+    return M._lazykeys(keymaps)
   end
-  local lazykeys = {}
-  for _, m in ipairs(mappings) do
-    vim.list_extend(lazykeys, M._lazykeys(m))
+  local ret = {}
+  for _, m in ipairs(keymaps) do
+    vim.list_extend(ret, M._lazykeys(m))
   end
-  return lazykeys
-end
-
-for name, shortname in pairs(MYALIASES) do
-  M[name] = function(mappings)
-    mappings.mode = shortname
-    return M.set(mappings)
-  end
+  return ret
 end
 
 return M
