@@ -15,6 +15,10 @@ return {
   },
 
   {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = "BufReadPost",
@@ -34,6 +38,10 @@ return {
         },
         indent = {
           enable = true,
+        },
+        context_commentstring = {
+          enable = true,
+          enable_autocmd = false,
         },
         -- can be enabled with ":TSBufEnable incremental_selection"
         -- incremental_selection = {
