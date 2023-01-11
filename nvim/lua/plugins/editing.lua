@@ -1,3 +1,5 @@
+local map = require "util.map"
+
 return {
   -- snippets
   {
@@ -8,7 +10,7 @@ return {
         require("luasnip.loaders.from_vscode").lazy_load()
       end,
     },
-    keys = require("util.map").lazykeys {
+    keys = map.lazykeys {
       {
         ["<tab>"] = {
           function()
@@ -97,17 +99,19 @@ return {
   -- surround
   {
     "kylechui/nvim-surround",
-    keys = {
-      "<leader>s",
-      "ds",
-      "cs"
+    enabled = false,
+    keys = map.lazykeys {
+      ys = true,
+      yss = true,
+      yS = true,
+      ySS = true,
     },
-    config = {
+    opts = {
       keymaps = {
-        normal = "<leader>s",
-        normal_cur = "<leader>ss",
-        normal_line = "<leader>S",
-        normal_cur_line = "<leader>SS",
+        normal = "ys",
+        normal_cur = "yss",
+        normal_line = "yS",
+        normal_cur_line = "ySS",
         insert = "<C-g>s",
         insert_line = "<C-g>S",
         visual = "S",
@@ -118,30 +122,59 @@ return {
     },
   },
 
-  { -- copied from LazyVim
-    enabled = false,
+  { -- adapted from LazyVim
     "echasnovski/mini.surround",
-    keys = { "gz" },
-    config = function()
-      -- use gz mappings instead of s to prevent conflict with leap
-      require("mini.surround").setup({
-        mappings = {
-          add = "gza", -- Add surrounding in Normal and Visual modes
-          delete = "gzd", -- Delete surrounding
-          find = "gzf", -- Find surrounding (to the right)
-          find_left = "gzF", -- Find surrounding (to the left)
-          highlight = "gzh", -- Highlight surrounding
-          replace = "gzr", -- Replace surrounding
-          update_n_lines = "gzn", -- Update `n_lines`
-        },
-      })
+    keys = map.lazykeys {
+      {
+        gs = { name = "surround" },
+      },
+      {
+        gs = { true, mode = { "n", "v" } },
+        ds = true,
+        cs = true,
+      },
+    },
+    opts = {
+      mappings = {
+        add = "gs", -- Add surrounding in Normal and Visual modes
+        delete = "ds", -- Delete surrounding
+        replace = "cs", -- Replace surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
+      },
+    },
+    config = function(_, opts)
+      require("mini.surround").setup(opts)
+    end,
+  },
+
+  {
+    "echasnovski/mini.align",
+    keys = map.lazykeys({
+      mode = { "n", "v" },
+      ga = true,
+      gA = true,
+    }),
+    opts = {
+      mappings = {
+        start = "ga",
+        start_with_preview = "gA",
+      },
+    },
+    config = function(_, opts)
+      require("mini.align").setup(opts)
     end,
   },
 
   -- commentary
-  "JoosepAlviste/nvim-ts-context-commentstring",
-  { -- copied from LazyVim
+  { -- adapted from LazyVim
     "echasnovski/mini.comment",
+    keys = map.lazykeys({
+      gc = true,
+      gcc = true,
+    }),
     event = "InsertEnter",
     config = function()
       require("mini.comment").setup {
@@ -157,29 +190,30 @@ return {
   -- split/join
   {
     "Wansmer/treesj",
-    keys = require("util.map").lazykeys {
-      ["<leader>j"] = {
-        name = "split/join",
-        j = { desc = "toggle",
-          function()
-            require("treesj.format")._format()
-          end,
-        },
-        s = { desc = "split",
-          function()
-            require("treesj.format")._format("split")
-          end,
-        },
+    keys = map.lazykeys {
+      prefix = "<leader>s",
+      name = "treesj",
+      t = { desc = "toggle",
+        function()
+          require("treesj.format")._format()
+        end,
+      },
+      s = { desc = "split",
+        function()
+          require("treesj.format")._format("split")
+        end,
+      },
+      j = { desc = "join",
+        function()
+          require("treesj.format")._format("join")
+        end,
       },
     },
-    langs = {
-      -- configure nodes for languages
+    opts = {
+      use_default_keymaps = false,
+      langs = {
+        -- configure nodes for languages
+      },
     },
-    config = function(plugin)
-      require("treesj").setup {
-        use_default_keymaps = false,
-        langs = plugin.langs,
-      }
-    end,
   }
 }
