@@ -5,6 +5,9 @@
 
 export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
+export VISUAL='nvim'
+
+# TODO: export XDG_DATA_DIRS
 
 # Homebrew prefix
 export HOMEBREW_PREFIX="$(brew --prefix)"
@@ -14,7 +17,6 @@ export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
 
 # lazygit configuration
 export LG_CONFIG_FILE="${XDG_CONFIG_HOME}/lazygit/config.yml"
-
 
 
 #

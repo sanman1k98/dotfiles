@@ -1,15 +1,66 @@
-export XDG_CONFIG_HOME="${HOME}/.config"
+
+#
+#								zsh startup files
+# 
+# When starting zsh, system startup files found in the `/etc` directory are
+# sourced before the ones found in `$ZDOTDIR`, which is usually set to `$HOME`.
+#
+# On macOS, the path isn't fully configured until after the `/etc/zprofile`
+# runs, which will have run the following command:
+#
+#	eval `usr/libexec/path_helper -s`
+#
+# Another note about macOS: the `/etc` directory is a symlink to `/private/etc`.
+#
+# 1. env
+#	- /etc/zshenv
+#	- $ZDOTDIR/.zshenv
+#
+# 2. profile: runs for login shells but before zshrc
+#	- /etc/zprofile
+#	- $ZDOTDIR/.zprofile
+#
+# 3. rc: runs for interactive shells
+#	- /etc/zshrc
+#	- $ZDOTDIR/.zshrc
+#
+# 4. login: also runs for login shells but after zshrc
+#	- /etc/zlogin
+#	- $ZDOTDIR/.zlogin
+#
+
+
+
+#
+#
+#		XDG Base Directories
+#
+#
+
 export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_CACHE_HOME="${HOME}/.cache"
+
+#
+#	scalar and arrays tied together like `$PATH` and `$path`
+#
+typeset -gUT XDG_DATA_DIRS xdg_data_dirs
+xdg_data_dirs+="/usr/local/share"
+xdg_data_dirs+="/usr/share"
+
+typeset -gUT XDG_CONFIG_DIRS xdg_config_dirs
+# xdg_config_dirs+="/usr/local/etc/xdg"
+# xdg_config_dirs+="/usr/etc/xdg"
+
+# TODO: use default zdotdir and create symlinks
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
-
 #	Node version manager working directory
-#
+# TODO: move this over to zshrc
 export NVM_DIR="${XDG_DATA_HOME}/nvm"
 
 
-# TODO: use XDG_CONFIG_DIRS
-#
 #		work environment
 #
 work_env="${HOME}/.work_config/zsh/env.zsh"
