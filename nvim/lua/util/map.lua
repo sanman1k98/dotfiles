@@ -108,17 +108,28 @@ end
 ---@param node KeymapNode
 ---@param opts? table A table to set KeymapNodeOpts. (If omitted, a new table will be created.)
 ---@return KeymapNodeOpts opts The mutated `opts` table.
----@return KeymapNodeKeys keys
-local function parsenode(node, opts)
+---@return KeymapNodeKeys? keys nil if an option "cond" was found to be false
+local function processnode(node, opts)
   opts = opts or {}
   local keys = {}
   for k, v in pairs(node) do
-    if is_opt(k) then opts[k] = v
+    if k == "cond" and v == false then return opts, nil
+    elseif is_opt(k) then opts[k] = v
     else table.insert(keys, k)
     end
   end
+  if opts.cond == false then
+    return opts, nil
+  end
   opts.prefix = opts.prefix or ""
   opts.mode = opts.mode or "n"
+  if opts.name and not M._wk_mappings[opts.prefix] then
+    M._wk_mappings[opts.prefix] = {
+      name = opts.name,
+      mode = opts.mode,
+      buffer = opts.buffer,
+    }
+  end
   return opts, keys
 end
 
@@ -138,9 +149,8 @@ end
 ---@param node KeymapNode
 ---@param opts? KeymapNodeOpts Passed down from parent KeymapNode.
 function M._process(node, opts)
-  local keys; opts, keys = parsenode(node, opts)    -- get opts and list of keys for `node`
-  M._wk_mappings[opts.prefix] = opts.name           -- set group label
-  if opts.cond == false then return end             -- check condition after setting group label
+  local keys; opts, keys = processnode(node, opts)    -- get opts and list of keys for `node`
+  if not keys then return end
   for _, k in ipairs(keys) do                       -- iterate through list of keys
     local lhs = opts.prefix..k
     local v = node[k]
@@ -159,7 +169,9 @@ function M._process(node, opts)
       goto continue
     end
     assert(type(v) == "table")
-    if v[1] ~= nil then                             -- `v` is type KeymapInfo
+    if v.cond == false then
+      goto continue
+    elseif v[1] ~= nil then                             -- `v` is type KeymapInfo
       local info = v  --[[@as KeymapInfo]]
       local mode = info.mode or opts.mode
       local rhs = info[1]
@@ -188,9 +200,8 @@ end
 ---@return LazyKeys[]
 function M._lazykeys(node, opts)
   local ret = {}
-  local keys; opts, keys = parsenode(node, opts)    -- get opts and list of keys for `node`
-  M._wk_mappings[opts.prefix] = opts.name           -- set group label
-  if opts.cond == false then return ret end         -- check condition after setting group label
+  local keys; opts, keys = processnode(node, opts)    -- get opts and list of keys for `node`
+  if not keys then return ret end
   for _, k in ipairs(keys) do                       -- iterate through list of keys
     local lhs = opts.prefix..k
     local v = node[k]
