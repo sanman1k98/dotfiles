@@ -26,3 +26,6 @@ valet
 
 # for some reason lazygit stores this in `$XDG_CONFIG_HOME` for me
 lazygit/state.yml
+
+kitty/kitty.conf.bak
+kitty/current-theme.conf
