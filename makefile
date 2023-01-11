@@ -5,6 +5,7 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 XDG_STATE_HOME ?= $(HOME)/.local/state
 XDG_CACHE_HOME ?= $(HOME)/.cache
+ZDOTDIR ?= $(HOME)
 
 NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 
@@ -14,7 +15,8 @@ NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 	nvim.test \
 	nvim.clean.all \
 	nvim.clean.plugins \
-	nvim.clean.logs
+	nvim.clean.logs \
+	zsh.symlinks
 
 
 #
@@ -54,4 +56,6 @@ nvim.clean.logs :
 #
 
 zsh.symlinks :
+	ln -s $(ZDOTDIR)/.zshenv $(XDG_CONFIG_HOME)/zsh/zshenv
+	ln -s $(ZDOTDIR)/.zshrc $(XDG_CONFIG_HOME)/zsh/zshrc
 
