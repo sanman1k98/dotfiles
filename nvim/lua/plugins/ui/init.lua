@@ -34,6 +34,7 @@ return {
   -- bufferline
   {
     "akinsho/bufferline.nvim",
+    enabled = false,
     event = "VeryLazy",
     config = {
       options = {
@@ -48,6 +49,19 @@ return {
         },
       },
     },
+  },
+
+  -- tabline
+  {
+    "nanozuki/tabby.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("tabby.tabline").use_preset("active_wins_at_tail", {
+        buf_name = {
+          mode = "unique",
+        },
+      })
+    end,
   },
 
   -- screensaver
