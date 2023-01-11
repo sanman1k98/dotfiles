@@ -13,8 +13,6 @@ ZDOTDIR ?= $(HOME)
 NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 
 .PHONY : \
-	nvim.profile \
-	nvim.bootstrap \
 	nvim.test \
 	nvim.clean.all \
 	nvim.clean.plugins \
@@ -27,13 +25,6 @@ NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 #		nvim
 #
 #
-
-nvim.bootstrap :
-	nvim --headless -u NONE -c "lua require('utils.bootstrap').install_plugins()"
-
-nvim.profile :
-	@nvim --startuptime $(NVIM_LOG_FILE) "+qa!"
-	@bat $(NVIM_LOG_FILE)
 
 nvim.test :
 	XDG_CONFIG_HOME="./" nvim --headless \
