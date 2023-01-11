@@ -53,9 +53,6 @@ typeset -gUT XDG_CONFIG_DIRS xdg_config_dirs
 # xdg_config_dirs+="/usr/local/etc/xdg"
 # xdg_config_dirs+="/usr/etc/xdg"
 
-# TODO: use default zdotdir and create symlinks
-export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
-
 #	Node version manager working directory
 # TODO: move this over to zshrc
 export NVM_DIR="${XDG_DATA_HOME}/nvm"
