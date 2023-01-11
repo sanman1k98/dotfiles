@@ -1,8 +1,5 @@
 local function autocmds()
-  -- TODO: refactor into `require("luauto").setup()`
-  local auto = require "luauto"
-  _G.vim.autocmd = auto.cmd
-  _G.vim.augroup = auto.group
+  require("luauto").setup()
 
   local function set_cul(set)
     return (function()
