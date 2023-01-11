@@ -1,8 +1,10 @@
 
+#	default locations
+#
 XDG_CONFIG_HOME ?= $(HOME)/.config
 XDG_DATA_HOME ?= $(HOME)/.local/share
 XDG_STATE_HOME ?= $(HOME)/.local/state
-TMP ?= $(TMPDIR)
+XDG_CACHE_HOME ?= $(HOME)/.cache
 
 NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 
@@ -42,4 +44,13 @@ nvim.clean.plugins :
 nvim.clean.logs :
 	rm $(NVIM_LOG_FILE)
 	rm -rf $(XDG_STATE_HOME)/nvim/*.log
+
+
+#
+#
+#		zsh
+#
+#
+
+zsh.symlinks :
 
