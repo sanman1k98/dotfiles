@@ -1,0 +1,5 @@
+alias la="ls -lAG --color=always"
+alias nv="nvim"
+alias vi="nvim --no-plugin"
+alias lg="lazygit"
+
