@@ -14,5 +14,8 @@ return {
   },
 
   -- lotta useful Lua modules
-  "echasnovski/mini.nvim",
+  {
+    enabled = false,
+    "echasnovski/mini.nvim",
+  },
 }
