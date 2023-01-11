@@ -1,42 +1,38 @@
-vim.o.timeoutlen = 300
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local function mappings()
   local map = require "util.map"
 
-  map.insert {
-    ["kj"] = "<esc>",
-    ["<c-f>"] = "<right>",
-    ["<c-b>"] = "<left>",
+  map.set {
+    mode = "i",
+    ["kj"] = { "<esc>", desc = "ESC" },
+    ["<c-f>"] = { "<right>", desc = "->" },
+    ["<c-b>"] = { "<left>", desc = "<-" },
   }
 
-  map.normal {
-    ["<leader>"] = {
-      [";"] = { ":", "enter command-line" },
-      w = { vim.cmd.write, "write file" },
-      l = { vim.cmd.Lazy, "lazy.nvim"},
-      t = {
-        name = "toggles",
-        ["lc"] = { desc = "list chars",
-          function() vim.opt_local.list = not vim.opt_local.list:get() end,
-        },
-        -- ["e"] = { desc = "file explorer",
-        --   "<cmd>Neotree toggle filesystem<cr>"
-        -- },
-        ["nc"] = { desc = "number column",
-          function()
-            local set = vim.wo.number
-            vim.wo.number = not set
-            vim.wo.relativenumber = not set
-          end,
-        },
+  map.set {
+    prefix = "<leader>",
+    [";"] = { ":", "command-line" },
+    w = { vim.cmd.write, "write file" },
+    l = { vim.cmd.Lazy, "Lazy"},
+    t = {
+      name = "toggles",
+      ["lc"] = { desc = "list chars",
+        function() vim.opt_local.list = not vim.opt_local.list:get() end,
       },
-      ["."] = {
-        name = "config",
-        ["p"] = { desc = "Profile startup with Lazy",
-          function() require("lazy.view.commands").commands["profile"]() end,
-        }
+      ["nc"] = { desc = "number column",
+        function()
+          local set = vim.wo.number
+          vim.wo.number = not set
+          vim.wo.relativenumber = not set
+        end,
+      },
+    },
+    ["."] = {
+      name = "config",
+      ["p"] = { desc = "Profile startup with Lazy",
+        function() require("lazy.view.commands").commands["profile"]() end,
       }
     }
   }
@@ -47,20 +43,20 @@ return {
   init = mappings,
   cmd = "WhichKey",
   event = "VeryLazy",
-  config = function()
-    local map = require "util.map"
-    map.wk = require "which-key"
-    map.wk.setup {
-      plugins = {},
-      key_labels = {
-        ["<leader>"] = "SPACE",
-        ["<cr>"] = "RETURN",
-        ["<tab>"] = "TAB",
-      },
-      show_help = false,
-      show_keys = true,
-    }
-    map.defer = false
-    map.dequeue_all()
+  opts = {
+    plugins = {},
+    operators = {},
+    key_labels = {
+      ["<leader>"] = "SPACE",
+      ["<CR>"] = "RET",
+      ["<tab>"] = "TAB",
+    },
+    show_help = false,
+    show_keys = true,
+  },
+  config = function(_, opts)
+    vim.o.timeoutlen = 300
+    require("which-key").setup(opts)
+    require("util.map").loadall()
   end,
 }
