@@ -43,7 +43,7 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 export XDG_CACHE_HOME="${HOME}/.cache"
 
 #
-#	scalar and arrays tied together like `$PATH` and `$path`
+#	scalars and arrays tied together like `$PATH` and `$path`
 #
 typeset -gUT XDG_DATA_DIRS xdg_data_dirs
 xdg_data_dirs+="/usr/local/share"
@@ -52,10 +52,6 @@ xdg_data_dirs+="/usr/share"
 typeset -gUT XDG_CONFIG_DIRS xdg_config_dirs
 # xdg_config_dirs+="/usr/local/etc/xdg"
 # xdg_config_dirs+="/usr/etc/xdg"
-
-#	Node version manager working directory
-# TODO: move this over to zshrc
-export NVM_DIR="${XDG_DATA_HOME}/nvm"
 
 
 #		work environment
