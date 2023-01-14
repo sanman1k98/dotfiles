@@ -1,18 +1,20 @@
+local settings = require "user.settings"
+
 local mode = "dark"
+
 local themes = {
   light = "tokyonight-day",
   dark  = "tokyonight-night",
 }
 
--- used to determine whether a colorscheme plugin should be lazy loaded or not
-vim.g.colors_name = themes[mode]
 vim.opt.bg = mode
+vim.g.colors_name = themes[mode]
 
 require "conf.options"
 require "conf.globals"
 
 require("util.lazy").setup("plugins", {
-  root = vim.fn.stdpath("data").."/lazy",
+  root = settings.pkg_root,
   defaults = { lazy = true },
   install = {
     colorscheme = { themes[mode], "habamax" },
