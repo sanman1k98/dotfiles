@@ -3,6 +3,7 @@ local util = require "util"
 
 M.pp = vim.pretty_print
 
+-- from folk/dot
 local function get_location()
   local info = debug.getinfo(3, "S")
   local src = info.source:sub(2)
