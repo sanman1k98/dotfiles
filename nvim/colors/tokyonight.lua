@@ -1,11 +1,4 @@
-local loaded, tokyonight = pcall(require, "tokyonight")
+local tokyonight = require "tokyonight"
 
-if not loaded then
-  return
-end
-
-tokyonight.setup {
-  style = "moon",
-}
-
+tokyonight.setup()
 tokyonight.load()
