@@ -1,10 +1,10 @@
 local settings = require "user.settings"
 
-local mode = "light"
+local mode = "dark"
 
 local themes = {
   light = "tokyonight-day",
-  dark  = "carbonfox",
+  dark  = "tokyonight-night",
 }
 
 vim.opt.bg = mode
@@ -17,7 +17,7 @@ require("util.lazy").setup("plugins", {
   root = settings.pkg_root,
   defaults = { lazy = true },
   install = {
-    colorscheme = { "carbonfox", "habamax" },
+    colorscheme = { themes[mode], "habamax" },
   },
   performance = {
     rtp = {
