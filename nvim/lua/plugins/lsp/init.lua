@@ -28,6 +28,11 @@ return {
     end,
   },
 
+  {
+    "folke/neoconf.nvim",
+    cmd = "Neoconf", config = true,
+  },
+
   -- configure lua-language-server for nvim
   {
     "folke/neodev.nvim",
