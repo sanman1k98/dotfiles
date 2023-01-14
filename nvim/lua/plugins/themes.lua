@@ -1,7 +1,7 @@
 return {  -- configurations are in the colors directory 
   {
     "catppuccin/nvim", name = "catppuccin",
-    lazy = not vim.g.colors_name:match("^catppuccin"),
+    lazy = not vim.startswith(vim.g.colors_name, "catppuccin"),
   },
   {
     "rose-pine/neovim", name = "rose-pine",
@@ -9,11 +9,11 @@ return {  -- configurations are in the colors directory
   },
   {
     "projekt0n/github-nvim-theme",
-    lazy = not vim.g.colors_name:match("^github"),
+    lazy = not vim.startswith(vim.g.colors_name, "github"),
   },
   {
     "folke/tokyonight.nvim",
-    lazy = not vim.g.colors_name:match("^tokyonight"),
+    lazy = not vim.startswith(vim.g.colors_name, "tokyonight"),
   },
   {
     "rebelot/kanagawa.nvim",
@@ -21,6 +21,6 @@ return {  -- configurations are in the colors directory
   },
   {
     "EdenEast/nightfox.nvim",
-    lazy = not vim.g.colors_name:match("fox$"),
+    lazy = not vim.endswith(vim.g.colors_name, "fox"),
   },
 }
