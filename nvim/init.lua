@@ -1,23 +1,21 @@
-local settings = require "user.settings"
-
-local mode = "dark"
+local util = require "util"
 
 local themes = {
   light = "tokyonight-day",
   dark  = "tokyonight-night",
 }
 
-vim.opt.bg = mode
-vim.g.colors_name = themes[mode]
-
-require "conf.options"
+util.init()
 require "conf.globals"
+require "conf.options"
 
-require("util.lazy").setup("plugins", {
-  root = settings.pkg_root,
+vim.g.colors_name = themes[vim.o.bg]
+
+require("lazy").setup("plugins", {
+  root = vim.fn.stdpath("data").."/lazy",
   defaults = { lazy = true },
   install = {
-    colorscheme = { themes[mode], "habamax" },
+    colorscheme = { vim.g.colors_name, "habamax" },
   },
   performance = {
     rtp = {
@@ -32,5 +30,3 @@ require("util.lazy").setup("plugins", {
     }
   },
 })
-
-vim.cmd.colorscheme(themes[mode])
