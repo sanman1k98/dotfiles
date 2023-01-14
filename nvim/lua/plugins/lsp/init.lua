@@ -38,9 +38,9 @@ return {
     "folke/neodev.nvim",
     config = {
       library = {
-        plugins = false,
-      }
-    }
+        plugins = { "plenary.nvim" },
+      },
+    },
   },
 
   -- automatic LSP setup
