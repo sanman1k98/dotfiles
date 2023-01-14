@@ -1,105 +1,84 @@
-local opt = vim.opt
-
-
--- UI
-opt.termguicolors  = true
-opt.winblend       = 10
-
-opt.cmdheight      = 0
-
-opt.helpheight     = 20
-opt.splitright     = true
-opt.splitbelow     = true
-opt.splitkeep      = "screen" -- keep text on same screen line
-
-opt.pumheight      = 20       -- max number of items to show in the popup menu
-
-opt.title          = true     -- set window title to "titlestring"
-opt.showtabline    = 1        -- show tabline for more than one tab
-opt.laststatus     = 0        -- no statusline on startup
-
-opt.number         = true     -- show current line number
-opt.relativenumber = true     -- show line numbers relative to cursor
-opt.numberwidth    = 4        -- set width of the number column
-opt.signcolumn     = "yes"    -- always display signcolumn
-
-opt.conceallevel   = 3        -- hide markup for bold and italic
-
-opt.cursorline     = true     -- highlight location of cursor
-opt.cursorlineopt  = {
-  "number",                   -- the number in the numbercol
-  "line",                     -- the text line
+local M = {
+  background     = "dark",
+  termguicolors  = true,
+  winblend       = 10,
+  cmdheight      = 0,
+  helpheight     = 20,
+  splitright     = true,
+  splitbelow     = true,
+  scrolloff      = 4,
+  sidescrolloff  = 4,
+  splitkeep      = "screen",     -- keep text on same screen line
+  pumheight      = 20,           -- max number of items to show in the popup menu
+  title          = true,         -- set window title to "titlestring"
+  showtabline    = 1,            -- show tabline for more than one tab
+  laststatus     = 0,            -- no statusline on startup
+  number         = true,         -- show current line number
+  relativenumber = true,         -- show line numbers relative to cursor
+  numberwidth    = 4,            -- set width of the number column
+  signcolumn     = "yes",        -- always display signcolumn
+  conceallevel   = 3,            -- hide markup for bold and italic
+  cursorline     = true,         -- highlight location of cursor
+  cursorlineopt  = "both",
+  tabstop        = 2,
+  shiftwidth     = 2,
+  softtabstop    = 2,
+  expandtab      = true,
+  autoindent     = true,
+  smartindent    = true,
+  wrap           = false,
+  breakindent    = true,
+  linebreak      = true,
+  ignorecase     = true,
+  smartcase      = true,
+  clipboard      = "unnamedplus",
 }
 
+M.shortmess = {
+  f = true,   -- use "(3 of 5)" instead of "(file 3 of 5)"
+  i = true,   -- use "[noeol]" instead of "[Incomplete last line]"
+  l = true,   -- use "999L, 888B" instead of "999 lines, 888 bytes"
+  n = true,   -- use "[New]" instead of "[New File]"
+  x = true,   -- "[unix]" instead of "[unix format]" and "[mac]" instead of "[mac format]"
+  t = true,   -- truncate file message at the start if it is too long	to fit on the command-line
+  T = true,   -- truncate other messages in the middle if they are too long to fit on the command line
+  o = true,   -- overwrite message for writing a file with subsequent message for reading a file
+  O = true,   -- message for reading a file overwrites any previous message
+  F = true,   -- don't give the file info when editing a file
+  W = true,   -- don't give "written" or "[w]" when writing a file
+  I = true,   -- don't give the intro message when starting Vim
+  c = true,   -- don't give |ins-completion-menu| messages
+  C = true,   -- don't give messages while scanning for ins-completion items
+}
 
--- indenting
-local width     = 4
-opt.tabstop     = width
-opt.shiftwidth  = width
-opt.softtabstop = width
-opt.expandtab   = false
-opt.autoindent  = true
-opt.smartindent = true
+M.formatoptions = {
+  t = true,  -- auto-wrap text using "textwidth"
+  c = true,  -- auto-wrap comments to "textwidth"; automatically inserts comment leader
+  q = true,  -- allow formatting of comment with "gq"
+  j = true,  -- remove comment leaders when joining lines
+  r = true,  -- automatically insert current comment leader after new line in insert mode
+  o = true,  -- automatically insert comment leader after hitting 'o' or 'O' in normal mode
+  n = true,  -- when formatting text, recognize numbered lists
+}
 
-
--- formatting
-opt.formatoptions = opt.formatoptions
-  + "t"  -- auto-wrap text using "textwidth"
-  + "c"  -- auto-wrap comments to "textwidth"; automatically inserts comment leader
-  + "q"  -- allow formatting of comment with "gq"
-  + "j"  -- remove comment leaders when joining lines
-
-
-
--- messages
-opt.shortmess = opt.shortmess
-
-  + "f"   -- "(file 3 of 5)"          -> "(3 of 5)"
-  + "i"   -- "[Incomplete last line]" -> "[noeol]"
-  + "l"   -- "999 lines, 888 bytes"   -> "999L, 888B"
-  + "n"   -- "[New File]"             -> "[New]"
-  + "x"   -- "[unix format]"          -> "[unix]"
-
-  + "t"   -- truncate file message if it is too long to fit on the command line
-  + "T"   -- truncate other messages in the middle if they are too long to fit on the command line
-  + "o"   -- overwrite message for writing a file with subsequent message for reading a file
-  + "O"   -- message for reading a file overwrites any previous message
-  + "F"   -- don't give the file info when editing a file
-
-opt.shortmess = opt.shortmess
-  + "I"               -- disable intro message
-  + "s"               -- do not show messages when wrapping search
-
-
-
-
--- show whitespace
-opt.list = true
-opt.listchars:append {
+M.listchars = {
+  trail = "-",  -- trailing whitespace
+  eol   = "↲",  -- end of line
   space = "⋅",
   tab   = " ",
-  eol   = "↲",
 }
 
-opt.fillchars:append {
-  diff = "╱",       -- Note: not a normal forward slash
+M.fillchars = {
+  diff = "╱", -- deleted lines when showing diffs
 }
 
-
--- scrolling
-opt.scrolloff = 4
-opt.mousescroll = {
-  "ver:1",            -- default: 3
-  "hor:1",            -- default: 6
+M.mousescroll = {
+  "ver:1",
+  "hor:1",
 }
 
+for k, v in pairs(M) do
+  vim.opt[k] = v
+end
 
-
--- miscellaneous
-opt.wrap        = false
-opt.breakindent = true
-opt.linebreak   = true
-
-opt.ignorecase  = true
-opt.smartcase   = true
-opt.clipboard   = "unnamedplus" -- integrate with system clipboard
+return M
