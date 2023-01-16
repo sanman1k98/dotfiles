@@ -9,6 +9,10 @@ util.init()
 require "conf.globals"
 require "conf.options"
 
+util.event.on.UIEnter(function()
+  util.notify.info "Welcome!"
+end)
+
 vim.g.colors_name = themes[vim.o.bg]
 
 require("lazy").setup("plugins", {
