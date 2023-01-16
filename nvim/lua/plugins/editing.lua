@@ -126,7 +126,8 @@ return {
     "echasnovski/mini.surround",
     keys = map.lazykeys {
       {
-        gs = { name = "surround" },
+        prefix = "gs",
+        name = "surround",
       },
       {
         gs = { true, mode = { "n", "v" } },
@@ -136,12 +137,12 @@ return {
     },
     opts = {
       mappings = {
-        add = "gs", -- Add surrounding in Normal and Visual modes
-        delete = "ds", -- Delete surrounding
-        replace = "cs", -- Replace surrounding
-        find = "gsf", -- Find surrounding (to the right)
-        find_left = "gsF", -- Find surrounding (to the left)
-        highlight = "gsh", -- Highlight surrounding
+        add = "gs",             -- Add surrounding in Normal and Visual modes
+        delete = "ds",          -- Delete surrounding
+        replace = "cs",         -- Replace surrounding
+        find = "gsf",           -- Find surrounding (to the right)
+        find_left = "gsF",      -- Find surrounding (to the left)
+        highlight = "gsh",      -- Highlight surrounding
         update_n_lines = "gsn", -- Update `n_lines`
       },
     },
@@ -205,6 +206,12 @@ return {
   -- split/join
   {
     "Wansmer/treesj",
+    opts = {
+      use_default_keymaps = false,
+      langs = {
+        -- configure nodes for languages
+      },
+    },
     keys = map.lazykeys {
       prefix = "<leader>s",
       name = "treesj",
@@ -222,12 +229,6 @@ return {
         function()
           require("treesj.format")._format("join")
         end,
-      },
-    },
-    opts = {
-      use_default_keymaps = false,
-      langs = {
-        -- configure nodes for languages
       },
     },
   }
