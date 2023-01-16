@@ -22,7 +22,7 @@
 ---@field mode? string|string[]
 ---@field cond? boolean|fun():boolean if false or returns false all KeymapNodes 
 
----@class KeymapInfo: KeymapOpts @Use to set or delete a keymap
+---@class KeymapInfo: string,boolean,function,KeymapOpts @Use to set or delete a keymap
 ---@field [1] boolean|string|function rhs; false deletes a keymap
 ---@field [2]? string desc
 ---@field mode? string|string[]
@@ -246,6 +246,8 @@ function M.set(keymaps)
   end
 end
 
+--- Takes a tree of mappings and returns a list of LazyKeys.
+---@see lazy.nvim
 ---@param keymaps KeymapTree|KeymapTree[]
 ---@return LazyKeys[]
 function M.lazykeys(keymaps)
