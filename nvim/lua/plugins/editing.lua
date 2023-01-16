@@ -21,7 +21,7 @@ return {
               return "<tab>"
             end
           end,
-          mode = "i", remap = true, silent = true, expr = true
+          mode = "i", silent = true, expr = true
         },
       },
       {
