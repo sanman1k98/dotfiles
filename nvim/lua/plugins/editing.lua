@@ -187,6 +187,21 @@ return {
     end,
   },
 
+  -- move
+  {
+    "echasnovski/mini.move",
+    keys = map.lazykeys({
+      mode = { "n", "v" },
+      ["<m-h>"] = true,
+      ["<m-j>"] = true,
+      ["<m-k>"] = true,
+      ["<m-l>"] = true,
+    }),
+    config = function()
+      require("mini.move").setup()
+    end,
+  },
+
   -- split/join
   {
     "Wansmer/treesj",
