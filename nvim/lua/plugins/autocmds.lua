@@ -19,8 +19,8 @@ local function autocmds()
     au.WinEnter(set_cul(true))
     au.WinLeave(set_cul(false))
     -- only highlight the number in insert mode
-    au.InsertEnter(cul_hl { "number" } )
-    au.InsertLeave(cul_hl { "number", "line" } )  -- default
+    au.InsertEnter(cul_hl({ "number" }))
+    au.InsertLeave(cul_hl({ "number", "line" }))  -- default
     -- disbale cursorline for these filetypes
     au.FileType[{
       "alpha",

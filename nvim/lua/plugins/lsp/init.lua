@@ -60,6 +60,7 @@ return {
         function(server)
           local configs = require "plugins.lsp.servers"
           local opts = configs[server] or {}
+          -- TODO: use autocmd event `LspAttach`
           opts.on_attach = function(client, bufnr)
             require("plugins.lsp.keymaps").on_attach(client, bufnr)
           end
