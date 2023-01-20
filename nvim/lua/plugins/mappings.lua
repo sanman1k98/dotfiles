@@ -2,40 +2,92 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local function mappings()
-  local map = require "util.map"
+  local util = require "util"
+  local toggle = util.toggle
+  local notify = util.notify
 
-  map.set {
-    mode = "i",
-    ["kj"] = { "<esc>", desc = "ESC" },
-    ["<c-f>"] = { "<right>", desc = "->" },
-    ["<c-b>"] = { "<left>", desc = "<-" },
-  }
-
-  map.set {
-    prefix = "<leader>",
-    [";"] = { ":", "command-line" },
-    w = { vim.cmd.write, "write file" },
-    l = { vim.cmd.Lazy, "Lazy"},
-    t = {
-      name = "toggles",
-      ["lc"] = { desc = "list chars",
-        function() vim.opt_local.list = not vim.opt_local.list:get() end,
-      },
-      ["nc"] = { desc = "number column",
-        function()
-          local set = vim.wo.number
-          vim.wo.number = not set
-          vim.wo.relativenumber = not set
-        end,
-      },
+  util.map.set ({
+    {
+      mode = "i",
+      ["kj"] = { "<esc>", desc = "ESC" },
+      ["<c-f>"] = { "<right>", desc = "->" },
+      ["<c-b>"] = { "<left>", desc = "<-" },
     },
-    ["."] = {
-      name = "config",
-      ["p"] = { desc = "Profile startup with Lazy",
-        function() require("lazy.view.commands").commands["profile"]() end,
+    {
+      -- better up/down for wrapped lines
+      j = { "v:count == 0 ? 'gj' : 'j'", silent = true, expr = true },
+      k = { "v:count == 0 ? 'gk' : 'k'", silent = true, expr = true },
+      -- windows
+      ["<a-up>"]    = { "<c-w>k", desc = "left window" },
+      ["<a-down>"]  = { "<c-w>j", desc = "down window" },
+      ["<a-left>"]  = { "<c-w>h", desc = "up window" },
+      ["<a-right>"] = { "<c-w>l", desc = "right window" },
+      ["<s-up>"]    = { "<cmd>resize +2<cr>", desc = "window height +" },
+      ["<s-down>"]  = { "<cmd>resize -2<cr>", desc = "window height -" },
+      ["<s-left>"]  = { "<cmd>vertical resize -2<cr>", desc = "window width -" },
+      ["<s-right>"] = { "<cmd>vertical resize +2<cr>", desc = "window width +" },
+      -- Neovim (specifically a dependency libtermkey) does not recognize the super modifier.
+      -- ["<D-S>"] = { vim.cmd.write, desc = "write" },
+    },
+    {
+      name = "shortcuts",
+      prefix = "<leader>",
+      [";"] = { ":", desc = "command-line", mode = { "n", "v" } },
+      w = { vim.cmd.write, "write file" },
+      l = { vim.cmd.Lazy, "Lazy"},
+      ["<tab>"] = {
+        name = "tabs",
+        q = { "<cmd>tabclose<cr>", desc = "close" },
+        -- windows
+      },
+      h = {
+        name = "help",
+        i = { "<cmd>tab help index<cr>", desc = "index in new tab" },
+      },
+      t = {
+        name = "toggles",
+        lc = { desc = "list chars",
+          function() toggle "list" end,
+        },
+        t = { desc = "light/dark theme",
+          function()
+            toggle({
+              bg = { "light", "dark" },
+            }, true)
+          end,
+        },
+        n = { desc = "number column",
+          function()
+            toggle {
+              "number",
+              "relativenumber",
+            }
+          end,
+        },
+        c = { desc = "conceal level",
+          function()
+            toggle {
+              conceallevel = { 0, 3 }
+            }
+          end
+        },
+      },
+      ["."] = {
+        name = "config",
+        p = { desc = "Profile startup with Lazy",
+          function() require("lazy.view.commands").commands["profile"]() end,
+        },
+      },
+      b = {
+        name = "buffers",
+        l = { "<cmd>buffers<cr>", desc = "list buffers" },
+      },
+      q = {
+        name = "quit",
+        q = { "<cmd>quitall<cr>", desc = "quit all" },
       }
-    }
-  }
+    },
+  })
 end
 
 return {
