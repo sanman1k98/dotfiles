@@ -1,9 +1,7 @@
 local tokyo = require "tokyonight"
-
 tokyo.setup({
   style = "night",
   light_style = "day",
-  day_brightness = 0.3,
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
     hl.TelescopeNormal = {
@@ -35,5 +33,4 @@ tokyo.setup({
     }
   end,
 })
-
 tokyo.load()
