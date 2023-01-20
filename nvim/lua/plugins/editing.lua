@@ -67,7 +67,7 @@ return {
         mapping = {
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<CR>"]  = cmp.mapping.confirm({ select = true }),
+          ["<CR>"]  = cmp.mapping.confirm({ select = false }),
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-e>"] = cmp.mapping.abort(),
         },
@@ -213,8 +213,8 @@ return {
       },
     },
     keys = map.lazykeys {
-      prefix = "<leader>s",
-      name = "treesj",
+      prefix = "<leader>j",
+      name = "split/join",
       t = { desc = "toggle",
         function()
           require("treesj.format")._format()
