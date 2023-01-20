@@ -7,15 +7,14 @@ return {
   {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
-    config = {
-    },
+    opts = {},
   },
 
   -- UI
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    config = {
+    opts = {
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -26,6 +25,7 @@ return {
       presets = {
         bottom_search = true,
         command_palette = true,
+        long_message_to_split = true,
         lsp_doc_border = false,
       },
     },
@@ -36,7 +36,7 @@ return {
     "akinsho/bufferline.nvim",
     enabled = false,
     event = "VeryLazy",
-    config = {
+    opts = {
       options = {
         always_show_bufferline = false,
         -- mode = "tabs",
@@ -69,7 +69,7 @@ return {
     "folke/drop.nvim",
     enabled = false,
     event = "VimEnter",
-    config = {
+    opts = {
       theme = "stars",
     },
   },
