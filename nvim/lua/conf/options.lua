@@ -1,40 +1,42 @@
-local M = {
-  background     = "dark",
-  termguicolors  = true,
-  winblend       = 10,
-  cmdheight      = 0,
-  helpheight     = 20,
-  splitright     = true,
-  splitbelow     = true,
-  scrolloff      = 4,
-  sidescrolloff  = 4,
-  splitkeep      = "screen",     -- keep text on same screen line
-  pumheight      = 20,           -- max number of items to show in the popup menu
-  title          = true,         -- set window title to "titlestring"
-  showtabline    = 1,            -- show tabline for more than one tab
-  laststatus     = 0,            -- no statusline on startup
-  number         = true,         -- show current line number
-  relativenumber = true,         -- show line numbers relative to cursor
-  numberwidth    = 4,            -- set width of the number column
-  signcolumn     = "yes",        -- always display signcolumn
-  conceallevel   = 3,            -- hide markup for bold and italic
-  cursorline     = true,         -- highlight location of cursor
-  cursorlineopt  = "both",
-  tabstop        = 2,
-  shiftwidth     = 2,
-  softtabstop    = 2,
-  expandtab      = true,
-  autoindent     = true,
-  smartindent    = true,
-  wrap           = false,
-  breakindent    = true,
-  linebreak      = true,
-  ignorecase     = true,
-  smartcase      = true,
-  clipboard      = "unnamedplus",
-}
+local o, opt = vim.o, vim.opt
 
-M.shortmess = {
+o.background     = "dark"
+o.termguicolors  = true
+o.winblend       = 10           -- pseudo-transparency for floating widows
+o.cmdheight      = 0
+o.helpheight     = 20
+o.splitright     = true
+o.splitbelow     = true
+o.scrolloff      = 4
+o.sidescrolloff  = 4
+o.splitkeep      = "screen"     -- keep text on same screen lin
+o.pumheight      = 20           -- max number of items to show in the popup menu
+o.pumblend       = 10           -- pseudo-transparency for the popup-men
+o.title          = false        -- set window title to "titlestring
+o.showtabline    = 1            -- show tabline for more than one ta
+o.laststatus     = 0            -- no statusline on startu
+o.number         = true         -- show current line numbe
+o.relativenumber = true         -- show line numbers relative to curso
+o.numberwidth    = 4            -- set width of the number column
+o.signcolumn     = "yes"        -- always display signcolumn
+o.conceallevel   = 3            -- hide markup for bold and italic
+o.list           = true         -- display whitespace characters
+o.cursorline     = true         -- highlight location of cursor
+o.cursorlineopt  = "both"       -- highlight both the line and number
+o.tabstop        = 2
+o.shiftwidth     = 2
+o.softtabstop    = 2
+o.expandtab      = true         -- insert spaces instead of tabs
+o.autoindent     = true
+o.smartindent    = true
+o.wrap           = false
+o.breakindent    = true
+o.linebreak      = true
+o.ignorecase     = true
+o.smartcase      = true
+o.clipboard      = "unnamedplus"
+
+opt.shortmess = {
   f = true,   -- use "(3 of 5)" instead of "(file 3 of 5)"
   i = true,   -- use "[noeol]" instead of "[Incomplete last line]"
   l = true,   -- use "999L, 888B" instead of "999 lines, 888 bytes"
@@ -51,7 +53,7 @@ M.shortmess = {
   C = true,   -- don't give messages while scanning for ins-completion items
 }
 
-M.formatoptions = {
+opt.formatoptions = {
   t = true,  -- auto-wrap text using "textwidth"
   c = true,  -- auto-wrap comments to "textwidth"; automatically inserts comment leader
   q = true,  -- allow formatting of comment with "gq"
@@ -61,24 +63,18 @@ M.formatoptions = {
   n = true,  -- when formatting text, recognize numbered lists
 }
 
-M.listchars = {
+opt.listchars = {
   trail = "-",  -- trailing whitespace
   eol   = "↲",  -- end of line
   space = "⋅",
   tab   = " ",
 }
 
-M.fillchars = {
+opt.fillchars = {
   diff = "╱", -- deleted lines when showing diffs
 }
 
-M.mousescroll = {
+opt.mousescroll = {
   "ver:1",
   "hor:1",
 }
-
-for k, v in pairs(M) do
-  vim.opt[k] = v
-end
-
-return M
