@@ -22,38 +22,29 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = "BufReadPost",
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = {
-          "lua",
-          "vim",
-          "bash",
-          "regex",
-          "markdown",
-          "markdown_inline",
-        },
-        auto_install = true,
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
-        },
-        -- can be enabled with ":TSBufEnable incremental_selection"
-        -- incremental_selection = {
-        --   enable = true,
-        --   keymaps = { -- default keymaps
-        --     init_selection = "gnn",
-        --     node_incremental = "grn",
-        --     scope_incremental = "grc",
-        --     node_decremental = "grm",
-        --   },
-        -- },
-      }
+    opts = {
+      ensure_installed = {
+        "lua",
+        "vim",
+        "bash",
+        "regex",
+        "markdown",
+        "markdown_inline",
+      },
+      auto_install = true,
+      highlight = {
+        enable = true,
+      },
+      indent = {
+        enable = true,
+      },
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   }
 }
