@@ -21,4 +21,10 @@ return {
     enabled = false,
     "echasnovski/mini.nvim",
   },
+
+  -- reference config
+  {
+    cond = false, -- don't load but keep it downloaded.
+    "LazyVim/LazyVim",
+  },
 }
