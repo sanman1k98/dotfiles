@@ -1,19 +1,10 @@
 local util = require "util"
 
-local themes = {
-  light = "tokyonight-day",
-  dark  = "tokyonight-night",
-}
-
-util.init()
+util.setup()
 require "conf.globals"
 require "conf.options"
 
-util.event.on.UIEnter(function()
-  util.notify.info "Welcome!"
-end)
-
-vim.g.colors_name = themes[vim.o.bg]
+vim.g.colors_name = "tokyonight"
 
 require("lazy").setup("plugins", {
   root = vim.fn.stdpath("data").."/lazy",
