@@ -31,6 +31,8 @@ function M.on_attach(client, bufnr)
       },
     },
 
+    ["<leader>xl"] = { vim.diagnostic.open_float, desc = "current line" },
+
     K = { vim.lsp.buf.hover, "hover" },
 
     ["<c-k>"] = { desc = "signature help",
