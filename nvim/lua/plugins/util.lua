@@ -7,7 +7,7 @@ return {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
     keys = require("util.map").lazykeys({
-      ["<leader>.s"] = { "<cmd>tab Startuptime<cr>", desc = "StartupTime" },
+      ["<leader>.s"] = { "<cmd>tab StartupTime<cr>", desc = "StartupTime" },
     }),
     init = function()
       local g = vim.g
