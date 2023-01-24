@@ -86,14 +86,15 @@ return {
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    -- event = "BufReadPost",
+    event = "BufReadPost",
+    dependencies = "trouble.nvim",
     config = true,
     -- stylua: ignore
     keys = map.lazykeys({
       prefix = "<leader>x",
-      t = { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-      tt = { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
-      T = { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
+      t = { "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
+      tt = { "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
+      T = { "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
     }),
   },
 }
