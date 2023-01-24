@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 opt.termguicolors  = true
-opt.winblend       = 10           -- pseudo-transparency for floating widows
+-- opt.winblend       = 10           -- pseudo-transparency for floating widows
 opt.cmdheight      = 0
 opt.helpheight     = 20
 opt.splitright     = true
