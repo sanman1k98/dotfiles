@@ -14,22 +14,24 @@ notifier.backend = function(...)
   table.insert(notifier.backlog, {...})
 end
 
--- from folke/lazy.nvim/lua/lazy/util.lua
-notifier.default_opts = {
-  title = "$MYVIMRC",
-  on_open = function(win)
-    local buf = a.win_get_buf(win)
-    vim.wo[win].conceallevel = 3
-    vim.wo[win].concealcursor = "n"
-    vim.wo[win].spell = false
-    vim.bo[buf].filetype = "markdown"
-    vim.treesitter.start(buf, "markdown")
-  end,
-}
-
+-- from folke/lazy.nvim/lua/lazy/core/util.lua
 notifier.call = function(msg, lvl, opts)
-  opts = vim.tbl_deep_extend("force", notifier.default_opts, opts or {})
-  notifier.backend(msg, lvl, opts)
+  opts = opts or {}
+  local lang = opts.lang or "markdown"
+  notifier.backend(msg, lvl or vim.log.levels.INFO, {
+    title = opts.title or "$MYVIMRC",
+    on_open = function(win)
+      pcall(require, "nvim-treesitter")
+      local buf = a.win_get_buf(win)
+      vim.wo[win].conceallevel = 3
+      vim.wo[win].concealcursor = ""
+      vim.wo[win].spell = false
+      if not pcall(vim.treesitter.start, buf, lang) then
+        vim.bo[buf].filetype = lang
+        vim.bo[buf].syntax   = lang
+      end
+    end,
+  })
 end
 
 function notifier:setup()
