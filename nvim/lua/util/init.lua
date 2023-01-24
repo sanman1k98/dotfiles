@@ -28,15 +28,23 @@ end
 --- True when nvim is running in headless mode.
 util.in_headless = #vim.api.nvim_list_uis() == 0
 
+--- True when running in an instance of kitty.
+util.in_kitty = vim.env.TERM == "xterm-kitty"
+
+--- Index `vim.api` without the "nvim_" prefix.
 util.api = setmetatable({}, {
   __index = function(_, k)
     return vim.api["nvim_"..k]
   end,
 })
 
---- Prepend `lazy.nvim` to the runtimepath and setup XDG directories.
+--- Prepend `lazy.nvim` to the runtimepath and setup XDG directories. Setup
+--- more utility modules.
 function util.setup()
   util.notify.setup()
+  if util.in_kitty then
+    util.kitty.setup()
+  end
   -- set in .config/zsh/init/variables.zsh
   local config = vim.env.CONFIG_BRANCH
   if config == nil then
