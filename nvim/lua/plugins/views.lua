@@ -65,7 +65,7 @@ return {
     },
     keys = map.lazykeys({
       prefix = "<leader>t",
-      z = { function() require("zen-mode").toggle() end, desc = "Zen mode" },
+      Z = { function() require("zen-mode").toggle() end, desc = "Zen mode" },
     }),
   },
 

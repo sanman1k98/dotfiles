@@ -67,7 +67,7 @@ local function mappings()
             }
           end
         },
-        Z = { util.kitty.toggle_zoom, desc = "toggle zoom" },
+        z = { util.kitty.toggle_zoom, desc = "toggle zoom" },
       },
       ["."] = {
         name = "config",
@@ -85,7 +85,7 @@ local function mappings()
       },
       g = {
         name = "git",
-        l = { desc = "lazygit",
+        g = { desc = "lazygit",
           function() util.float_term("lazygit") end,
         },
       },
