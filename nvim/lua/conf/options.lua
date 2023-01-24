@@ -71,6 +71,7 @@ opt.listchars = {
 
 opt.fillchars = {
   diff = "╱", -- deleted lines when showing diffs
+  eob  = "•"
 }
 
 opt.mousescroll = {
