@@ -56,7 +56,7 @@
 
 # TODO: add more aliases
 [alias]
-	ss = status -s
+	st = status --short --branch --find-renames --show-stash
 	ca = commit -a
 	wt = worktree
 
