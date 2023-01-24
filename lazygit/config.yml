@@ -2,5 +2,5 @@ gui:
   showIcons: true
 git:
   paging:
-    pager: delta --no-gitconfig --paging never --line-numbers
+    pager: delta --paging never
     colorArg: always
