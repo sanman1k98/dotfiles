@@ -1,6 +1,13 @@
-local util = setmetatable({}, {
+local submodules = {
+  colors = true,
+  notify = true,
+  kitty = true,
+  map = true,
+}
+
+local M = setmetatable({}, {
   __index = function(self, k)
-    if self._submodules[k] then
+    if submodules[k] then
       self[k] = require("util."..k)
     elseif
       k == "autocmd"
@@ -13,29 +20,21 @@ local util = setmetatable({}, {
   end,
 })
 
----@private
-util._submodules = {
-  colors = true,
-  notify = true,
-  kitty = true,
-  map = true,
-}
-
 --- Check if a given command exists on the path.
 ---@param command string
 ---@return boolean
-function util.has(command)
+function M.has(command)
   return vim.fn.executable(command) == 1
 end
 
 --- True when nvim is running in headless mode.
-util.in_headless = #vim.api.nvim_list_uis() == 0
+M.in_headless = #vim.api.nvim_list_uis() == 0
 
 --- True when running in an instance of kitty.
-util.in_kitty = vim.env.TERM == "xterm-kitty"
+M.in_kitty = vim.env.TERM == "xterm-kitty"
 
 --- Index `vim.api` without the "nvim_" prefix.
-util.api = setmetatable({}, {
+M.api = setmetatable({}, {
   __index = function(_, k)
     return vim.api["nvim_"..k]
   end,
@@ -43,15 +42,15 @@ util.api = setmetatable({}, {
 
 --- Prepend `lazy.nvim` to the runtimepath and setup XDG directories. Setup
 --- more utility modules.
-function util.setup()
-  util.notify.setup()
-  if util.in_kitty then
-    util.kitty.setup()
+function M.setup()
+  M.notify.setup()
+  if M.in_kitty then
+    M.kitty.setup()
   end
   -- set in .config/zsh/init/variables.zsh
   local config = vim.env.CONFIG_BRANCH
   if config == nil then
-    util.notify.warn "`$CONFIG_BRANCH` environment variable not specified"
+    M.notify.warn "`$CONFIG_BRANCH` environment variable not specified"
   elseif config ~= "main" then
     -- TODO: set XDG dirs here or with zsh script?
   end
@@ -76,7 +75,7 @@ end
 --- value.
 ---@param option string|string[]|table<string, {[1]:any, [2]:any}>
 ---@param silent? boolean defaults to false
-function util.toggle(option, silent)
+function M.toggle(option, silent)
   silent = silent == true
   local opt = vim.opt_local
   local msg = not silent and { "# Toggled:" } or nil
@@ -104,13 +103,13 @@ function util.toggle(option, silent)
     end
   end
   if not msg then return end
-  util.notify.info(table.concat(msg, "\n"))
+  M.notify.info(table.concat(msg, "\n"))
 end
 
 --- Fast implementation to check if a table is a list
 ---@param t table
 ---@see lazy.nvim/lua/lazy/core/util.lua
-function util.is_list(t)
+function M.is_list(t)
   local i = 0
   ---@diagnostic disable-next-line: no-unknown
   for _ in pairs(t) do
@@ -123,7 +122,7 @@ function util.is_list(t)
 end
 
 local function can_merge(v)
-  return type(v) == "table" and (vim.tbl_isempty(v) or not util.is_list(v))
+  return type(v) == "table" and (vim.tbl_isempty(v) or not M.is_list(v))
 end
 
 --- Merges the values similar to vim.tbl_deep_extend with the **force** behavior,
@@ -135,7 +134,7 @@ end
 ---@param ... T
 ---@return T
 ---@see lazy.nvim/lua/lazy/core/util.lua
-function util.merge(...)
+function M.merge(...)
   local values = { ... }
   local ret = values[1]
 
@@ -148,7 +147,7 @@ function util.merge(...)
     if can_merge(ret) and can_merge(value) then
       for k, v in pairs(value) do
         ---@diagnostic disable-next-line: need-check-nil
-        ret[k] = util.merge(ret[k], v)
+        ret[k] = M.merge(ret[k], v)
       end
     elseif value == vim.NIL then
       ret = nil
@@ -160,11 +159,11 @@ function util.merge(...)
 end
 
 -- Copied from LazyVim
-function util.float_term(cmd, opts)
+function M.float_term(cmd, opts)
   opts = vim.tbl_deep_extend("force", {
     size = { width = 0.9, height = 0.9 },
   }, opts or {})
   require("lazy.util").float_term(cmd, opts)
 end
 
-return util
+return M
