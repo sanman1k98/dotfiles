@@ -47,14 +47,9 @@ local function mappings()
       t = {
         name = "toggles",
         lc = { desc = "list chars",
+        t = { util.colors.switch, desc = "light/dark theme" },
           function() toggle "list" end,
         },
-        t = { desc = "light/dark theme",
-          function()
-            toggle({
-              bg = { "light", "dark" },
-            }, true)
-          end,
         },
         n = { desc = "number column",
           function()
