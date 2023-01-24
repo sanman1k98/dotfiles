@@ -1,8 +1,4 @@
-local loaded, gh = pcall(require, "github-theme")
-
-if not loaded then
-  return
-end
+local gh = require "github-theme"
 
 gh.setup {
   theme_style = "dark_default",
