@@ -1,5 +1,5 @@
 {
-  "LazyVim": { "branch": "main", "commit": "7595bfaa3b35e424e54f7600588e1c134a237ef8" },
+  "LazyVim": { "branch": "main", "commit": "1b3b18d53bb0b6f97864c5a21fe5c3955147f7f0" },
   "LuaSnip": { "branch": "master", "commit": "448e6bc421c899fd7330e0f710f85867a332a177" },
   "alpha-nvim": { "branch": "main", "commit": "21a0f2520ad3a7c32c0822f943368dc063a569fb" },
   "catppuccin": { "branch": "main", "commit": "6368edcd0b5e5cb5d9fb7cdee9d62cffe3e14f0e" },
@@ -46,5 +46,6 @@
   "treesj": { "branch": "main", "commit": "15a2262dfcd7848fbafa5afea8adec3941b83c12" },
   "trouble.nvim": { "branch": "main", "commit": "490f7fe6d227f4f7a64f00be8c7dcd7a508ed271" },
   "vim-startuptime": { "branch": "master", "commit": "cb4c112b9e0f224236ee4eab6bf5153406b3f88b" },
-  "which-key.nvim": { "branch": "main", "commit": "684e96c5e8477f1ee9b3f2e9a12d802fd12c5531" }
+  "which-key.nvim": { "branch": "main", "commit": "684e96c5e8477f1ee9b3f2e9a12d802fd12c5531" },
+  "zen-mode.nvim": { "branch": "main", "commit": "38a660094dd023176ed4d6ecb1fe028546717f78" }
 }
