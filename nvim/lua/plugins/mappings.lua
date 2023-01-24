@@ -4,7 +4,6 @@ vim.g.maplocalleader = " "
 local function mappings()
   local util = require "util"
   local toggle = util.toggle
-  local notify = util.notify
 
   util.map.set ({
     {
@@ -46,10 +45,12 @@ local function mappings()
       },
       t = {
         name = "toggles",
-        lc = { desc = "list chars",
         t = { util.colors.switch, desc = "light/dark theme" },
+        w = { desc = "show whitespace",
           function() toggle "list" end,
         },
+        l = { desc = "cursorline",
+          function() toggle "cursorline" end,
         },
         n = { desc = "number column",
           function()
@@ -80,7 +81,7 @@ local function mappings()
       q = {
         name = "quit",
         q = { "<cmd>quitall<cr>", desc = "quit all" },
-      }
+      },
     },
   })
 end
