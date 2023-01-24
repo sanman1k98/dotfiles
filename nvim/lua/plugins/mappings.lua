@@ -67,6 +67,7 @@ local function mappings()
             }
           end
         },
+        Z = { util.kitty.toggle_zoom, desc = "toggle zoom" },
       },
       ["."] = {
         name = "config",

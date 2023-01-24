@@ -70,4 +70,17 @@ function M.kitten(name, args)
   })
 end
 
+local zoomed = false
+
+function M.toggle_zoom()
+  if zoomed then
+    M.ctl("set-spacing", { "padding=default" })
+    M.ctl("set-font-size", { "0" })
+  else
+    M.ctl("set-font-size", { "+4" })
+    M.ctl("set-spacing", { "padding=60" })
+  end
+  zoomed = not zoomed
+end
+
 return M
