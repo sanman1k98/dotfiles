@@ -58,6 +58,7 @@
 [alias]
 	ss = status -s
 	ca = commit -a
+	wt = worktree
 
 
 # Sign commits by default.
