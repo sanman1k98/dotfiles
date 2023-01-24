@@ -1,14 +1,32 @@
 local util = setmetatable({}, {
   __index = function(self, k)
-    local submod = require("util."..k)
-    rawset(self, k, submod)
-    return submod
+    if self._submodules[k] then
+      self[k] = require("util."..k)
+    elseif k == "autocmd" or k == "augroup" then
+      require "util._auto"
+    end
+    return self[k]
   end,
 })
 
-function util.is_headless()
-  return #vim.api.nvim_list_uis() == 0
+---@private
+util._submodules = {
+  colors = true,
+  notify = true,
+  event = true,
+  kitty = true,
+  map = true,
+}
+
+--- Check if a given command exists on the path.
+---@param command string
+---@return boolean
+function util.has(command)
+  return vim.fn.executable(command) == 1
 end
+
+--- True when nvim is running in headless mode.
+util.in_headless = #vim.api.nvim_list_uis() == 0
 
 util.api = setmetatable({}, {
   __index = function(_, k)
@@ -50,7 +68,7 @@ end
 function util.toggle(option, silent)
   silent = silent == true
   local opt = vim.opt_local
-  local msg = not silent and { "# Toggled option:\n" } or nil
+  local msg = not silent and { "# Toggled:" } or nil
   if type(option) == "string" then option = { option } end
   for k, v in pairs(option) do
     local name, old, new
@@ -71,7 +89,7 @@ function util.toggle(option, silent)
       end
     end
     if msg then
-      table.insert(msg, ("- *%s*: `%s` -> `%s`"):format(name, old, new))
+      table.insert(msg, ("- **%s**: `%s` -> `%s`"):format(name, old, new))
     end
   end
   if not msg then return end
