@@ -82,6 +82,12 @@ local function mappings()
         name = "quit",
         q = { "<cmd>quitall<cr>", desc = "quit all" },
       },
+      g = {
+        name = "git",
+        l = { desc = "lazygit",
+          function() util.float_term("lazygit") end,
+        },
+      },
     },
   })
 end
