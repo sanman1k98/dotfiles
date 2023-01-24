@@ -2,8 +2,8 @@ return {
   -- a bunch of treesitter queries
   { -- adapted from LazyVim
     "nvim-treesitter/nvim-treesitter-textobjects",
-    init = function()
-      require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
+    init = function(plugin)
+      require("lazy.core.loader").disable_rtp_plugin(plugin.name)
     end,
   },
 
