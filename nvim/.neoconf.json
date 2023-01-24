@@ -1,9 +1,15 @@
 {
-	"neodev": {
-		"library": {
-			"plugins": [
-                "plenary.nvim",
-            ]
-		}
-	}
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": true
+    }
+  },
+  "neoconf": {
+    "plugins": {
+      "sumneko_lua": {
+        "enabled": true
+      }
+    }
+  }
 }
