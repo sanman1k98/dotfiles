@@ -24,6 +24,51 @@ return {
     },
   },
 
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    opts = {
+      window = {
+        backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+        -- height and width can be:
+        -- * an absolute number of cells when > 1
+        -- * a percentage of the width / height of the editor when <= 1
+        -- * a function that returns the width or the height
+        width = 1, -- width of the Zen window
+        height = 1, -- height of the Zen window
+      },
+      options = {
+        -- laststatus = 0,
+      },
+      plugins = {
+        -- disable some global vim options (vim.o...)
+        -- comment the lines to not apply the options
+        options = {
+          enabled = true,
+          ruler = false, -- disables the ruler text in the cmd line area
+          showcmd = false, -- disables the command in the last line of the screen
+        },
+        twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
+        gitsigns = { enabled = false }, -- disables git signs
+        kitty = { enabled = false },
+      },
+      on_open = function()
+        local kitty = require "util.kitty"
+        kitty.ctl("set-font-size", { "+4" })
+        kitty.ctl("set-spacing", { "padding=60", })
+      end,
+      on_close = function()
+        local kitty = require "util.kitty"
+        kitty.ctl("set-font-size", { "0" })
+        kitty.ctl("set-spacing", { "padding=default" })
+      end,
+    },
+    keys = map.lazykeys({
+      prefix = "<leader>t",
+      z = { function() require("zen-mode").toggle() end, desc = "Zen mode" },
+    }),
+  },
+
   -- better diagnostics list and others
   {
     "folke/trouble.nvim",
@@ -44,11 +89,11 @@ return {
     -- event = "BufReadPost",
     config = true,
     -- stylua: ignore
-    keys = {
+    keys = map.lazykeys({
       prefix = "<leader>x",
       t = { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
       tt = { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
       T = { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
-    },
+    }),
   },
 }
