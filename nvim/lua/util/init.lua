@@ -2,7 +2,11 @@ local util = setmetatable({}, {
   __index = function(self, k)
     if self._submodules[k] then
       self[k] = require("util."..k)
-    elseif k == "autocmd" or k == "augroup" then
+    elseif
+      k == "autocmd"
+      or k == "augroup"
+      or k == "autocmd_rm"
+    then
       require "util._auto"
     end
     return self[k]
@@ -13,7 +17,6 @@ local util = setmetatable({}, {
 util._submodules = {
   colors = true,
   notify = true,
-  event = true,
   kitty = true,
   map = true,
 }
@@ -102,6 +105,66 @@ function util.toggle(option, silent)
   end
   if not msg then return end
   util.notify.info(table.concat(msg, "\n"))
+end
+
+--- Fast implementation to check if a table is a list
+---@param t table
+---@see lazy.nvim/lua/lazy/core/util.lua
+function util.is_list(t)
+  local i = 0
+  ---@diagnostic disable-next-line: no-unknown
+  for _ in pairs(t) do
+    i = i + 1
+    if t[i] == nil then
+      return false
+    end
+  end
+  return true
+end
+
+local function can_merge(v)
+  return type(v) == "table" and (vim.tbl_isempty(v) or not util.is_list(v))
+end
+
+--- Merges the values similar to vim.tbl_deep_extend with the **force** behavior,
+--- but the values can be any type, in which case they override the values on the left.
+--- Values will me merged in-place in the first left-most table. If you want the result to be in
+--- a new table, then simply pass an empty table as the first argument `vim.merge({}, ...)`
+--- Supports clearing values by setting a key to `vim.NIL`
+---@generic T
+---@param ... T
+---@return T
+---@see lazy.nvim/lua/lazy/core/util.lua
+function util.merge(...)
+  local values = { ... }
+  local ret = values[1]
+
+  if ret == vim.NIL then
+    ret = nil
+  end
+
+  for i = 2, #values, 1 do
+    local value = values[i]
+    if can_merge(ret) and can_merge(value) then
+      for k, v in pairs(value) do
+        ---@diagnostic disable-next-line: need-check-nil
+        ret[k] = util.merge(ret[k], v)
+      end
+    elseif value == vim.NIL then
+      ret = nil
+    else
+      ret = value
+    end
+  end
+  return ret
+end
+
+-- Copied from LazyVim
+function util.float_term(cmd, opts)
+  opts = vim.tbl_deep_extend("force", {
+    size = { width = 0.9, height = 0.9 },
+  }, opts or {})
+  require("lazy.util").float_term(cmd, opts)
 end
 
 return util
