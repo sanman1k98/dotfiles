@@ -24,6 +24,7 @@ return {
     },
   },
 
+  -- focus
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
@@ -88,7 +89,8 @@ return {
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "BufReadPost",
     dependencies = "trouble.nvim",
-    config = true,
+    -- FIX: whitespace highlighting
+    opts = { signs = false },
     -- stylua: ignore
     keys = map.lazykeys({
       prefix = "<leader>x",
