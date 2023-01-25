@@ -6,7 +6,6 @@ colors.setup({
   light = "dawnfox",
 })
 
--- TODO: configure 'statuscolumn' option
 util.setup()
 require "conf.globals"    -- TODO: rename to `user.globals`
 require "conf.options"    -- TODO: rename to `user.options`
