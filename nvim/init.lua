@@ -6,9 +6,10 @@ colors.setup({
   light = "dawnfox",
 })
 
+-- TODO: configure 'statuscolumn' option
 util.setup()
-require "conf.globals"
-require "conf.options"
+require "conf.globals"    -- TODO: rename to `user.globals`
+require "conf.options"    -- TODO: rename to `user.options`
 
 require("lazy").setup("plugins", {
   root = vim.fn.stdpath("data").."/lazy",

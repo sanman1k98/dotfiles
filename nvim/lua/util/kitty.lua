@@ -16,6 +16,10 @@ M.config = {
 
 M.did_setup = false
 
+-- TODO: use socket directly instead of the `kitty` CLI
+function M.backend()
+end
+
 ---@param args string[]
 function M.cmd(args)
   return vim.fn.system({
