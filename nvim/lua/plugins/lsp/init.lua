@@ -36,11 +36,7 @@ return {
   -- configure lua-language-server for nvim
   {
     "folke/neodev.nvim",
-    config = {
-      library = {
-        plugins = { "plenary.nvim" },
-      },
-    },
+    config = true,
   },
 
   -- automatic LSP setup
