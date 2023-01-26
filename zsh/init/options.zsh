@@ -1,3 +1,5 @@
+export HISTFILE="${XDG_STATE_HOME}/zsh/zhistory"
+
 setopt nobeep
 setopt interactivecomments
 setopt nocaseglob

@@ -1,7 +1,9 @@
 init="${XDG_CONFIG_HOME}/zsh/init"
 
 source "${init}/variables.zsh"		# env vars for CLI tools
-source "${init}/aliases.zsh"
-source "${init}/options.zsh"			# interactive shell
+source "${init}/options.zsh"		# interactive shell
 source "${init}/completion.zsh"		# shell autocomplete
 source "${init}/prompt.zsh"			# initialize prompt last
+
+# source after the prompt loads
+source "${init}/aliases.zsh"
