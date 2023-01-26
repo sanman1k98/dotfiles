@@ -1,4 +1,8 @@
-export HISTFILE="${XDG_STATE_HOME}/zsh/zhistory"
+statedir="${XDG_STATE_HOME}/zsh"
+if [[ ! -d "${statedir}" ]]; then
+	mkdir -p "${statedir}"
+fi
+export HISTFILE="${statedir}/zhistory"
 
 setopt nobeep
 setopt interactivecomments

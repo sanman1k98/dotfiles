@@ -2,7 +2,11 @@
 fpath+="${HOMEBREW_PREFIX}/share/zsh/site-functions"
 
 autoload -Uz compinit
-compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump"
+dumpdir="${XDG_CACHE_HOME}/zsh"
+if [[ ! -d "${dumpdir}" ]]; then
+	mkdir -p "${dumpdir}"
+fi
+compinit -d "${dumpdir}/zcompdump"
 
 zstyle ":completion:*" completer _extensions _complete _approximate
 
