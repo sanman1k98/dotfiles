@@ -79,4 +79,5 @@ opt.mousescroll = {
   "hor:1",
 }
 
-require("util.status").setup()
+-- 'statuscolumn'
+require("util.gutter").setup()
