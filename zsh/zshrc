@@ -1,9 +1,12 @@
 init="${XDG_CONFIG_HOME}/zsh/init"
 
-source "${init}/variables.zsh"		# env vars for CLI tools
-source "${init}/options.zsh"		# interactive shell
-source "${init}/completion.zsh"		# shell autocomplete
-source "${init}/prompt.zsh"			# initialize prompt last
+# TODO: check if Homebrew is installed before exporting
+export HOMEBREW_PREFIX="$(brew --prefix)"
 
-# source after the prompt loads
+# initialize prompt first
+source "${init}/prompt.zsh"
+
+source "${init}/options.zsh"		# set options for interactive shells
+source "${init}/completion.zsh"		# shell autocomplete; update dumpfile
+source "${init}/variables.zsh"		# env vars for CLI tools
 source "${init}/aliases.zsh"

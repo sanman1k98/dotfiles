@@ -1,15 +1,11 @@
-
 export EDITOR='nvim'
 export VISUAL='nvim'
 export MANPAGER='nvim +Man!'
 
-# TODO: check if Homebrew is installed before exporting
-export HOMEBREW_PREFIX="$(brew --prefix)"
-
 # lazygit config
 export LG_CONFIG_FILE="${XDG_CONFIG_HOME}/lazygit/config.yml"
 
-# node versino manager
+# node version manager
 export NVM_DIR="${XDG_DATA_HOME}/nvm"
 test -e "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh --no-use" && source $_	# TODO: move this somewhere else
 
