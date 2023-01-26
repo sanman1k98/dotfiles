@@ -90,7 +90,12 @@ return {
     event = "BufReadPost",
     dependencies = "trouble.nvim",
     -- FIX: whitespace highlighting
-    opts = { signs = false },
+    opts = {
+      signs = false,
+      highlight = {
+        keyword = "wide_bg", -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+      },
+    },
     -- stylua: ignore
     keys = map.lazykeys({
       prefix = "<leader>x",
