@@ -1,7 +1,1 @@
-local indent = 4
-local opt = vim.opt
-
-opt.tabstop = indent
-opt.shiftwidth = indent
-opt.softtabstop = indent
-opt.expandtab = false
+vim.opt_local.tabstop = 4
