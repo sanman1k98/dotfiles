@@ -1,40 +1,41 @@
 local opt = vim.opt
 
-opt.termguicolors  = true
--- opt.winblend       = 10           -- pseudo-transparency for floating widows
-opt.cmdheight      = 0
-opt.helpheight     = 20
-opt.splitright     = true
-opt.splitbelow     = true
-opt.scrolloff      = 4
-opt.sidescrolloff  = 4
-opt.splitkeep      = "screen"     -- keep text on same screen line
-opt.pumheight      = 20           -- max number of items to show in the popup menu
-opt.pumblend       = 10           -- pseudo-transparency for the popup-menu
-opt.title          = false        -- set window title to "titlestring
-opt.showtabline    = 1            -- show tabline for more than one ta
-opt.laststatus     = 0            -- no statusline on startup
-opt.number         = true         -- show current line number
-opt.relativenumber = true         -- show line numbers relative to cursor
--- opt.numberwidth    = 4         -- set minimum width of the number column
-opt.signcolumn     = "yes"        -- always display signcolumn (fixes that choppy 'statuscolumn' rendering on "auto")
-opt.conceallevel   = 3            -- hide markup for bold and italic
-opt.list           = true         -- display whitespace characters
-opt.cursorline     = true         -- highlight location of cursor
-opt.cursorlineopt  = "both"       -- highlight both the line and number
-opt.tabstop        = 4            -- number of spaces a <tab> in the file counts for; default is 8
-opt.shiftwidth     = 0            -- spaces to use for each step of indent; when 0, 'tabstop' value will be used 
-opt.softtabstop    = -1           -- pressing <tab> will use a mix of tabs and spaces; when negative, 'shiftwidth' value will be used
-opt.expandtab      = false        -- don't expand <tab> characters into spaces
-opt.autoindent     = true
-opt.smartindent    = true
-opt.wrap           = false
-opt.breakindent    = true
-opt.linebreak      = true
-opt.ignorecase     = true
-opt.smartcase      = true
-opt.clipboard      = "unnamedplus"
+opt.termguicolors  = true             -- enable 24-bit RGB in the TUI
+opt.cmdheight      = 0                -- number of lines to use for the command line
+opt.showcmd        = false            -- don't show partial command
+opt.showmode       = false            -- don't show a message on the last line
+opt.helpheight     = 20               -- minimum window height when opening a new help window
+opt.splitright     = true             -- open vertical splits on the right
+opt.splitbelow     = true             -- open horizontal splits on the bottom
+opt.scrolloff      = 4                -- minimum number of lines above and below the cursor
+opt.sidescrolloff  = 4                -- minimum number of column to left and right of cursor
+opt.splitkeep      = "screen"         -- keep text on same screen line when working with horizontal splits
+opt.pumheight      = 20               -- max number of items to show in the popup menu
+opt.pumblend       = 10               -- pseudo-transparency for the popup-menu
+opt.title          = false            -- set window title to 'titlestring'
+opt.showtabline    = 1                -- show tabline for more than one tab
+opt.laststatus     = 0                -- no statusline on startup
+opt.number         = true             -- show current line number
+opt.relativenumber = true             -- show line numbers relative to cursor
+opt.signcolumn     = "yes"            -- always display signcolumn (fixes choppy 'statuscolumn' rendering on "auto")
+opt.conceallevel   = 3                -- hide markup for bold and italic
+opt.list           = true             -- display whitespace characters
+opt.cursorline     = true             -- highlight location of cursor
+opt.cursorlineopt  = "both"           -- highlight both the line and number
+opt.tabstop        = 4                -- number of spaces a <tab> in the file counts for; default is 8
+opt.shiftwidth     = 0                -- spaces to use for each step of indent; when 0, 'tabstop' value will be used
+opt.softtabstop    = 0                -- number of spaces that a <Tab> counts; when negative, 'shiftwidth' value will be used, and 0 disables this
+opt.expandtab      = false            -- don't expand <tab> characters into spaces
+opt.autoindent     = true             -- take indent for new line from previous line
+opt.smartindent    = true             -- smart auto-indenting for C programs; works well for other languages
+opt.wrap           = false            -- don't wrap long lines by default
+opt.breakindent    = true             -- wrapped lines repeat indent
+opt.linebreak      = true             -- wrap long lines at a blank
+opt.ignorecase     = true             -- ignore case in search patterns
+opt.smartcase      = true             -- don't ignore case when pattern has uppercase letter
+opt.clipboard      = "unnamedplus"    -- use system clipboard
 
+-- list of flags to shorten messages
 opt.shortmess = {
   f = true,   -- use "(3 of 5)" instead of "(file 3 of 5)"
   i = true,   -- use "[noeol]" instead of "[Incomplete last line]"
@@ -52,6 +53,7 @@ opt.shortmess = {
   C = true,   -- don't give messages while scanning for ins-completion items
 }
 
+-- list of flags to control formatting
 opt.formatoptions = {
   t = true,  -- auto-wrap text using "textwidth"
   c = true,  -- auto-wrap comments to "textwidth"; automatically inserts comment leader
@@ -62,21 +64,23 @@ opt.formatoptions = {
   n = true,  -- when formatting text, recognize numbered lists
 }
 
+-- characters to display whitespace
 opt.listchars = {
-  trail = "-",  -- trailing whitespace
-  eol   = "↲",  -- end of line
-  space = "⋅",
-  tab   = " ",
+  trail          = "~",    -- trailing whitespace
+  eol            = "↲",    -- end of line
+  space          = "⋅",    -- a single <space>
 }
 
+-- characters to use when displaying special items
 opt.fillchars = {
-  diff = "╱", -- deleted lines when showing diffs
-  -- eob  = "•"
+  diff = "╱", -- deleted lines when showing diffs; note it is not normal forward slash
+  eob  = "•"  -- empty lines at the end of a buffer; by default it is highlighted like `NonText`
 }
 
+-- lines to scroll with a mouse
 opt.mousescroll = {
-  "ver:1",
-  "hor:1",
+  "ver:1",    -- default: 3
+  "hor:1",    -- default: 3
 }
 
 -- 'statuscolumn'
