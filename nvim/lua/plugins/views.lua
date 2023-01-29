@@ -55,13 +55,13 @@ return {
       },
       on_open = function()
         local kitty = require "util.kitty"
-        kitty.ctl("set-font-size", { "+4" })
-        kitty.ctl("set-spacing", { "padding=60", })
+        kitty.rc("set-font-size", { "+4" })
+        kitty.rc("set-spacing", { "padding=60", })
       end,
       on_close = function()
         local kitty = require "util.kitty"
-        kitty.ctl("set-font-size", { "0" })
-        kitty.ctl("set-spacing", { "padding=default" })
+        kitty.rc("set-font-size", { "0" })
+        kitty.rc("set-spacing", { "padding=default" })
       end,
     },
     keys = map.lazykeys({
