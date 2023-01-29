@@ -24,6 +24,34 @@ function M.cmd(args)
   })
 end
 
+--- Example output:
+--- active_border_color     #286983
+--- active_tab_background   #286983
+--- active_tab_foreground   #ebe5df
+--- background              #faf4ed
+--- bell_border_color       #d7827e
+--- color0                  #575279
+--- color1                  #b4637a
+--- color2                  #618774
+--- color3                  #ea9d34
+--- ...
+--- color253                #dadada
+--- color254                #e4e4e4
+--- color255                #eeeeee
+--- cursor                  #575279
+--- cursor_text_color       #111111
+--- foreground              #575279
+function M.get_colors()
+  -- Each line defines a color with a 24-bit hex number prefixed with "#".
+  local ret = {}
+  local output = vim.split(M.rc("get-colors"), "\n", { plain = true, trimempty = true })
+  for _, line in ipairs(output) do
+    local name, hex = line:match("(%S+)%s+(#%x+)")
+    ret[name] = hex
+  end
+  return ret
+end
+
 ---@param opts? table
 function M.setup(opts)
   if M.did_setup then
@@ -86,4 +114,5 @@ function M.toggle_zoom()
   zoomed = not zoomed
 end
 
+_G.kitty = M
 return M
