@@ -32,6 +32,21 @@ function M.switch()
   notify.info(("# Colorscheme: `%s`"):format(vim.g.colors_name))
 end
 
+--- Return true if a given RGB color is visually perceived to be light.
+---@param hex string prefixed with "#" in the form "rrggbb"
+---@return boolean light true if perceived to be a light color
+---@see http://alienryderflex.com/hsp.html
+function M.is_light(hex)
+  assert(hex:sub(1, 1) == "#", "expected string prefixed with '#'")
+  local digits = hex:sub(2)
+  assert(#digits == 6, "expected 24-bit RGB hex code")
+  local R = tonumber(digits:sub(1, 2), 16)
+  local G = tonumber(digits:sub(3, 4), 16)
+  local B = tonumber(digits:sub(5, 6), 16)
+  -- Square both sides to avoid computing square root.
+  return 16256 < (0.299*R*R + 0.587*G*G + 0.114*B*B)
+end
+
 --- Create autocmds during startup to set the colorscheme when the TUI or other
 --- UI sets the `bg` option, or when lazy.nvim finishes loading.
 ---@param themes {dark:string, light:string}
