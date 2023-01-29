@@ -2,6 +2,7 @@ init="${XDG_CONFIG_HOME}/zsh/init"
 
 # TODO: check if Homebrew is installed before exporting
 export HOMEBREW_PREFIX="$(brew --prefix)"
+export HOMEBREW_NO_INSTALL_FROM_API=1		# see #14435 in Homebrew/brew
 
 # initialize prompt first
 source "${init}/prompt.zsh"
