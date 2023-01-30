@@ -4,6 +4,9 @@ local notify = require "util.notify"
 ---@class ColorsUtility
 local M = {}
 
+---@type boolean
+M.light = nil
+
 ---@type {dark:string, light:string}
 M.themes = {}
 
@@ -47,17 +50,35 @@ function M.is_light(hex)
   return 16256 < (0.299*R*R + 0.587*G*G + 0.114*B*B)
 end
 
+local did_colorscheme = false
+function M.plugin_init(plugin)
+  if did_colorscheme then return end
+  if M.light == nil then
+    local colors = require("util.kitty").get_colors()
+    M.light = M.is_light(colors.background)
+    vim.go.bg = M.light and "light" or "dark"
+  end
+  local pat = plugin.pattern
+  if M.light and M.themes.light:find(pat) then
+    vim.cmd.colorscheme(M.themes.light)
+    did_colorscheme = true
+  elseif not M.light and M.themes.dark:find(pat) then
+    vim.cmd.colorscheme(M.themes.dark)
+    did_colorscheme = true
+  end
+end
+
 --- Create autocmds during startup to set the colorscheme when the TUI or other
 --- UI sets the `bg` option, or when lazy.nvim finishes loading.
----@param themes {dark:string, light:string}
-function M.setup(themes)
-  if M.did_setup then return end
-  M.themes = themes
-  local opts = { nested = true, once = true, }
-  util.augroup.startup_colors(function(au)
-    au.OptionSet.background(function() M.set() end, opts)
-  end)
-  M.did_setup = true
+---@param opts {light: boolean, themes:{dark:string, light:string}}
+function M.setup(opts)
+  if M.did_setup then
+    return
+  else
+    M.did_setup = true
+  end
+  M.themes = opts.themes
+  M.light = opts.light
 end
 
 return M

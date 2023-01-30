@@ -2,8 +2,11 @@ local util   = require "util"
 local colors = require "util.colors"
 
 colors.setup({
-  dark = "carbonfox",
-  light = "dawnfox",
+  light = true,
+  themes = {
+    dark = "tokyonight-night",
+    light = "dawnfox",
+  }
 })
 
 util.setup()
