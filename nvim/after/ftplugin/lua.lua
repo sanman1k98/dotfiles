@@ -1,5 +1,6 @@
 local opt = vim.opt_local
 
+opt.spell = true
 opt.tabstop = 2
 opt.expandtab = true
 

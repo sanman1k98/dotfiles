@@ -1,3 +1,4 @@
+local autocmd = require("util").autocmd
 local opt = vim.opt
 
 opt.termguicolors  = true             -- enable 24-bit RGB in the TUI
@@ -33,7 +34,6 @@ opt.breakindent    = true             -- wrapped lines repeat indent
 opt.linebreak      = true             -- wrap long lines at a blank
 opt.ignorecase     = true             -- ignore case in search patterns
 opt.smartcase      = true             -- don't ignore case when pattern has uppercase letter
-opt.spell          = true             -- enable spell checking
 opt.spelloptions   = "noplainbuffer"  -- only spellcheck when 'syntax' is enabled, or when extmarks are set
 opt.spelllang      = { "en_us" }      -- US English
 opt.clipboard      = "unnamedplus"    -- use system clipboard
@@ -89,4 +89,6 @@ opt.mousescroll = {
 }
 
 -- 'statuscolumn'
-require("util.gutter").setup()
+autocmd.User.VeryLazy(function()
+  require("util.gutter").setup()
+end, { once = true })
