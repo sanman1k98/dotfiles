@@ -53,13 +53,15 @@ end
 local did_colorscheme = false
 function M.plugin_init(plugin)
   if did_colorscheme then return end
-  if M.light == nil then
-    local colors = require("util.kitty").get_colors()
-    M.light = M.is_light(colors.background)
-    vim.go.bg = M.light and "light" or "dark"
-  end
   local pat = plugin.pattern
-  if M.light and M.themes.light:find(pat) then
+  if M.themes.kitty then
+    if M.themes.kitty:find(pat) then
+      vim.cmd.colorscheme(M.themes.light)
+      did_colorscheme = true
+    else
+      return
+    end
+  elseif M.light and M.themes.light:find(pat) then
     vim.cmd.colorscheme(M.themes.light)
     did_colorscheme = true
   elseif not M.light and M.themes.dark:find(pat) then
@@ -68,8 +70,6 @@ function M.plugin_init(plugin)
   end
 end
 
---- Create autocmds during startup to set the colorscheme when the TUI or other
---- UI sets the `bg` option, or when lazy.nvim finishes loading.
 ---@param opts {light: boolean, themes:{dark:string, light:string}}
 function M.setup(opts)
   if M.did_setup then
@@ -79,6 +79,20 @@ function M.setup(opts)
   end
   M.themes = opts.themes
   M.light = opts.light
+  if util.in_kitty then
+    M.themes.kitty = vim.env.KITTY_THEME
+    if not M.themes.kitty then
+      notify.warn [[
+        # `util.colors`
+        Evironment variable `$KITTY_THEME` not defined.
+        Specify the theme in `kitty.conf`:
+        ```conf
+        env KITTY_THEME=some_theme
+        include ./themes/${KITTY_THEME}.conf
+        ```
+      ]]
+    end
+  end
 end
 
 return M
