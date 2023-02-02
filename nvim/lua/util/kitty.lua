@@ -86,6 +86,7 @@ end
 ---@param name string
 function M.theme(name)
   M.rc("set-colors", {
+    "--all",
     (M.config.themes_dir.."/%s.conf"):format(name),
   })
 end
