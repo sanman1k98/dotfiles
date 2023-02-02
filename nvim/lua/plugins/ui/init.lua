@@ -1,3 +1,5 @@
+local map = require "util.map"
+
 return {
   -- libs for other plugins
   "nvim-tree/nvim-web-devicons",
@@ -8,6 +10,19 @@ return {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
     opts = {},
+    keys = map.lazykeys({
+      name = "notifications",
+      prefix = "<leader>n",
+      d = {
+        function()
+          require("notify").dismiss({
+            pending = true,
+            silent = true,
+          })
+        end,
+        desc = "dismiss all",
+      }
+    }),
   },
 
   -- UI
