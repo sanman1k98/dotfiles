@@ -45,7 +45,9 @@ M.api = setmetatable({}, {
 function M.setup()
   M.notify.setup()
   if M.in_kitty then
-    M.kitty.setup()
+    M.autocmd.UIEnter(function()
+      M.kitty.setup()
+    end, { once = true })
   end
   -- set in .config/zsh/init/variables.zsh
   local config = vim.env.CONFIG_BRANCH
