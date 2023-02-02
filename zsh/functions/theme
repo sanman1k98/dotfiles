@@ -1,0 +1,20 @@
+if [[ "${TERM}" != "xterm-kitty" ]]; then
+	print "Not in supported terminal"
+	return 1
+fi
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+	print "TODO: show usage"
+	return 0
+fi
+
+local themes_dir="${XDG_CONFIG_HOME}/kitty/themes"
+
+kitty @ set-colors --all "${themes_dir}/$1.conf"
+
+if [[ $? != 0 ]]; then
+	return 2
+fi
+
+# set environment variable after the above succeeds
+export KITTY_THEME=$1

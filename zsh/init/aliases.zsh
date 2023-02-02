@@ -3,6 +3,6 @@ alias nv="nvim"
 alias vi="nvim --noplugin"
 alias lg="lazygit"
 
-if [[ "${TERM}" == "xterm-kitty" ]]; then
-	alias theme="kitty +kitten themes --reload-in=all $*"
-fi
+# if [[ "${TERM}" == "xterm-kitty" ]]; then
+# 	alias theme="kitty +kitten themes --reload-in=all"
+# fi

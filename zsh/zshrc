@@ -1,4 +1,5 @@
-init="${XDG_CONFIG_HOME}/zsh/init"
+local conf="${XDG_CONFIG_HOME}/zsh"
+local init="${conf}/init"
 
 # TODO: check if Homebrew is installed before exporting
 export HOMEBREW_PREFIX="$(brew --prefix)"
@@ -11,3 +12,8 @@ source "${init}/options.zsh"		# set options for interactive shells
 source "${init}/completion.zsh"		# shell autocomplete; update dumpfile
 source "${init}/variables.zsh"		# env vars for CLI tools
 source "${init}/aliases.zsh"
+
+# add shell functions
+fpath+="${conf}/functions"
+# autoload all functions found in the directory
+autoload ${fpath[-1]}/*(:t)
