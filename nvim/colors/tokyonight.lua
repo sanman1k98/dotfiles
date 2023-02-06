@@ -2,7 +2,7 @@ local tokyo = require "tokyonight"
 
 tokyo.setup({
   style = "night",
-  light_style = "day",
+  light_style = "night",
   day_brightness = 0.3,
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
