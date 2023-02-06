@@ -79,7 +79,7 @@ opt.listchars = {
 -- characters to use when displaying special items
 opt.fillchars = {
   diff = "╱", -- deleted lines when showing diffs; note it is not normal forward slash
-  eob  = "•"  -- empty lines at the end of a buffer; by default it is highlighted like `NonText`
+  -- eob  = "•"  -- empty lines at the end of a buffer; by default it is highlighted like `NonText`
 }
 
 -- lines to scroll with a mouse
