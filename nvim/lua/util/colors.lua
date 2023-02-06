@@ -56,7 +56,7 @@ function M.plugin_init(plugin)
   local pat = plugin.pattern
   if M.themes.kitty then
     if M.themes.kitty:find(pat) then
-      vim.cmd.colorscheme(M.themes.light)
+      vim.cmd.colorscheme(M.themes.kitty)
       did_colorscheme = true
     else
       return
