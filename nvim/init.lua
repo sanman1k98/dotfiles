@@ -4,7 +4,7 @@ local colors = require "util.colors"
 colors.setup({
   light = true,
   themes = {
-    dark = "tokyonight-night",
+    dark = "carbonfox",
     light = "dawnfox",
   }
 })
