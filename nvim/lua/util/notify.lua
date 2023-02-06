@@ -3,6 +3,7 @@ local a = util.api
 
 -- from folke/dot
 
+---@class NotificationUtility
 local M = {}
 
 local notifier = {}
@@ -56,6 +57,7 @@ function notifier:setup()
   timer:start(1000, 0, replay)
 end
 
+--- Notify user of some information.
 function M.info(msg, name)
   notifier.call(msg, vim.log.levels.INFO, { title = name })
 end
