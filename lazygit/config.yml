@@ -1,5 +1,8 @@
 gui:
   showIcons: true
+  theme:
+    defaultFgColor:
+    - bold
 git:
   paging:
     pager: delta --paging never
