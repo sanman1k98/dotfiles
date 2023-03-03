@@ -195,6 +195,8 @@ function M._process(node, opts)
   end
 end
 
+-- TODO: refactor to extract the tree traversal logic out into its own function.
+
 ---@param node KeymapNode
 ---@param opts? KeymapNodeOpts
 ---@return LazyKeys[]
