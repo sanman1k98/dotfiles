@@ -1,5 +1,7 @@
 
 -- manually add to runtimepath
+vim.opt.rtp:prepend(".")
+vim.opt.rtp:prepend(vim.env.XDG_CONFIG_HOME.."/nvim/tests")
 vim.opt.rtp:prepend(vim.env.XDG_DATA_HOME.."/nvim/lazy/plenary.nvim")
 
 

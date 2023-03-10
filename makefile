@@ -27,10 +27,10 @@ NVIM_LOG_FILE ?= $(XDG_STATE_HOME)/nvim/log
 #
 
 nvim.test :
-	 nvim --headless \
+	 cd nvim && nvim --headless \
 		--noplugin \
-		-u $(XDG_CONFIG_HOME)/nvim/tests/testing_init.lua \
-		-c "PlenaryBustedDirectory $(XDG_CONFIG_HOME)/nvim/tests/ { minimal_init = '$(XDG_CONFIG_HOME)/nvim/tests/testing_init.lua'}"
+		-u ./tests/testing_init.lua \
+		-c "PlenaryBustedDirectory ./tests/ { minimal_init = './tests/testing_init.lua' }"
 
 nvim.clean.all : | nvim.clean.logs nvim.clean.plugins
 
