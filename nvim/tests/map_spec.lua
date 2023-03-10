@@ -1,6 +1,8 @@
 local map = require "util.map"
 map.defer = false
 
+require "tests.assertions"
+
 ---@param mode string
 ---@param lhs string
 ---@return table
@@ -62,6 +64,15 @@ describe("map.set()", function()
 end)
 
 describe("map.lazykeys()", function()
-  pending("returns a list of 'LazyKeys'", function()
+  it("returns a list of 'LazyKeys'", function()
+    local values = {
+      { "hi", "<cmd>echo 'hi'<cr>", mode = "n" },
+      { "so", "<cmd>source<cr>", mode = "n" },
+    }
+    local list = map.lazykeys({
+      hi = { "<cmd>echo 'hi'<cr>" },
+      so = { "<cmd>source<cr>" },
+    })
+    assert.contains(list, values)
   end)
 end)
