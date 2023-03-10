@@ -9,7 +9,7 @@ local function get_keymap(mode, lhs)
   return not vim.tbl_isempty(t) and t or nil
 end
 
-describe("map.set", function()
+describe("map.set()", function()
   before_each(vim.cmd.mapclear)
 
   it("can set normal mode mappings", function()
