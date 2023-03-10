@@ -20,4 +20,37 @@ describe("map.set", function()
     assert.is.truthy(get_keymap("n", "hi"))
     assert.is.truthy(get_keymap("n", "so"))
   end)
+
+  it("can set insert mode mappings", function()
+    map.set({
+      mode = "i",
+      kj = { "<esc>" },
+    })
+    assert.is.truthy(get_keymap("i", "kj"))
+  end)
+
+  it("can set mappings with a common prefix", function()
+    map.set({
+      prefix = "<leader>",
+      ["1"] = { "<cmd>echo 'one'<cr>" },
+      ["2"] = { "<cmd>echo 'two'<cr>" },
+      ["3"] = { "<cmd>echo 'three'<cr>" },
+    })
+    assert.is.truthy(get_keymap("n", "<leader>1"))
+    assert.is.truthy(get_keymap("n", "<leader>2"))
+    assert.is.truthy(get_keymap("n", "<leader>3"))
+  end)
+
+  it("can set mappings with a nested table", function()
+    map.set({
+      h = {
+        e = {
+          y = { "<cmd>echo 'hey'<cr>" },
+        },
+        i = { "<cmd>echo 'hi'<cr>" },
+      },
+    })
+    assert.is.truthy(get_keymap("n", "hi"))
+    assert.is.truthy(get_keymap("n", "hey"))
+  end)
 end)
