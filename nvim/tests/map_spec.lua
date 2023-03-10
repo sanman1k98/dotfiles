@@ -53,4 +53,10 @@ describe("map.set", function()
     assert.is.truthy(get_keymap("n", "hi"))
     assert.is.truthy(get_keymap("n", "hey"))
   end)
+
+  pending("can set mappings with common options")
+
+  pending("can set mappings with descriptions")
+
+  pending("supports 'which-key' group names")
 end)
