@@ -60,3 +60,8 @@ describe("map.set()", function()
 
   pending("supports 'which-key' group names")
 end)
+
+describe("map.lazykeys()", function()
+  pending("returns a list of 'LazyKeys'", function()
+  end)
+end)
