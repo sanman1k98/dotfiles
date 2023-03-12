@@ -195,6 +195,66 @@ function M._process(node, opts)
   end
 end
 
+---@param node KeymapNode
+---@param opts? KeymapNodeOpts
+---@return KeymapArglist[]
+function M.process_tree(node, opts)
+  if node.cond == false then return {} end
+  ---@type KeymapArglist[]
+  local ret = {}
+  opts = opts or {}
+  -- list of keys in this node to be processed
+  local keys = {}
+  -- get all the options specified by this node and a list of keys to process later
+  for k, v in pairs(node) do
+    if is_opt(k) then
+      opts[k] = v
+    else
+      table.insert(keys, k)
+    end
+  end
+  opts.prefix = opts.prefix or ""
+  opts.mode = opts.mode or "n"
+  if opts.name and not M._wk_mappings[opts.prefix] then
+    M._wk_mappings[opts.prefix] = {
+      name = opts.name,
+      mode = opts.mode,
+      buffer = opts.buffer,
+    }
+  end
+  for _, k in ipairs(keys) do
+    local lhs = opts.prefix..k
+    local t = assert(type(node[k]) == "table" and node[k] or nil, "mappings must be defined using a table")
+    if t.cond == false then
+      -- skip processing this table
+      goto continue
+    elseif t[1] ~= nil then
+      -- this table contains info to define a mapping
+      local mode = t.mode or opts.mode
+      local rhs = t[1]
+      local o = mergeinfo(opts, t)
+      local cond = t.cond or opts.cond
+      table.insert(ret, {
+        mode,
+        lhs,
+        rhs,
+        o,
+        vim.is_callable(cond) and cond or nil
+      })
+    elseif t.desc then
+      -- this table defines a which-key label
+      t[1] = t.desc; t.desc = nil
+      M._wk_mappings[lhs] = t
+    else
+      -- this table is a subtree, so we recursively process it
+      local o = vim.tbl_extend("force", opts, { prefix = lhs })
+      vim.list_extend(ret, M.process_tree(t, o))
+    end
+    ::continue::
+  end
+  return ret
+end
+
 -- TODO: refactor to extract the tree traversal logic out into its own function.
 
 ---@param node KeymapNode

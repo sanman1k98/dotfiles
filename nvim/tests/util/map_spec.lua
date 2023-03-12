@@ -76,3 +76,17 @@ describe("map.lazykeys()", function()
     assert.contains(list, values)
   end)
 end)
+
+describe("map.process_tree()", function()
+  it("returns a list of mapargs to set mappings", function()
+    local tree = {
+      hi = { "<cmd>echo 'hi'<cr>" },
+      so = { "<cmd>source<cr>" },
+    }
+    local expected = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", {} },
+      { "n", "so", "<cmd>source<cr>", {} },
+    }
+    assert.contains(expected, map.process_tree(tree))
+  end)
+end)
