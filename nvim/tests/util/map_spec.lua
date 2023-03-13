@@ -89,4 +89,18 @@ describe("map.process_tree()", function()
     }
     assert.contains(map.process_tree(mappings), values)
   end)
+
+  it("returns a list of mapargs with options specified in root of tree", function()
+    local mappings = {
+      silent = true,
+      buffer = true,
+      hi = { "<cmd>echo 'hi'<cr>" },
+      so = { "<cmd>source<cr>" },
+    }
+    local values = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", { silent = true, buffer = true } },
+      { "n", "so", "<cmd>source<cr>", { silent = true, buffer = true } },
+    }
+    assert.contains(map.process_tree(mappings), values)
+  end)
 end)
