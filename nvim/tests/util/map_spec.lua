@@ -90,6 +90,21 @@ describe("map.process_tree()", function()
     assert.contains(map.process_tree(mappings), values)
   end)
 
+  it("returns a list of mapargs with a common lhs prefix", function()
+    local mappings = {
+      prefix = "h",
+      i = { "<cmd>echo 'hi'<cr>" },
+      a = { "<cmd>echo 'ha'<cr>" },
+      e = { "<cmd>echo 'he'<cr>" },
+    }
+    local values = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", { --[[ empty opts table ]] } },
+      { "n", "ha", "<cmd>echo 'ha'<cr>", { --[[ empty opts table ]] } },
+      { "n", "he", "<cmd>echo 'he'<cr>", { --[[ empty opts table ]] } },
+    }
+    assert.contains(map.process_tree(mappings), values)
+  end)
+
   it("returns a list of mapargs with options specified in root of tree", function()
     local mappings = {
       silent = true,
