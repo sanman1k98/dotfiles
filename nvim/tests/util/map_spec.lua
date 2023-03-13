@@ -118,4 +118,23 @@ describe("map.process_tree()", function()
     }
     assert.contains(map.process_tree(mappings), values)
   end)
+
+  it("can have options specified in a subtree", function()
+    local mappings = {
+      h = {
+        silent = false,
+        i = { "<cmd>echo 'hi'<cr>" },
+        a = { "<cmd>echo 'ha'<cr>" },
+        e = { "<cmd>echo 'he'<cr>" },
+      },
+      so = { "<cmd>source<cr>" },
+    }
+    local values = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", { silent = false } },
+      { "n", "ha", "<cmd>echo 'ha'<cr>", { silent = false } },
+      { "n", "he", "<cmd>echo 'he'<cr>", { silent = false } },
+      { "n", "so", "<cmd>source<cr>", {} },
+    }
+    assert.contains(map.process_tree(mappings), values)
+  end)
 end)
