@@ -79,14 +79,14 @@ end)
 
 describe("map.process_tree()", function()
   it("returns a list of mapargs to set mappings", function()
-    local tree = {
+    local mappings = {
       hi = { "<cmd>echo 'hi'<cr>" },
       so = { "<cmd>source<cr>" },
     }
-    local expected = {
-      { "n", "hi", "<cmd>echo 'hi'<cr>", {} },
-      { "n", "so", "<cmd>source<cr>", {} },
+    local values = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", { --[[ empty opts table ]] } },
+      { "n", "so", "<cmd>source<cr>", { --[[ empty opts table ]] } },
     }
-    assert.contains(expected, map.process_tree(tree))
+    assert.contains(map.process_tree(mappings), values)
   end)
 end)
