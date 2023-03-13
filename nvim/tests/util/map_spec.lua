@@ -137,4 +137,35 @@ describe("map.process_tree()", function()
     }
     assert.contains(map.process_tree(mappings), values)
   end)
+
+  it("supports an extra 'cond' option for mappings", function()
+    local mappings = {
+      say = { "<cmd>echo '2 + 2 = fish'<cr>", cond = (2 + 2 == "fish") },
+      hi = { "<cmd>echo 'hi'<cr>", cond = true },
+      ha = { "<cmd>echo 'ha'<cr>", cond = "happy" },
+      he = { "<cmd>echo 'he'<cr>", cond = nil },
+    }
+    local values = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", {} },
+      { "n", "ha", "<cmd>echo 'ha'<cr>", {} },
+      { "n", "he", "<cmd>echo 'he'<cr>", {} },
+    }
+    assert.contains(map.process_tree(mappings), values)
+  end)
+
+  it("supports a 'cond' option for subtrees", function()
+    local mappings = {
+      h = {
+        cond = false,
+        i = { "<cmd>echo 'hi'<cr>" },
+        a = { "<cmd>echo 'ha'<cr>" },
+        e = { "<cmd>echo 'he'<cr>" },
+      },
+      so = { "<cmd>source<cr>" },
+    }
+    local values = {
+      { "n", "so", "<cmd>source<cr>", {} },
+    }
+    assert.contains(map.process_tree(mappings), values)
+  end)
 end)
