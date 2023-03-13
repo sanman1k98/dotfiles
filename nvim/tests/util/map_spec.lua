@@ -78,6 +78,10 @@ describe("map.lazykeys()", function()
 end)
 
 describe("map.process_tree()", function()
+  before_each(function()
+    map._wk_mappings = {}
+  end)
+
   it("returns a list of mapargs to set mappings", function()
     local mappings = {
       hi = { "<cmd>echo 'hi'<cr>" },
@@ -167,5 +171,36 @@ describe("map.process_tree()", function()
       { "n", "so", "<cmd>source<cr>", {} },
     }
     assert.contains(map.process_tree(mappings), values)
+  end)
+
+  it("supports specifying 'which-key' group names", function()
+    local mappings = {
+      prefix = "h",
+      name = "Greetings",
+      i = { "<cmd>echo 'hi'<cr>" },
+      ey = { "<cmd>echo 'hey'<cr>" },
+    }
+    local values = {
+      { "n", "hi", "<cmd>echo 'hi'<cr>", {} },
+      { "n", "hey", "<cmd>echo 'hey'<cr>", {} },
+    }
+    local mapargs
+    assert.has_no.errors(function()
+      mapargs = map.process_tree(mappings)
+    end)
+    assert.contains(mapargs, values)
+  end)
+
+  -- FIXME: testing module internals here; there's probably a better way...
+  it("adds which-key options to a module-internal field", function()
+    map.process_tree({
+      prefix = "h",
+      name = "Greetings",
+      i = { "<cmd>echo 'hi'<cr>" },
+      ey = { "<cmd>echo 'hey'<cr>" },
+    })
+    assert.same({
+      h = { mode = "n", name = "Greetings" },
+    }, map._wk_mappings)
   end)
 end)
