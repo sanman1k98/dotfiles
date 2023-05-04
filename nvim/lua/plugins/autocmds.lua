@@ -53,7 +53,7 @@ local function autocmds()
 end
 
 return {
-  dir = "~/Projects/luauto.nvim",
+  dir = "~/Code/projects/luauto.nvim",
   lazy = false,
   init = autocmds,
 }
