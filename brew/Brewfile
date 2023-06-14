@@ -3,125 +3,58 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
-# Tool for generating GNU Standards-compliant Makefiles
-brew "automake"
-# Official Amazon AWS command-line interface
-brew "awscli"
-# Clone of cat(1) with syntax highlighting and Git integration
-brew "bat"
-# Cross-platform make
-brew "cmake"
-# GNU internationalization (i18n) and localization (l10n) library
-brew "gettext"
-# Get a file from an HTTP, HTTPS or FTP server
-brew "curl"
-# Generic library support script
-brew "libtool"
-# Libraries to talk to Microsoft SQL Server and Sybase databases
-brew "freetds"
-# Postgres C API library
-brew "libpq"
-# General-purpose scripting language
-brew "php"
-# Dependency Manager for PHP
-brew "composer"
-# Secure runtime for JavaScript and TypeScript
-brew "deno"
-# Lightweight DNS forwarder and DHCP server
-brew "dnsmasq"
-# Pack, ship and run any application as a lightweight container
-brew "docker"
-# Isolated development environments using Docker
-brew "docker-compose"
-# Simple, fast and user-friendly alternative to find
-brew "fd"
-# GitHub command-line tool
-brew "gh"
-# Distributed revision control system
-brew "git"
-# Syntax-highlighting pager for git and diff output
-brew "git-delta"
-# Core application library for C
-brew "glib"
-# Manage compile and link flags for libraries
-brew "pkg-config"
-# Validating, recursive, caching DNS resolver
-brew "unbound"
-# GNU Transport Layer Security (TLS) Library
-brew "gnutls"
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
-# Simple terminal UI for git commands
-brew "lazygit"
-# Language Server for the Lua language
-brew "lua-language-server"
-# Just-In-Time Compiler (JIT) for the Lua programming language
-brew "luajit", args: ["HEAD"]
-# Package manager for the Lua programming language
-brew "luarocks"
-# Ambitious Vim-fork focused on extensibility and agility
+
+
+# shell
 brew "neovim", args: ["HEAD"]
-# HTTP/2 C Library
-brew "nghttp2"
-# HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
-brew "nginx"
-# Small build system for use with gyp or CMake
-brew "ninja"
-# Platform built on V8 to build network applications
-brew "node"
-# Development kit for the Java programming language
-brew "openjdk"
-# Tool for managing OCI containers and pods
+brew "bat"
+brew "fd"
+brew "jq"
+brew "ripgrep"
+brew "gh"
+brew "git"
+brew "git-delta"
+brew "lazygit"
+brew "gnupg"
 brew "podman"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.10"
-# Safe, concurrent, practical language
-brew "rust"
-# Cross-shell prompt for astronauts
-brew "starship"
-# Opinionated Lua code formatter
-brew "stylua"
-# Tool to build, change, and version infrastructure
-brew "terraform"
-# Terminal multiplexer
 brew "tmux"
-# Secures, stores, and tightly controls access to secrets
-brew "vault"
-# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "starship"
 brew "zsh-autosuggestions"
-# Additional completion definitions for zsh
 brew "zsh-completions"
-# Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
-# Terraform Language Server
-brew "hashicorp/tap/terraform-ls"
-# Cross platform SQL editor and database management app
-cask "beekeeper-studio"
-# Web browser focusing on privacy
-cask "brave-browser"
-# Web browser
-cask "firefox"
-# Version of Cascadia Code with embedded Powerline symbols
-cask "font-cascadia-code-pl"
-cask "font-fira-code"
-# Sans-serif, slab-serif, monospace and quasi‑proportional typeface family
-cask "font-iosevka-aile"
-# Sans-serif, slab-serif, monospace and quasi‑proportional typeface family
-cask "font-iosevka-etoile"
-cask "font-sauce-code-pro-nerd-font"
-# Desktop automation application
-cask "hammerspoon"
-# GPU-based terminal emulator
+
+# languages and runtimes
+brew "node"
+brew "deno"
+brew "rust"
+brew "go"
+brew "composer"
+brew "luajit-openresty"
+brew "luarocks"
+brew "openjdk"
+brew "kotlin"
+
+# package managers
+brew "pnpm"
+brew "poetry"
+brew "gradle"
+
+# casks
 cask "kitty"
-# Tool to control external monitor brightness & volume
-cask "monitorcontrol"
-# Kubernetes and container management on the desktop
-cask "rancher"
-# Instant messaging application focusing on security
-cask "signal"
-# System monitor for the menu bar
+cask "wezterm"
+cask "brave-browser"
+cask "firefox-developer-edition"
 cask "stats"
-# Open-source code editor
+cask "monitorcontrol"
 cask "visual-studio-code"
-# Video communication and virtual meeting platform
-cask "zoom"
+
+# fonts
+cask "font-cascadia-code-pl"
+cask "font-caskaydia-cove-nerd-font"
+cask "font-inter"
+cask "font-ibm-plex"
+cask "font-fira-code"
+cask "font-iosevka-aile"
+cask "font-iosevka-etoile"
+cask "font-source-code-pro"
+cask "font-sauce-code-pro-nerd-font"
