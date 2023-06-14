@@ -243,8 +243,9 @@ function M.process_tree(node, opts)
       })
     elseif t.desc then
       -- this table defines a which-key label
-      t[1] = t.desc; t.desc = nil
-      M._wk_mappings[lhs] = t
+      local label = mergeinfo(opts, t)
+      label.mode = t.mode or opts.mode
+      M._wk_mappings[lhs] = label
     else
       -- this table is a subtree, so we recursively process it
       local o = vim.tbl_extend("force", opts, { prefix = lhs })
