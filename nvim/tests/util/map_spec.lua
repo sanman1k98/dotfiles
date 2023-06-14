@@ -203,4 +203,18 @@ describe("map.process_tree()", function()
       h = { mode = "n", name = "Greetings" },
     }, map._wk_mappings)
   end)
+
+  it("supports specifying group names and descriptions only", function()
+    map.process_tree({
+      prefix = "h",
+      name = "Greetings",
+      i = { desc = "say 'Hi'" },
+      ey = { desc = "say 'Hey'" },
+    })
+    assert.same({
+      h = { name = "Greetings", mode = "n" },
+      hi = { desc = "say 'Hi'", mode = "n" },
+      hey = { desc = "say 'Hey'", mode = "n" },
+    }, map._wk_mappings)
+  end)
 end)
