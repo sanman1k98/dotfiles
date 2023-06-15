@@ -59,9 +59,13 @@
 	st = status --short --branch --find-renames --show-stash
 	ca = commit -a
 	wt = worktree
+
 	# Show all users and emails, and the number of commits in the current
 	# branch. To show users for all branches add the `--all` flag.
 	authors = shortlog --summary --numbered --email
+
+	# Show all ignored files.
+	ls-ignored = ls-files --others --ignored --exclude-standard
 
 
 # Sign commits by default.
