@@ -1,8 +1,9 @@
-tap "homebrew/bundle"
+tap "homebrew/core"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
+tap "homebrew/bundle"
 tap "homebrew/services"
+tap "oven-sh/bun"
 
 
 # shell
@@ -24,6 +25,7 @@ brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 
 # languages and runtimes
+brew "oven-sh/bun/bun"
 brew "node"
 brew "deno"
 brew "rust"
