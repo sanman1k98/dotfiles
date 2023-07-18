@@ -1,0 +1,44 @@
+theme = "rose_pine_dawn"
+
+[editor]
+line-number = "relative"
+scroll-lines = 1
+color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.whitespace]
+render = "all"
+
+[editor.whitespace.characters]
+space = "⋅"
+newline = "↲"
+# tab = "⬤"
+# tab = "•"
+# tab = "⠶"
+# tab = "◦"
+tab = "○"
+# tabpad = "⋅"
+
+[editor.indent-guides]
+render = true
+# character = "-"
+# character = " "
+# character = "⋅"
+# character = ":"
+# character = "◦"
+character = "•"
+skip-levels = 1
+
+[keys.normal.space]
+w = ":write"
+q = ":quit-all"
+";" = "command_mode"
+
+[keys.insert]
+k = { j = "normal_mode" }
+"C-f" = "move_char_right"
+"C-b" = "move_char_left"
