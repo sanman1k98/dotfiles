@@ -7,6 +7,7 @@ export HOMEBREW_PREFIX="$(brew --prefix)"
 # initialize prompt first
 source "${init}/prompt.zsh"
 
+source "${init}/path.zsh"			# add executables to $PATH
 source "${init}/options.zsh"		# set options for interactive shells
 source "${init}/completion.zsh"		# shell autocomplete; update dumpfile
 source "${init}/variables.zsh"		# env vars for CLI tools
