@@ -1,3 +1,4 @@
+export NVIM_APPNAME='lazyvim'
 export EDITOR='nvim'
 export VISUAL='nvim'
 export MANPAGER='nvim +Man!'
