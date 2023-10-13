@@ -47,6 +47,6 @@ nvim.clean.logs :
 #
 
 zsh.symlinks :
-	ln -s $(ZDOTDIR)/.zshenv $(XDG_CONFIG_HOME)/zsh/zshenv
-	ln -s $(ZDOTDIR)/.zshrc $(XDG_CONFIG_HOME)/zsh/zshrc
+	ln -s $(XDG_CONFIG_HOME)/zsh/zshenv $(ZDOTDIR)/.zshenv
+	ln -s $(XDG_CONFIG_HOME)/zsh/zshrc $(ZDOTDIR)/.zshrc
 
