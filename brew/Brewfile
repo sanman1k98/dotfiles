@@ -8,7 +8,6 @@ tap "oven-sh/bun"
 
 
 # shell
-brew "neovim", args: ["HEAD"]
 brew "bat"
 brew "fd"
 brew "jq"
