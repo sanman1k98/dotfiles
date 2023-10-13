@@ -1,7 +1,5 @@
 
-#	Use this directory as config home
-#
-XDG_CONFIG_HOME = .
+XDG_CONFIG_HOME ?= $(HOME)/.config
 
 #	default locations
 #
