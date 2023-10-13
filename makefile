@@ -36,8 +36,6 @@ nvim.clean.all : | nvim.clean.logs nvim.clean.plugins
 
 nvim.clean.plugins :
 	rm -rf $(XDG_DATA_HOME)/nvim/site/lazy/*
-	rm -rf $(XDG_DATA_HOME)/nvim/site/pack/*
-	rm $(XDG_CONFIG_HOME)/nvim/plugin/packer_compiled.lua
 
 nvim.clean.logs :
 	rm $(NVIM_LOG_FILE)
