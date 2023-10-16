@@ -1,13 +1,5 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    opts = {
-      -- disable formatting on save
-      autoformat = false,
-    },
-  },
-
-  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       add_blank_line_at_top = true,
