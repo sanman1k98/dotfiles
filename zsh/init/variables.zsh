@@ -6,10 +6,6 @@ export MANPAGER='nvim +Man!'
 # lazygit config
 export LG_CONFIG_FILE="${XDG_CONFIG_HOME}/lazygit/config.yml"
 
-# node version manager
-export NVM_DIR="${XDG_DATA_HOME}/nvm"
-test -e "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh --no-use" && source $_	# TODO: move this somewhere else
-
 # store the branch name of the current config
 export CONFIG_BRANCH="$(git -C ${XDG_CONFIG_HOME} branch --show-current)"
 
