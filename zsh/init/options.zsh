@@ -1,7 +1,5 @@
 statedir="${XDG_STATE_HOME}/zsh"
-if [[ ! -d "${statedir}" ]]; then
-	mkdir -p "${statedir}"
-fi
+mkdir -p "${statedir}"
 export HISTFILE="${statedir}/zhistory"
 
 setopt nobeep
