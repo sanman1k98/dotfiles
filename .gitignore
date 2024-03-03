@@ -31,3 +31,7 @@ kitty/kitty.conf.bak
 kitty/current-theme.conf
 kitty/theme.conf
 kitty/theme.conf.bak
+
+zed
+!zed/keymap.json
+!zed/settings.json
