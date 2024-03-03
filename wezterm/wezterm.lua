@@ -12,7 +12,13 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 
--- config.term = "wezterm"
+-- HACK: not sure why, but without this the terminal definition for Wezterm
+-- can't be found.
+config.set_environment_variables = {
+  TERMINFO_DIRS = "TERMINFO_DIRS"
+}
+
+config.term = "wezterm"
 config.enable_kitty_keyboard = true
 
 config.window_padding = {
