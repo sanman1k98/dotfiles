@@ -24,6 +24,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.yaml" },
 
     { import = "lazyvim.plugins.extras.formatting.black" },
+    { import = "lazyvim.plugins.extras.linting.eslint" },
 
     -- only loads when `vim.g.vscode` is set
     { import = "lazyvim.plugins.extras.vscode" },
