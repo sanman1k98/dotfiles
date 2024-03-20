@@ -78,6 +78,11 @@
 	gpgSign = true
 
 
+# Allow worktree specific configuration
+[extensions]
+  worktreeconfig = true
+
+
 
 # Since config is evaluated from top to bottom, we will include other files
 # that intend to override variables here at the end. 
