@@ -1,5 +1,6 @@
 
-XDG_CONFIG_HOME ?= $(HOME)/.config
+# use current working directory
+XDG_CONFIG_HOME = .
 
 #	default locations
 #
