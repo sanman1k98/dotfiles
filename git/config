@@ -14,7 +14,6 @@
 	diffFilter = delta --color-only
 
 [delta]
-	light = true          # when using a a terminal with a light background
 	line-numbers = true
 	navigate = true
 
