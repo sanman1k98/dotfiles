@@ -66,6 +66,9 @@
 	ls-ignored = ls-files --others --ignored --exclude-standard
 
 
+  # Show git alias processing.
+  trace = "!sh -c 'GIT_TRACE=1 git $@' --"
+
 # Sign commits by default.
 [commit]
 	gpgSign = true
