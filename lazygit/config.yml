@@ -5,5 +5,5 @@ gui:
     - bold
 git:
   paging:
-    pager: delta --paging never
+    pager: delta --light --paging never
     colorArg: always
