@@ -17,12 +17,11 @@
 	line-numbers = true
 	navigate = true
 
-[merge]
-	conflictstyle = diff3
-
 [diff]
 	colormoved = default
 
+[merge]
+	conflictstyle = diff3
 
 
 # `user.name` and `user.email` determines what ends up in the author and
