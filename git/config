@@ -65,6 +65,8 @@
 	# Show all ignored files.
 	ls-ignored = ls-files --others --ignored --exclude-standard
 
+  # Create a detached worktree in the parent directory of the current worktree.
+  temptree = "!sh -c 'git worktree add --detach \"../${PWD##*/}.tmp\"'"
 
   # Show git alias processing.
   trace = "!sh -c 'GIT_TRACE=1 git $@' --"
