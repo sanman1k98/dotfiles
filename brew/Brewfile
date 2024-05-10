@@ -52,7 +52,7 @@ cask "visual-studio-code"
 
 # fonts
 cask "font-cascadia-code-pl"
-cask "font-caskaydia-cove-nerd-font"
+cask "font-cascadia-code-nf"
 cask "font-inter"
 cask "font-ibm-plex"
 cask "font-fira-code"
