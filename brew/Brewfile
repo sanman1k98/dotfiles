@@ -41,7 +41,7 @@ brew "pnpm"
 brew "poetry"
 brew "gradle"
 
-# casks
+# macOS applications
 cask "kitty"
 cask "wezterm"
 cask "brave-browser"
