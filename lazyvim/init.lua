@@ -18,6 +18,9 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
+    -- Add, delete, replace surrounding pairs (e.g., quotes, parens, tags)
+    { import = "lazyvim.plugins.extras.coding.mini-surround" },
+
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.json" },
