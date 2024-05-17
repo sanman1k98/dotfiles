@@ -18,19 +18,25 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
+    -- For vim mode in VSCode; only loads when `vim.g.vscode` is set
+    { import = "lazyvim.plugins.extras.vscode" },
+
     -- Add, delete, replace surrounding pairs (e.g., quotes, parens, tags)
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
 
+    -- TypeScript
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.linting.eslint" },
+    { import = "lazyvim.plugins.extras.formatting.prettier" },
+
+    -- Python
     { import = "lazyvim.plugins.extras.lang.python" },
+    { import = "lazyvim.plugins.extras.formatting.black" },
+
+    -- Other languages
+    { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
-
-    { import = "lazyvim.plugins.extras.formatting.black" },
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-
-    -- only loads when `vim.g.vscode` is set
-    { import = "lazyvim.plugins.extras.vscode" },
 
     -- import/override with your plugins
     { import = "plug" },
