@@ -26,6 +26,16 @@ return {
   },
 
   {
+    -- TODO: fix highlighting before the comment keyword
+    "folke/todo-comments.nvim",
+    opts = {
+      highlight = {
+        multiline = false,
+      },
+    },
+  },
+
+  {
     "lukas-reineke/indent-blankline.nvim",
     cond = false,
   },
