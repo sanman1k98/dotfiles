@@ -24,6 +24,9 @@ require("lazy").setup({
     -- Add, delete, replace surrounding pairs (e.g., quotes, parens, tags)
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
 
+    -- Highlight colors in code; supports Tailwind CSS
+    { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+
     -- TypeScript
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.linting.eslint" },
