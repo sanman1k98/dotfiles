@@ -50,13 +50,7 @@ cask "monitorcontrol"
 cask "visual-studio-code"
 
 # fonts
-cask "font-cascadia-code-pl"
 cask "font-cascadia-code-nf"
 cask "font-monaspace"
 cask "font-inter"
 cask "font-ibm-plex"
-cask "font-fira-code"
-cask "font-iosevka-aile"
-cask "font-iosevka-etoile"
-cask "font-source-code-pro"
-cask "font-sauce-code-pro-nerd-font"
