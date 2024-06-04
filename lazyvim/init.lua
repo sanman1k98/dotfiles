@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
   vim.fn.system({
@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath
   })
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.runtimepath:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
