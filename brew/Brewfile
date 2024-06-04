@@ -50,7 +50,18 @@ cask "monitorcontrol"
 cask "visual-studio-code"
 
 # fonts
-cask "font-cascadia-code-nf"
-cask "font-monaspace"
 cask "font-inter"
-cask "font-ibm-plex"
+cask "font-shantell-sans"
+cask "font-recursive"
+cask "font-ia-writer-mono"
+cask "font-ia-writer-duo"
+cask "font-ia-writer-quattro"
+cask "font-ibm-plex-sans"
+cask "font-ibm-plex-serif"
+cask "font-ibm-plex-sans-condensed"
+
+# programming fonts
+cask "font-monaspace"
+cask "font-cascadia-code-nf"
+cask "font-ibm-plex-mono"
+cask "font-recursive-code"
