@@ -47,7 +47,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
 
-    -- import/override with your plugins
+    -- Additional plugin specs
     { import = "plug" },
   },
   defaults = {
@@ -59,7 +59,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "dawnfox", "habamax" } },
+  install = { colorscheme = { "dawnfox" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
