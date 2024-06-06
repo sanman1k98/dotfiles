@@ -1,13 +1,17 @@
+local map = require("util.map")
+
 return {
   -- split/join
   {
     "Wansmer/treesj",
     opts = {
       use_default_keymaps = false,
+      max_join_length = 150,
     },
-    keys = {
-      { "<leader>jj", function() require("treesj").toggle() end, desc = "toggle" },
-      { "<leader>js", function() require("treesj").split() end, desc = "split" },
+    keys = map.lazykeys {
+      prefix = "<leader>j",
+      label = "split/join",
+      { "j", function() require("treesj").toggle() end, desc = "Toggle split" },
     },
   },
 
