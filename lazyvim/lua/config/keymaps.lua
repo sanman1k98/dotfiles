@@ -1,7 +1,15 @@
-local map = vim.keymap
+local map = require("util.map")
 
-map.set("i", "kj", "<esc>", { desc = "ESC" })
-map.set("i", "<c-f>", "<right>", { desc = "->" })
-map.set("i", "<c-b>", "<left>", { desc = "<-" })
-
-map.set("n", "<d-s>", vim.cmd.write, { desc = "Save file" })
+map.set {
+  {
+    mode = "i",
+    { "kj", "<esc>", desc = "ESC" },
+    { "<c-f>", "<right>", desc = "->" },
+    { "<c-b>", "<left>", desc = "<-" },
+  },
+  {
+    mode = { "i", "x", "n", "s" },
+    { "<c-s>", false },
+    { "<d-s>", "<cmd>w<cr><esc>", desc = "Write file" },
+  },
+}
