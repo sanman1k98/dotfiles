@@ -57,10 +57,24 @@ local MonaspaceArgon = wezterm.font {
   harfbuzz_features = shared_monaspace_features,
 }
 
+local MonaspaceArgonLighter = wezterm.font {
+  family = "Monaspace Argon",
+  style = "Normal",
+  weight = "ExtraLight",
+  harfbuzz_features = shared_monaspace_features,
+}
+
 local MonaspaceRadon = wezterm.font {
   family = "Monaspace Radon",
   style = "Normal",
   weight = "DemiBold",
+  harfbuzz_features = shared_monaspace_features,
+}
+
+local MonaspaceRadonLighter = wezterm.font {
+  family = "Monaspace Radon",
+  style = "Normal",
+  weight = "ExtraLight",
   harfbuzz_features = shared_monaspace_features,
 }
 
@@ -85,13 +99,23 @@ function M.setup(config)
   config.font = MonaspaceArgon
 
   config.font_rules = {
-    -- Use Radon for handwritten italics.
+    {
+      italic = false,
+      intensity = "Half",
+      font = MonaspaceArgonLighter,
+    },
+    -- Monaspace Radon for a handwritten style.
     {
       italic = true,
       intensity = "Normal",
       font = MonaspaceRadon,
     },
-    -- Use ArrowType's Recursive Mono for bold.
+    {
+      italic = true,
+      intensity = "Half",
+      font = MonaspaceRadonLighter,
+    },
+    -- Recursive Mono for a semi-casual, brush-painted style.
     {
       italic = false,
       intensity = "Bold",
