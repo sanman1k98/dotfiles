@@ -1,9 +1,7 @@
 local wezterm = require "wezterm"
 local config = wezterm.config_builder()
 
-config.font = wezterm.font "Cascadia Code PL"
-config.font_size = 14
-config.line_height = 1.6
+require("fonts.monaspace").setup(config)
 
 config.initial_cols = 120
 config.initial_rows = 24
