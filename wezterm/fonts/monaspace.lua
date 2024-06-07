@@ -53,14 +53,14 @@ local rec_mono_features = {
 local MonaspaceArgon = wezterm.font {
   family = "Monaspace Argon",
   style = "Normal",
-  weight = "Medium",
+  weight = "DemiBold",
   harfbuzz_features = shared_monaspace_features,
 }
 
 local MonaspaceRadon = wezterm.font {
   family = "Monaspace Radon",
   style = "Normal",
-  weight = "Medium",
+  weight = "DemiBold",
   harfbuzz_features = shared_monaspace_features,
 }
 
