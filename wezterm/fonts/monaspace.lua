@@ -92,6 +92,11 @@ local RecMonoSemicasualBoldItalic = wezterm.font {
   harfbuzz_features = rec_mono_features,
 }
 
+M.Argon = MonaspaceArgon
+M.ArgonLighter = MonaspaceArgonLighter
+M.Radon = MonaspaceRadon
+M.RadonLighter = MonaspaceRadonLighter
+
 function M.setup(config)
   config.font_size = 14
   config.line_height = 1.7
