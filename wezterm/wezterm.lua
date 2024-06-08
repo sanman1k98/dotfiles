@@ -14,7 +14,7 @@ keys.setup(config)
 
 local Monaspace, Recursive = fonts.Monaspace, fonts.Recursive
 
-config.font = Monaspace.Argon
+config.font = wezterm.font(Monaspace.Argon)
 config.font_size = 14
 config.line_height = 1.7
 
@@ -22,29 +22,29 @@ config.font_rules = {
   {
     italic = false,
     intensity = "Half",
-    font = Monaspace.ArgonLighter,
+    font = wezterm.font(Monaspace.ArgonLighter),
   },
   -- Monaspace Radon for a handwritten style.
   {
     italic = true,
     intensity = "Normal",
-    font = Monaspace.Radon,
+    font = wezterm.font(Monaspace.Radon),
   },
   {
     italic = true,
     intensity = "Half",
-    font = Monaspace.RadonLighter,
+    font = wezterm.font(Monaspace.RadonLighter),
   },
   -- Recursive Mono for a semi-casual, brush-painted style.
   {
     italic = false,
     intensity = "Bold",
-    font = Recursive.SemicasualBold,
+    font = wezterm.font(Recursive.SemicasualBold),
   },
   {
     italic = true,
     intensity = "Bold",
-    font = Recursive.SemicasualBoldItalic,
+    font = wezterm.font(Recursive.SemicasualBoldItalic),
   },
 }
 

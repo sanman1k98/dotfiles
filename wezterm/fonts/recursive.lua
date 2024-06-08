@@ -1,5 +1,3 @@
-local wezterm = require "wezterm"
-
 local M = {}
 
 local shared_features = {
@@ -35,14 +33,14 @@ local shared_features = {
 
 M.family = "Rec Mono"
 
-M.SemicasualBold = wezterm.font {
+M.SemicasualBold = {
   family = "Rec Mono Semicasual",
   style = "Normal",
   weight = "Bold",
   harfbuzz_features = shared_features,
 }
 
-M.SemicasualBoldItalic = wezterm.font {
+M.SemicasualBoldItalic = {
   family = "Rec Mono Semicasual",
   style = "Italic",
   weight = "Bold",
