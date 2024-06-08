@@ -1,30 +1,17 @@
 local wezterm = require "wezterm"
+local terminfo = require "terminfo"
+local font = require "fonts.monaspace"
+local window = require "window"
+local tab_bar = require "tab_bar"
+
 local config = wezterm.config_builder()
 
-require("fonts.monaspace").setup(config)
+terminfo.setup(config)
+font.setup(config)
+window.setup(config)
+tab_bar.setup(config)
 
-config.initial_cols = 120
-config.initial_rows = 24
-
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-config.use_fancy_tab_bar = false
-config.hide_tab_bar_if_only_one_tab = true
-
--- HACK: not sure why, but without this the terminal definition for Wezterm
--- can't be found.
-config.set_environment_variables = {
-  TERMINFO_DIRS = "TERMINFO_DIRS"
-}
-
-config.term = "wezterm"
 config.enable_kitty_keyboard = true
-
-config.window_padding = {
-  left = "40px",
-  right = "40px",
-  top = "40px",
-  bottom = "40px",
-}
 
 if wezterm.gui.get_appearance():find("Dark") then
   config.color_scheme = "carbonfox"
