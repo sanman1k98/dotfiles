@@ -1,4 +1,5 @@
-local wezterm = require "wezterm"
+_G.wezterm = require "wezterm"
+
 local terminfo = require "terminfo"
 local window = require "window"
 local tab_bar = require "tab_bar"
