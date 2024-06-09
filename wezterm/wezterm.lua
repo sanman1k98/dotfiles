@@ -3,6 +3,7 @@ _G.wezterm = require "wezterm"
 local terminfo = require "terminfo"
 local window = require "window"
 local tab_bar = require "tab_bar"
+local colors = require "colors"
 local keys = require "keys"
 local fonts = require "fonts"
 
@@ -12,6 +13,11 @@ terminfo.setup(config)
 window.setup(config)
 tab_bar.setup(config)
 keys.setup(config)
+
+colors.setup(config, {
+  dark = "carbonfox",
+  light = "dawnfox",
+})
 
 local Monaspace, Recursive = fonts.Monaspace, fonts.Recursive
 
@@ -48,11 +54,5 @@ config.font_rules = {
     font = wezterm.font(Recursive.SemicasualBoldItalic),
   },
 }
-
-if wezterm.gui.get_appearance():find("Dark") then
-  config.color_scheme = "carbonfox"
-else
-  config.color_scheme = "dawnfox"
-end
 
 return config
