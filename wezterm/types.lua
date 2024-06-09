@@ -1,6 +1,7 @@
 ---@meta
 
 ---@class wezterm
+---@field action { [string]: Action }
 ---@field config_builder fun(): config
 ---@field home_dir string
 ---@field strftime fun(str: string): string
@@ -36,6 +37,8 @@ wezterm.color = {}
 ---@field set_environment_variables table
 ---@field use_fancy_tab_bar boolean
 ---@field [string] any
+
+---@class Action: function
 
 ---@class Colors
 ---@field background string
