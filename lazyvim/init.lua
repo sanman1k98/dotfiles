@@ -19,7 +19,7 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "dawnfox",
+        colorscheme = vim.env.CONFIG_COLORS,
       },
     },
 

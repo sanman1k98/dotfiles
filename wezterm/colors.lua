@@ -18,7 +18,7 @@ end
 ---@param config config
 ---@param colors Colors
 ---@return config config Mutated `config` object.
-function M.set(config, colors)
+function M.apply(config, colors)
   colors.tab_bar.background = colors.background
   config.colors = colors
   config.window_frame = config.window_frame or {}
@@ -29,18 +29,39 @@ function M.set(config, colors)
   return config
 end
 
+local function config_colors_changed(window, _, name, value)
+  if name ~= "CONFIG_COLORS" then
+    return
+  end
+  local config = window:get_config_overrides() or {}
+  local colors = M.get(value)
+  M.apply(config, colors)
+  window:set_config_overrides(config)
+end
+
 ---@param config config
 ---@param schemes { light: string, dark: string }
 function M.setup(config, schemes)
   M.dark = schemes.dark
   M.light = schemes.light
-  local colors
+
+  local name, colors
   if M.is_gui_dark() then
+    name = schemes.dark
     colors = M.get(schemes.dark)
   else
+    name = schemes.light
     colors = M.get(schemes.light)
   end
-  M.set(config, colors)
+
+  config.set_environment_variables = config.set_environment_variables or {}
+  config.set_environment_variables.CONFIG_COLORS = name
+  config.set_environment_variables.CONFIG_COLORS_DARK = schemes.dark
+  config.set_environment_variables.CONFIG_COLORS_LIGHT = schemes.light
+
+  M.apply(config, colors)
+
+  wezterm.on("user-var-changed", config_colors_changed)
 end
 
 return M
