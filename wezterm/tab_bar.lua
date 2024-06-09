@@ -12,9 +12,21 @@ local function update_status(window)
 end
 
 ---@param tab_info TabInformation
----@return string title
-local function format_tab_title(tab_info)
-  return string.format("  %s  ", tab_info.tab_index + 1)
+---@param hover boolean
+---@return string | table title
+local function format_tab_title(tab_info, hover)
+  local title = string.format("  %s  ", tab_info.tab_index + 1)
+  if hover then
+    return {
+      { Background = { Color = "green" } },
+      { Foreground = { Color = "white" } },
+      { Text = title },
+    }
+  else
+    return {
+      { Text = title },
+    }
+  end
 end
 
 --- If there is one tab, then we return an empty string which effectively hides the tab.
@@ -23,13 +35,12 @@ end
 ---@param pane PaneInformation[] A list contain PaneInformation for each of the panes in the active tab.
 ---@param config table The effective configuration in the window.
 ---@param hover boolean `true` if the current tab is in the hover state.
----@return string title Text to use for the tab title.
+---@return string | table title Text or a list of `FormatTable`.
 local function format_tab_titles(tab, tabs, pane, config, hover)
-  if #tabs > 1 then
-    return format_tab_title(tab)
-  else
+  if #tabs == 1 then
     return ""
   end
+  return format_tab_title(tab, hover)
 end
 
 ---@param config config
