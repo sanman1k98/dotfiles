@@ -24,6 +24,7 @@ local Monaspace, Recursive = fonts.Monaspace, fonts.Recursive
 config.font = wezterm.font(Monaspace.Argon)
 config.font_size = 14
 config.line_height = 1.7
+config.cursor_thickness = 3
 
 config.font_rules = {
   {
