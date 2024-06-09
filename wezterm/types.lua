@@ -22,6 +22,10 @@ end
 ---@field get_appearance fun(): string
 wezterm.gui = {}
 
+---@class wezterm.color
+---@field get_builtin_schemes fun(): { [string]: Colors }
+wezterm.color = {}
+
 ---@class config
 ---@field font FontAttributes | string
 ---@field font_size number
@@ -31,6 +35,11 @@ wezterm.gui = {}
 ---@field term string
 ---@field set_environment_variables table
 ---@field use_fancy_tab_bar boolean
+---@field [string] any
+
+---@class Colors
+---@field background string
+---@field foreground string
 ---@field [string] any
 
 ---@class FontRule
