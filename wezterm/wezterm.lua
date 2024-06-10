@@ -25,6 +25,8 @@ config.font = wezterm.font(Monaspace.Argon)
 config.font_size = 14
 config.line_height = 1.7
 config.cursor_thickness = 3
+config.underline_position = -4
+config.underline_thickness = 2
 
 config.font_rules = {
   -- Recursive Mono for half intensities
