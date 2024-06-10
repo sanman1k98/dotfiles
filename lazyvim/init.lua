@@ -3,10 +3,11 @@ require("util").bootstrap_lazy()
 require("lazy").setup({
   spec = {
     {
+      -- LazyVim will automatically load "config.*" submodules.
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = vim.env.CONFIG_COLORS,
+        -- Environment variable defined by terminal emulator (e.g., wezterm)
         colorscheme = vim.env.CONFIG_COLORS or "dawnfox",
       },
     },

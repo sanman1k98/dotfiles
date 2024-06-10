@@ -16,15 +16,18 @@ map.set {
 }
 
 if wezterm.is_wezterm then
-  local colors_dark, colors_light = vim.env.CONFIG_COLORS_DARK, vim.env.CONFIG_COLORS_LIGHT
+  -- Environment variables "CONFIG_COLORS*" are defined in wezterm's config.
+  local dark = vim.env.CONFIG_COLORS_DARK
+  local light = vim.env.CONFIG_COLORS_LIGHT
   map.set {
     {
       desc = "Toggle colorscheme",
       "<leader>ut",
       function()
-        local new_colors = vim.g.colors_name == colors_dark and colors_light or colors_dark
-        wezterm.set_user_var("CONFIG_COLORS", new_colors)
-        vim.cmd.colorscheme(new_colors)
+        local colors = vim.g.colors_name == dark and light or dark
+        wezterm.set_user_var("CONFIG_COLORS", colors)
+        vim.env.CONFIG_COLORS = colors
+        vim.cmd.colorscheme(colors)
       end,
     }
   }
