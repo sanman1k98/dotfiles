@@ -31,7 +31,19 @@ local shared_features = {
   "case=1"
 }
 
-M.family = "Rec Mono"
+M.Semicasual = {
+  family = "Rec Mono Semicasual",
+  style = "Normal",
+  weight = "Regular",
+  harfbuzz_features = shared_features,
+}
+
+M.SemicasualItalic = {
+  family = "Rec Mono Semicasual",
+  style = "Italic",
+  weight = "Regular",
+  harfbuzz_features = shared_features,
+}
 
 M.SemicasualBold = {
   family = "Rec Mono Semicasual",

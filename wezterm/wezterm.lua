@@ -27,21 +27,22 @@ config.line_height = 1.7
 config.cursor_thickness = 3
 
 config.font_rules = {
+  -- Recursive Mono for half intensities
   {
     italic = false,
     intensity = "Half",
-    font = wezterm.font(Monaspace.ArgonLighter),
+    font = wezterm.font(Recursive.Semicasual),
+  },
+  {
+    italic = true,
+    intensity = "Half",
+    font = wezterm.font(Recursive.SemicasualItalic),
   },
   -- Monaspace Radon for a handwritten style.
   {
     italic = true,
     intensity = "Normal",
     font = wezterm.font(Monaspace.Radon),
-  },
-  {
-    italic = true,
-    intensity = "Half",
-    font = wezterm.font(Monaspace.RadonLighter),
   },
   -- Recursive Mono for a semi-casual, brush-painted style.
   {
