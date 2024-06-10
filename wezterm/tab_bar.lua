@@ -1,10 +1,11 @@
 local M = {}
 
 local function update_status(window)
-  local date = wezterm.strftime "%a %x %I:%M  "
+  local date = wezterm.strftime "%a %m/%d %I:%M  "
 
   local status = wezterm.format {
-    { Attribute = { Intensity = "Bold" } },
+    { Attribute = { Intensity = "Half" } },
+    { Foreground = { AnsiColor = "Fuchsia" } },
     { Text = date },
   }
 
@@ -18,8 +19,8 @@ local function format_tab_title(tab_info, hover)
   local title = string.format("  %s  ", tab_info.tab_index + 1)
   if hover then
     return {
-      { Background = { Color = "green" } },
-      { Foreground = { Color = "white" } },
+      { Background = { AnsiColor = "Green" } },
+      { Foreground = { AnsiColor = "White" } },
       { Text = title },
     }
   else
