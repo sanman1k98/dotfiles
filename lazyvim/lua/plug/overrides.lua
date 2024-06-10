@@ -26,7 +26,6 @@ return {
   },
 
   {
-    -- TODO: fix highlighting before the comment keyword
     "folke/todo-comments.nvim",
     opts = {
       highlight = {

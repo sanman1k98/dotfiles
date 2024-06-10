@@ -8,9 +8,9 @@ g.autoformat = false
 opt.listchars = {
   trail          = "~",    -- trailing whitespace
   eol            = "↲",    -- end of line
-  space          = "⋅",    -- a single <space>
-  leadmultispace = "⋅⋅⋅•", -- used cyclically to show multiple consecutive leading spaces; overrides "space"
-  tab            = "  ●",  -- 3 chars `xyz` to show a <tab>; `z` is always used, `x` is prepended, `y` is used as many times as can fit
+  multispace     = " ⋅ •", -- used cyclically to show multiple consecutive spaces; overrides "space"
+  leadmultispace = "⋅⋅⋅•", -- used cyclically to show multiple consecutive leading spaces; overrides "multispace"
+  tab            = "  ⠶",  -- 3 chars `xyz` to show a <tab>; `z` is always used, `x` is prepended, `y` is used as many times as can fit
 }
 
 -- lines to scroll with a mouse
