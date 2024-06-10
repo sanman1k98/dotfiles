@@ -1,7 +1,6 @@
 return {
   {
     "EdenEast/nightfox.nvim",
-    priority = 1000,
     opts = {
       options = {
         styles = {
@@ -26,5 +25,16 @@ return {
         },
       },
     },
+  },
+
+  { "rebelot/kanagawa.nvim" },
+  { "projekt0n/github-nvim-theme" },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
   },
 }
