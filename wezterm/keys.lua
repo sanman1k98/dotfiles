@@ -3,8 +3,6 @@ local act = wezterm.action
 local M = {}
 
 M.keys = {
-  -- SHIFT-CMD-l activates the debug overlay
-  { key = "l", mods = "SHIFT|SUPER", action = act.ShowDebugOverlay },
 }
 
 ---@param config config
