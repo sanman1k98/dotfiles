@@ -1,12 +1,16 @@
 local M = {}
 
-local function update_status(window)
-  local date = wezterm.strftime "%a %m/%d %I:%M  "
+M.date_format = "%a %m/%d %I:%M"
+
+local function update_status(window, pane)
+  local debug = pane:get_title() == "Debug"
+  local date_format = M.date_format .. (debug and ":%S" or "")
+  local text = string.format("%s  ", wezterm.strftime(date_format))
 
   local status = wezterm.format {
-    { Attribute = { Intensity = "Half" } },
-    { Foreground = { AnsiColor = "Fuchsia" } },
-    { Text = date },
+    { Attribute = { Intensity = debug and "Bold" or "Half" } },
+    { Foreground = { AnsiColor = debug and "Red" or "Fuchsia" } },
+    { Text = text },
   }
 
   window:set_right_status(status)

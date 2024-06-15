@@ -1,11 +1,19 @@
 ---@meta
 
 ---@class wezterm
----@field action { [string]: Action }
+---@field action { [string]: KeyAssignment }
+---@field action_callback fun(cb: fun(win: Window, pane: Pane))
 ---@field config_builder fun(): config
 ---@field home_dir string
 ---@field strftime fun(str: string): string
 ---@field font fun(attrs: FontAttributes): ResolvedFont
+---@field font_with_fallback fun(attrs: (string|FontAttributes)[]): ResolvedFont
+---@field log_info fun(...)
+---@field log_warn fun(...)
+---@field log_err fun(...)
+---@field reload_configuration function
+---@field GLOBAL table<string, string | boolean | number | table | nil>
+---@field sleep_ms fun(ms: integer)
 _G.wezterm = {}
 
 ---@vararg string|table
@@ -20,12 +28,22 @@ function wezterm.on(event, cb)
 end
 
 ---@class wezterm.gui
----@field get_appearance fun(): string
+---@field get_appearance fun(): "Dark" | "Light" | "LightHighContrast" | "DarkHighContrast"
 wezterm.gui = {}
 
+---@class wezterm.mux
+---@field get_window fun(id: integer): MuxWindow
+wezterm.mux = {}
+
 ---@class wezterm.color
----@field get_builtin_schemes fun(): { [string]: Colors }
+---@field get_builtin_schemes fun(): { [string]: Palette }
+---@field get_default_colors fun(): Palette
 wezterm.color = {}
+
+---@class wezterm.action
+---@field SpawnCommandInNewTab fun(args: SpawnCommand): KeyAssignment
+---@field SpawnCommandInNewWindow fun(args: SpawnCommand): KeyAssignment
+wezterm.action = {}
 
 ---@class config
 ---@field font FontAttributes | string
@@ -33,17 +51,29 @@ wezterm.color = {}
 ---@field line_height number
 ---@field font_rules FontRule[]
 ---@field color_scheme string
+---@field color_schemes { [string]: Palette | nil }
 ---@field term string
----@field set_environment_variables table
+---@field set_environment_variables CustomEnvironmentVariables
 ---@field use_fancy_tab_bar boolean
 ---@field [string] any
 
----@class Action: function
+---@class CustomEnvironmentVariables
+---@field CONFIG_COLORS string
+---@field CONFIG_COLORS_DARK string
+---@field CONFIG_COLORS_LIGHT string
+---@field [string] string | nil
 
----@class Colors
+---@class KeyAssignment: function
+
+---@class Palette
 ---@field background string
 ---@field foreground string
----@field [string] any
+---@field tab_bar TabBarColors
+---@field [string] string | { [string]: string }
+
+---@class TabBarColors
+---@field background string
+---
 
 ---@class FontRule
 ---@field italic? boolean
@@ -58,6 +88,17 @@ wezterm.color = {}
 
 ---@class ResolvedFont: string
 
+---@class MuxWindow
+
+---@class Window
+---@field effective_config fun(self: Window): config
+---@field get_config_overrides fun(self: Window): config
+---@field set_config_overrides fun(self: Window, config: config): config
+---@field perform_action fun(self: Window, key_assignment: KeyAssignment, pane: Pane)
+
+---@class Pane
+---@field get_user_vars fun(self: Pane): table<string, string>
+
 ---@class PaneInformation
 
 ---@class TabInformation
@@ -68,3 +109,8 @@ wezterm.color = {}
 ---@field window_id string The identifier of the window that contains this tab.
 ---@field window_title string The title of the window that contains this tab.
 ---@field tab_title string? The title of this tab.
+
+---@class SpawnCommand
+---@field args? string[]
+---@field set_environment_variables? { [string]: string }
+---@field domain string

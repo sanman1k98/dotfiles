@@ -1,4 +1,17 @@
-_G.wezterm = require "wezterm"
+-- Globals
+do
+  _G.wezterm = require "wezterm"
+
+  ---@class GLOBAL
+  _G.GLOBAL = wezterm.GLOBAL
+
+  GLOBAL.STATE = GLOBAL.STATE or {}
+
+  --- Persisted state across config reloads.
+  ---@class GLOBAL.STATE
+  ---@field COLOR_SCHEME? string
+  _G.STATE = GLOBAL.STATE
+end
 
 local terminfo = require "terminfo"
 local window = require "window"

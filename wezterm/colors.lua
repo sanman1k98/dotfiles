@@ -1,65 +1,105 @@
 ---@class colors
----@field light string
----@field dark string
 local M = {}
 
 function M.is_gui_dark()
-  return wezterm.gui.get_appearance():find("Dark") and true or false
+  return wezterm.gui.get_appearance() == "Dark" and true or false
 end
 
---- 
----@param name string
----@return Colors
-function M.get(name)
-  return wezterm.color.get_builtin_schemes()[name]
+--- Get the color palette for the given colorscheme.
+---@param scheme string
+---@return Palette
+function M.get_palette(scheme)
+  local palette = wezterm.color.get_builtin_schemes()[scheme]
+  if not palette then
+    wezterm.log_err(string.format("Colorscheme '%s' not found", scheme))
+    palette = wezterm.color.get_default_colors()
+  end
+  do -- customizations
+    palette.tab_bar.background = palette.background
+  end
+  return palette
 end
 
---- Sets colors on the given `config` object.
 ---@param config config
----@param colors Colors
----@return config config Mutated `config` object.
-function M.apply(config, colors)
-  colors.tab_bar.background = colors.background
-  config.colors = colors
-  config.window_frame = config.window_frame or {}
-  config.window_frame.active_titlebar_bg = colors.background
-  config.window_frame.inactive_titlebar_bg = colors.background
-  config.window_frame.active_titlebar_fg = colors.foreground
-  config.window_frame.inactive_titlebar_fg = colors.foreground
+---@param name string
+---@param palette Palette
+function M.define_scheme(config, name, palette)
+  config.color_schemes = config.color_schemes or {}
+  config.color_schemes[name] = palette
   return config
 end
 
-local function config_colors_changed(window, _, name, value)
-  if name ~= "CONFIG_COLORS" then
+---@param config config
+---@param palette Palette
+function M.apply_palette(config, palette)
+  local frame = config.window_frame or {}
+
+  frame.active_titlebar_bg = palette.background
+  frame.inactive_titlebar_bg = palette.background
+  frame.active_titlebar_fg = palette.foreground
+  frame.inactive_titlebar_fg = palette.foreground
+
+  config.window_frame = frame
+
+  return config
+end
+
+---@param window Window
+---@param user_var string
+---@param scheme string
+local function config_colors_changed(window, _, user_var, scheme)
+  if user_var ~= "CONFIG_COLORS" then
     return
   end
-  local config = window:get_config_overrides() or {}
-  local colors = M.get(value)
-  M.apply(config, colors)
-  window:set_config_overrides(config)
+
+  STATE.COLOR_SCHEME = scheme
+  local config = window:effective_config()
+  local overrides = window:get_config_overrides() or {}
+  local color_schemes = config.color_schemes or {}
+  local palette = color_schemes[scheme]
+
+  if not palette then
+    palette = M.get_palette(scheme)
+    M.define_scheme(overrides, scheme, palette)
+  end
+
+  -- local env = config.set_environment_variables or {}
+  -- env.CONFIG_COLORS = scheme
+  -- overrides.set_environment_variables = env
+
+  overrides.color_scheme = scheme
+  M.apply_palette(overrides, palette)
+  -- Reload current window's config with updated colors
+  window:set_config_overrides(overrides)
+  -- PERF: reloading all windows slows down current window colors.
+  wezterm.sleep_ms(350)
+  -- HACK: force override `config.set_environment_variables`.
+  -- Spawning a new tab in the current window will not have a shell spawned
+  -- with the new `config.set_environment_variables` applied unless we
+  -- explicity re-evaluate the config for all windows.
+  wezterm.reload_configuration()
 end
 
 ---@param config config
----@param schemes { light: string, dark: string }
+---@param schemes { light: string, dark: string } Colorscheme names.
 function M.setup(config, schemes)
-  M.dark = schemes.dark
-  M.light = schemes.light
+  local env = config.set_environment_variables or {}
+  local scheme = STATE.COLOR_SCHEME
 
-  local name, colors
-  if M.is_gui_dark() then
-    name = schemes.dark
-    colors = M.get(schemes.dark)
-  else
-    name = schemes.light
-    colors = M.get(schemes.light)
+  if not scheme then
+    scheme = M.is_gui_dark() and schemes.dark or schemes.light
+    STATE.COLOR_SCHEME = scheme
   end
 
-  config.set_environment_variables = config.set_environment_variables or {}
-  config.set_environment_variables.CONFIG_COLORS = name
-  config.set_environment_variables.CONFIG_COLORS_DARK = schemes.dark
-  config.set_environment_variables.CONFIG_COLORS_LIGHT = schemes.light
+  M.define_scheme(config, schemes.light, M.get_palette(schemes.light))
+  M.define_scheme(config, schemes.dark, M.get_palette(schemes.dark))
+  M.apply_palette(config, config.color_schemes[scheme])
+  config.color_scheme = scheme
 
-  M.apply(config, colors)
+  env.CONFIG_COLORS_LIGHT = schemes.light
+  env.CONFIG_COLORS_DARK = schemes.dark
+  env.CONFIG_COLORS = scheme
+  config.set_environment_variables = env
 
   wezterm.on("user-var-changed", config_colors_changed)
 end
