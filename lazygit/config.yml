@@ -1,8 +1,6 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 gui:
-  showIcons: true
-  theme:
-    defaultFgColor:
-    - bold
+  nerdFontsVersion: "3"
 git:
   paging:
     pager: delta --light --paging never
