@@ -8,7 +8,17 @@ require("lazy").setup({
       import = "lazyvim.plugins",
       opts = {
         -- Environment variable defined by terminal emulator (e.g., wezterm)
-        colorscheme = vim.env.CONFIG_COLORS or "dawnfox",
+        colorscheme = function()
+          local colors = vim.env.CONFIG_COLORS
+          if colors then
+            return vim.cmd.colors(colors)
+          elseif vim.o.bg == "light" then
+            colors = vim.env.CONFIG_COLORS_LIGHT or "dawnfox"
+          else
+            colors = vim.env.CONFIG_COLORS_DARK or "carbonfox"
+          end
+          vim.cmd.colors(colors)
+        end,
       },
     },
 
