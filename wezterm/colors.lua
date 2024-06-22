@@ -15,7 +15,7 @@ function M.get_palette(scheme)
     palette = wezterm.color.get_default_colors()
   end
   do -- customizations
-    palette.tab_bar.background = palette.background
+    palette.tab_bar.background = "rgba(0 0 0 0)"
   end
   return palette
 end
@@ -33,13 +33,21 @@ end
 ---@param palette Palette
 function M.apply_palette(config, palette)
   local frame = config.window_frame or {}
-
   frame.active_titlebar_bg = palette.background
   frame.inactive_titlebar_bg = palette.background
   frame.active_titlebar_fg = palette.foreground
   frame.inactive_titlebar_fg = palette.foreground
 
+  local base_layer = {
+    source = { Color = palette.background },
+    opacity = 0.90,
+    height = "100%",
+    width = "100%",
+  }
+
   config.window_frame = frame
+  config.background = { base_layer }
+  config.macos_window_background_blur = 70
 
   return config
 end
