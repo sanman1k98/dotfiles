@@ -42,7 +42,7 @@ brew "gradle"
 
 # macOS applications
 cask "kitty"
-cask "wezterm"
+cask "wezterm@nightly"
 cask "brave-browser"
 cask "firefox-developer-edition"
 cask "stats"
