@@ -46,6 +46,7 @@ wezterm.color = {}
 wezterm.action = {}
 
 ---@class config
+---@field background BackgroundLayer[]
 ---@field font FontAttributes | string
 ---@field font_size number
 ---@field line_height number
@@ -56,6 +57,15 @@ wezterm.action = {}
 ---@field set_environment_variables CustomEnvironmentVariables
 ---@field use_fancy_tab_bar boolean
 ---@field [string] any
+
+---@class BackgroundSource
+---@field Color? string
+
+---@class BackgroundLayer
+---@field source BackgroundSource
+---@field opacity number
+---@field height string | number
+---@field width string | number
 
 ---@class CustomEnvironmentVariables
 ---@field CONFIG_COLORS string

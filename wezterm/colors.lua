@@ -1,6 +1,9 @@
 ---@class colors
 local M = {}
 
+--- Default background opacity.
+M.bg_opacity = 0.90
+
 function M.is_gui_dark()
   return wezterm.gui.get_appearance() == "Dark" and true or false
 end
@@ -42,7 +45,7 @@ function M.apply_palette(config, palette, opts)
 
   local base_layer = {
     source = { Color = palette.background },
-    opacity = opts.opacity or 0.90,
+    opacity = opts.opacity or M.bg_opacity,
     height = "100%",
     width = "100%",
   }
@@ -90,25 +93,17 @@ local function config_colors_changed(window, _, user_var, scheme)
   wezterm.reload_configuration()
 end
 
--- FIXME: this callback is doing a lot of stuff unnecessarily...
 --- Event handler to make the window background fully opaque in fullscreen.
 ---@param window Window
 local function update_opacity(window)
-  local dimensions = window:get_dimensions()
-  local config = window:effective_config()
+  local full_screen = window:get_dimensions().is_full_screen
+  local layers = window:effective_config().background
   local overrides = window:get_config_overrides() or {}
 
-  local scheme = config.color_scheme
-  local color_schemes = config.color_schemes or {}
-  local palette = color_schemes[scheme]
+  local base = layers[1]
+  base.opacity = full_screen and 1 or M.bg_opacity
 
-  if not palette then
-    palette = M.get_palette(scheme)
-    M.define_scheme(overrides, scheme, palette)
-  end
-
-  local opacity = dimensions.is_full_screen and 1 or nil
-  M.apply_palette(overrides, palette, { opacity = opacity })
+  overrides.background = { base, table.unpack(layers, 2) }
   window:set_config_overrides(overrides)
 end
 
