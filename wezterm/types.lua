@@ -14,6 +14,7 @@
 ---@field reload_configuration function
 ---@field GLOBAL table<string, string | boolean | number | table | nil>
 ---@field sleep_ms fun(ms: integer)
+---@field target_triple string
 _G.wezterm = {}
 
 ---@vararg string|table
