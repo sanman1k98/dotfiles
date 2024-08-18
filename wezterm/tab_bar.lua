@@ -2,18 +2,51 @@ local M = {}
 
 M.date_format = "%a %m/%d %I:%M"
 
+local styles = {
+  info = {
+    { Foreground = { AnsiColor = "Fuchsia" } },
+    { Attribute = { Intensity = "Half" } },
+  },
+  danger = {
+    { Attribute = { Intensity = "Bold" } },
+    { Background = { AnsiColor = "Red" } },
+    { Foreground = { AnsiColor = "Black" } },
+  },
+  hover = {
+    { Background = { AnsiColor = "Green" } },
+    { Foreground = { AnsiColor = "White" } },
+  },
+  none = {},
+}
+
+local c = {}
+
+function c:__index(k)
+  return function(str)
+    local items = {}
+    for _, v in ipairs(styles[k]) do
+      table.insert(items, v)
+    end
+    table.insert(items, { Text = str })
+    table.insert(items, "ResetAttributes")
+    return wezterm.format(items)
+  end
+end
+
+setmetatable(c, c)
+
 local function update_status(window, pane)
   local debug = pane:get_title() == "Debug"
   local date_format = M.date_format .. (debug and ":%S" or "")
-  local text = string.format("%s  ", wezterm.strftime(date_format))
+  local text = string.format("  %s  ", wezterm.strftime(date_format))
 
-  local status = wezterm.format {
-    { Attribute = { Intensity = debug and "Bold" or "Half" } },
-    { Foreground = { AnsiColor = debug and "Red" or "Fuchsia" } },
-    { Text = text },
-  }
+  if not debug then
+    window:set_left_status("")
+    return window:set_right_status(c.info(text))
+  end
 
-  window:set_right_status(status)
+  window:set_left_status(c.danger("  DEBUG OVERLAY  "))
+  window:set_right_status(c.danger(text))
 end
 
 ---@param tab_info TabInformation
