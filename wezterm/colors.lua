@@ -23,6 +23,7 @@ function M.get_palette(scheme)
   return palette
 end
 
+--- Define a color scheme on a config table with the given color palette.
 ---@param config config
 ---@param name string
 ---@param palette Palette
@@ -32,27 +33,44 @@ function M.define_scheme(config, name, palette)
   return config
 end
 
+--- Set background options using the given color on a config table.
+---@param config config
+---@param color string
+---@param opts? { opacity?: number, blur?: number }
+function M.set_background(config, color, opts)
+  opts = opts or {}
+  local opacity = opts.opacity or M.bg_opacity
+  local blur = opts.blur or 70
+
+  local base_layer = {
+    source = { Color = color },
+    opacity = opacity,
+    height = "100%",
+    width = "100%",
+  }
+
+  -- TODO: Try adding a subtle radial gradient.
+  config.background = { base_layer }
+  config.macos_window_background_blur = blur
+
+  return config
+end
+
+--- Set various color options using the given palette on a config table.
 ---@param config config
 ---@param palette Palette
----@param opts? { opacity?: number }
+---@param opts? { opacity?: number, blur?: number }
 function M.apply_palette(config, palette, opts)
   opts = opts or {}
   local frame = config.window_frame or {}
+
   frame.active_titlebar_bg = palette.background
   frame.inactive_titlebar_bg = palette.background
   frame.active_titlebar_fg = palette.foreground
   frame.inactive_titlebar_fg = palette.foreground
 
-  local base_layer = {
-    source = { Color = palette.background },
-    opacity = opts.opacity or M.bg_opacity,
-    height = "100%",
-    width = "100%",
-  }
-
   config.window_frame = frame
-  config.background = { base_layer }
-  config.macos_window_background_blur = 70
+  M.set_background(config, palette.background, opts)
 
   return config
 end
@@ -100,10 +118,11 @@ local function update_opacity(window)
   local layers = window:effective_config().background
   local overrides = window:get_config_overrides() or {}
 
-  local base = layers[1]
-  base.opacity = full_screen and 1 or M.bg_opacity
+  ---@type string The effective config will have all fields specified.
+  local bg_color = layers[1].source.Color
+  local opacity = full_screen and 1 or nil
+  M.set_background(overrides, bg_color, { opacity = opacity })
 
-  overrides.background = { base, table.unpack(layers, 2) }
   window:set_config_overrides(overrides)
 end
 
