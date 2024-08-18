@@ -95,6 +95,7 @@ wezterm.action = {}
 ---@field get_config_overrides fun(self: Window): config
 ---@field set_config_overrides fun(self: Window, config: config): config
 ---@field perform_action fun(self: Window, key_assignment: KeyAssignment, pane: Pane)
+---@field get_dimensions fun(self: Window): { pixel_width: number, pixel_height: number, dpi: number, is_full_screen: boolean }
 
 ---@class Pane
 ---@field get_user_vars fun(self: Pane): table<string, string>

@@ -31,7 +31,9 @@ end
 
 ---@param config config
 ---@param palette Palette
-function M.apply_palette(config, palette)
+---@param opts? { opacity?: number }
+function M.apply_palette(config, palette, opts)
+  opts = opts or {}
   local frame = config.window_frame or {}
   frame.active_titlebar_bg = palette.background
   frame.inactive_titlebar_bg = palette.background
@@ -40,7 +42,7 @@ function M.apply_palette(config, palette)
 
   local base_layer = {
     source = { Color = palette.background },
-    opacity = 0.90,
+    opacity = opts.opacity or 0.90,
     height = "100%",
     width = "100%",
   }
@@ -88,6 +90,28 @@ local function config_colors_changed(window, _, user_var, scheme)
   wezterm.reload_configuration()
 end
 
+-- FIXME: this callback is doing a lot of stuff unnecessarily...
+--- Event handler to make the window background fully opaque in fullscreen.
+---@param window Window
+local function update_opacity(window)
+  local dimensions = window:get_dimensions()
+  local config = window:effective_config()
+  local overrides = window:get_config_overrides() or {}
+
+  local scheme = config.color_scheme
+  local color_schemes = config.color_schemes or {}
+  local palette = color_schemes[scheme]
+
+  if not palette then
+    palette = M.get_palette(scheme)
+    M.define_scheme(overrides, scheme, palette)
+  end
+
+  local opacity = dimensions.is_full_screen and 1 or nil
+  M.apply_palette(overrides, palette, { opacity = opacity })
+  window:set_config_overrides(overrides)
+end
+
 ---@param config config
 ---@param schemes { light: string, dark: string } Colorscheme names.
 function M.setup(config, schemes)
@@ -110,6 +134,7 @@ function M.setup(config, schemes)
   config.set_environment_variables = env
 
   wezterm.on("user-var-changed", config_colors_changed)
+  wezterm.on("window-resized", update_opacity)
 end
 
 return M
