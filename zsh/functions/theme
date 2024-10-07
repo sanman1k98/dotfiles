@@ -1,3 +1,5 @@
+#!usr/bin/env sh
+
 if [[ "${TERM}" != "xterm-kitty" ]]; then
 	print "Not in supported terminal"
 	return 1
@@ -10,11 +12,12 @@ fi
 
 local themes_dir="${XDG_CONFIG_HOME}/kitty/themes"
 
-kitty @ set-colors --all "${themes_dir}/$1.conf"
+kitty @ set-colors -c "${themes_dir}/$1.conf"
+kitty @ env "$1"
 
 if [[ $? != 0 ]]; then
 	return 2
 fi
 
 # set environment variable after the above succeeds
-export KITTY_THEME=$1
+export CONFIG_COLORS=$1
