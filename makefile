@@ -1,6 +1,6 @@
 
 # use current working directory
-XDG_CONFIG_HOME = .
+XDG_CONFIG_HOME = $(PWD)
 
 #	default locations
 #
