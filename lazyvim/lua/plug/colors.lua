@@ -10,6 +10,9 @@ return {
         },
       },
       groups = {
+        carbonfox = {
+          ["@comment.documentation"] = { fg = "fg3" },
+        },
         dawnfox = {
           -- Make 'list' characters slightly more visible (default: "bg3")
           WhiteSpace  = { fg = "bg4" },
