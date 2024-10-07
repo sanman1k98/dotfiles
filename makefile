@@ -31,7 +31,7 @@ $(HOMEBREW_INSTALL) :
 	curl -fsSL 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh' > $@
 
 $(HOMEBREW_BUNDLE_LOCK) : $(HOMEBREW_INSTALL)
-	type brew || /bin/sh $(HOMEBREW_INSTALL)
+	type brew || /bin/bash $(HOMEBREW_INSTALL)
 	brew bundle install --file $(HOMEBREW_BUNDLE_FILE)
 
 brew : $(HOMEBREW_BUNDLE_LOCK)
