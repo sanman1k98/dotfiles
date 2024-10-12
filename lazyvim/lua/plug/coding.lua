@@ -4,26 +4,25 @@ return {
   -- split/join
   {
     "Wansmer/treesj",
-    opts = {
-      use_default_keymaps = false,
-      max_join_length = 150,
-    },
+    opts = function ()
+      local lang_utils = require("treesj.langs.utils")
+      local html = require("treesj.langs.html")
+      local ts = require("treesj.langs.typescript")
+
+      local langs = {
+        astro = lang_utils.merge_preset(html, ts)
+      }
+
+      return {
+        use_default_keymaps = false,
+        max_join_length = 150,
+        langs = langs,
+      }
+    end,
     keys = map.lazykeys {
       prefix = "<leader>j",
       label = "split/join",
       { "j", function() require("treesj").toggle() end, desc = "Toggle split" },
     },
   },
-
-  -- annotations generator
-  -- {
-  --   "danymat/neogen",
-  --   dependencies = "nvim-treesitter/nvim-treesitter",
-  --   config = {
-  --     input_after_comment = false,
-  --   },
-  --   keys = {
-  --     { "<leader>ng", function() require("neogen").generate() end, desc = "generate annotations" },
-  --   }
-  -- }
 }
