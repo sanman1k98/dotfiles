@@ -16,14 +16,14 @@ return {
   },
 
   -- annotations generator
-  {
-    "danymat/neogen",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    config = {
-      input_after_comment = false,
-    },
-    keys = {
-      { "<leader>ng", function() require("neogen").generate() end, desc = "generate annotations" },
-    }
-  }
+  -- {
+  --   "danymat/neogen",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   config = {
+  --     input_after_comment = false,
+  --   },
+  --   keys = {
+  --     { "<leader>ng", function() require("neogen").generate() end, desc = "generate annotations" },
+  --   }
+  -- }
 }

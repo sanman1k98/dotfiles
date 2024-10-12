@@ -25,6 +25,9 @@ require("lazy").setup({
     -- For vim mode in VSCode; only loads when `vim.g.vscode` is set
     { import = "lazyvim.plugins.extras.vscode" },
 
+    -- Generate annotations
+    { import = "lazyvim.plugins.extras.coding.neogen" },
+
     -- Add, delete, replace surrounding pairs (e.g., quotes, parens, tags)
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
 
