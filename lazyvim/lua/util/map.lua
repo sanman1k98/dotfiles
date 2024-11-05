@@ -16,6 +16,8 @@
 ---@class util.map
 local M = {}
 
+-- TODO: setup a simple test for this stuff.
+
 --- Transforms a table defining keymaps into a list of `LazyKeysSpec` tables.
 ---@param tbl Keymaps
 ---@return LazyKeysSpec[]
@@ -58,9 +60,14 @@ function M.lazykeys(tbl)
     end
   end
 
+  -- whick-key group names
   if prefix and label then
-    -- which-key v2.0 supports using "<nop>" keymaps as prefix labels
-    table.insert(ret, { prefix, "", desc = label, mode = opts.mode })
+    table.insert(ret, {
+      "", -- prefix will be preprended in the for-loop below
+      "", -- which-key v2.0 recognizes "<nop>" or empty keymaps as group names
+      desc = label,
+      mode = opts.mode,
+    } --[[@as LazyKeysSpec]])
   end
 
   for _, spec in pairs(ret) do
