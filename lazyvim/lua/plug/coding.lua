@@ -25,4 +25,21 @@ return {
       { "j", function() require("treesj").toggle() end, desc = "Toggle split" },
     },
   },
+
+  -- AI-powered coding
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
+      "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+      "stevearc/dressing.nvim", -- Optional: Improves `vim.ui.select`
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "codecompanion" }, -- Optional: For prettier markdown rendering
+      },
+    },
+    config = true,
+  },
 }
