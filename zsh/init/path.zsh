@@ -9,3 +9,6 @@ path+="${XDG_DATA_HOME}/bob/nvim-bin"
 
 # binaries of globally installed packages
 path+="${PNPM_HOME}"
+
+# PHP composer global binaries
+path+="${XDG_CONFIG_HOME}/composer/vendor/bin"
