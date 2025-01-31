@@ -33,4 +33,12 @@ return {
       maxkeys = 5,
     },
   },
+
+  {
+    'folke/snacks.nvim',
+    opts = {
+      indent = { enabled = false },
+      scroll = { enabled = false },
+    },
+  },
 }
