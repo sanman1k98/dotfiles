@@ -44,6 +44,9 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.formatting.black" },
 
+    -- PHP
+    { import = "lazyvim.plugins.extras.lang.php" },
+
     -- Other languages
     { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.json" },
