@@ -1,25 +1,19 @@
 require("util").bootstrap_lazy()
 
+-- Environment variables defined by terminal emulator (e.g., kitty or wezterm)
+local colorscheme = vim.env.CONFIG_COLORS
+  or (
+    vim.o.bg == "light" and (vim.env.CONFIG_COLORS_LIGHT or "dawnfox")
+    or (vim.env.CONFIG_COLORS_DARK or "carbonfox")
+  )
+
 require("lazy").setup({
   spec = {
     {
       -- LazyVim will automatically load "config.*" submodules.
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
-      opts = {
-        -- Environment variable defined by terminal emulator (e.g., wezterm)
-        colorscheme = function()
-          local colors = vim.env.CONFIG_COLORS
-          if colors then
-            return vim.cmd.colors(colors)
-          elseif vim.o.bg == "light" then
-            colors = vim.env.CONFIG_COLORS_LIGHT or "dawnfox"
-          else
-            colors = vim.env.CONFIG_COLORS_DARK or "carbonfox"
-          end
-          vim.cmd.colors(colors)
-        end,
-      },
+      opts = { colorscheme = colorscheme },
     },
 
     -- For vim mode in VSCode; only loads when `vim.g.vscode` is set
@@ -64,7 +58,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "dawnfox" } },
+  install = { colorscheme = { colorscheme } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
