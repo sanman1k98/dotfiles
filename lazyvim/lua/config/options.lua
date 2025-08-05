@@ -1,8 +1,4 @@
 local opt = vim.opt
-local g = vim.g
-
--- disable formatting on save
-g.autoformat = false
 
 -- enable displaying hidden characters
 opt.list = true
