@@ -5,7 +5,13 @@ local M = {}
 M.bg_opacity = 0.90
 
 function M.is_gui_dark()
-  return wezterm.gui.get_appearance() == "Dark" and true or false
+  local appearance = wezterm.gui.get_appearance()
+  wezterm.log_info("GUI Appearance:", appearance)
+  if appearance:find("Dark") then
+    return true
+  else
+    return false
+  end
 end
 
 --- Get the color palette for the given colorscheme.
