@@ -1,4 +1,5 @@
 require("util").bootstrap_lazy()
+require("util.globals")
 
 -- Environment variables defined by terminal emulator (e.g., kitty or wezterm)
 local colorscheme = vim.env.CONFIG_COLORS
