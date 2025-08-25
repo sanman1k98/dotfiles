@@ -1,4 +1,4 @@
-require("util").bootstrap_lazy()
+require("util.bootstrap")
 require("util.globals")
 
 -- Environment variables defined by terminal emulator (e.g., kitty or wezterm)
