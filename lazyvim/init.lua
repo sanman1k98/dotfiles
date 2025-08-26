@@ -2,11 +2,17 @@ require("util.bootstrap")
 require("util.globals")
 
 -- Environment variables defined by terminal emulator (e.g., kitty or wezterm)
-local colorscheme = vim.env.CONFIG_COLORS
-  or (
-    vim.o.bg == "light" and (vim.env.CONFIG_COLORS_LIGHT or "dawnfox")
-    or (vim.env.CONFIG_COLORS_DARK or "carbonfox")
-  )
+local function get_colors()
+  if vim.env.CONFIG_COLORS then
+    return vim.env.CONFIG_COLORS
+  -- Neovim will guess the value of "background" based on terminal colors when starting up.
+  -- @see :h default-autocmds
+  elseif vim.o.bg == "light" then
+    return vim.env.CONFIG_COLORS_LIGHT or "dawnfox"
+  else
+    return vim.env.CONFIG_COLORS_DARK or "carbonfox"
+  end
+end
 
 require("lazy").setup({
   spec = {
@@ -14,7 +20,11 @@ require("lazy").setup({
       -- LazyVim will automatically load "config.*" submodules.
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
-      opts = { colorscheme = colorscheme },
+      opts = {
+        colorscheme = function()
+          vim.cmd.colors(get_colors())
+        end,
+      },
     },
 
     -- For vim mode in VSCode; only loads when `vim.g.vscode` is set
@@ -59,7 +69,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { colorscheme } },
+  install = { colorscheme = { get_colors() } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
