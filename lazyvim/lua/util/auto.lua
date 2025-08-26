@@ -1,13 +1,13 @@
 local M = {}
 
 --- Index by event names to get `Event` objects.
----@class Autocmd : { [string | string[]]: Event }
+---@class util.auto.Autocmd : { [string | string[]]: util.auto.Event }
 ---@field package _group string | nil
 ---@field package _buf integer | nil
 local Autocmd = {}
 
 --- Used to create autocommands.
----@class Event : { [string | string[]]: Event | nil }
+---@class util.auto.Event : { [string | string[]]: util.auto.Event | nil }
 ---@field package _event string | string[]
 ---@field package _pattern string | string[] | nil
 ---@field package _group string | nil
@@ -15,13 +15,13 @@ local Autocmd = {}
 local Event = {}
 
 --- Used to create groups and define autocommands within them.
----@class Augroup
+---@class util.auto.Augroup
 ---@field package _group string
 local Augroup = {}
 
 ---@param group string?
 ---@param buf number?
----@return Autocmd
+---@return util.auto.Autocmd
 local function create_autocmd_object(group, buf)
   local self = { _group = group, _buf = buf }
   return setmetatable(self, Autocmd)
@@ -31,7 +31,7 @@ end
 ---@param pattern? string | string[]
 ---@param group? string
 ---@param buf? integer
----@return Event
+---@return util.auto.Event
 local function create_event_object(event, pattern, group, buf)
   local self = {
     _event = event,
@@ -43,7 +43,7 @@ local function create_event_object(event, pattern, group, buf)
 end
 
 ---@param event string | string[]
----@return Event
+---@return util.auto.Event
 function Autocmd:__index(event)
   return create_event_object(
     event,
@@ -90,7 +90,7 @@ function Event:__index(k)
   return nil
 end
 
----@alias AugroupSpec fun(au: Autocmd, clear: fun(): integer)
+---@alias AugroupSpec fun(au: util.auto.Autocmd, clear: fun(): integer)
 
 --- Create an autocommand group.
 ---@param spec? AugroupSpec An callback that accepts an `Autocmd` object and optionally a `clear` callback to clear the autocommands in the group.
@@ -112,10 +112,10 @@ end
 M.autocmd = create_autocmd_object(nil, nil)
 
 --- Indexable by arbitrary group names.
----@type { [string]: Augroup }
+---@type { [string]: util.auto.Augroup }
 M.augroup = setmetatable({}, {
   ---@param group string
-  ---@return Augroup
+  ---@return util.auto.Augroup
   __index = function(_, group)
     local self = { _group = group }
     return setmetatable(self, Augroup)
