@@ -109,7 +109,7 @@ function Event:__index(k)
   return nil
 end
 
----@alias AugroupSpec fun(au: util.auto.Autocmd, clear: fun(): integer)
+---@alias AugroupSpec fun(au: util.auto.Autocmd)
 
 --- Create an autocommand group.
 ---@param spec? AugroupSpec An callback that accepts an `Autocmd` object and optionally a `clear` callback to clear the autocommands in the group.
@@ -120,11 +120,7 @@ function Augroup:__call(spec)
   end
 
   local au = create_autocmd_object(self._group)
-  local clear = function()
-    return vim.api.nvim_create_augroup(self._group, { clear = true })
-  end
-
-  spec(au, clear)
+  spec(au)
 end
 
 --- Indexable by event names.

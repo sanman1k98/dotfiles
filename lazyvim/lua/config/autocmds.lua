@@ -10,8 +10,8 @@ local function culopt(set)
   end
 end
 
-vim.augroup.cursorline(function(au, clear)
-  clear()
+vim.augroup.cursorline(function(au)
+  au:clear()
   -- enable cursorline for the active window
   au.WinEnter(cul(true))
   au.WinLeave(cul(false))
