@@ -132,16 +132,21 @@ function Event:__index(k)
   return nil
 end
 
----@alias AugroupSpec fun(au: util.auto.Autocmd)
+--- Wrapper for `vim.api.nvim_create_augroup("group_name", { clear = false })`
+---@return integer group_id
+function Augroup:id()
+  return vim.api.nvim_create_augroup(self._group, { clear = false })
+end
 
---- Create an autocommand group.
----@param spec? AugroupSpec An callback that accepts an `Autocmd` object and optionally a `clear` callback to clear the autocommands in the group.
----@return integer | nil augroup_id
+function Augroup:del()
+  vim.api.nvim_del_augroup_by_name(self._group)
+end
+
+---@alias util.auto.AugroupSpec fun(au: util.auto.Autocmd)
+
+--- Define autocommands within a group.
+---@param spec util.auto.AugroupSpec An callback that accepts an `Autocmd` object to create autocommands.
 function Augroup:__call(spec)
-  if not spec then
-    return vim.api.nvim_create_augroup(self._group, { clear = false })
-  end
-
   local au = create_autocmd_object(self._group)
   spec(au)
 end
