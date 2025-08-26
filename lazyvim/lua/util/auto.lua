@@ -42,15 +42,34 @@ local function create_event_object(event, pattern, group, buf)
   return setmetatable(self, Event)
 end
 
----@param event string | string[]
+---@param k string | string[]
 ---@return util.auto.Event
-function Autocmd:__index(event)
+function Autocmd:__index(k)
+  local method = Autocmd[k]
+
+  if method then
+    return method
+  end
+
   return create_event_object(
-    event,
+    k, -- use as event
     nil, -- no pattern
     rawget(self, "_group"),
     rawget(self, "_buf")
   )
+end
+
+--- Clear autocommands matching `opts`.
+---@param opts? vim.api.keyset.clear_autocmds
+function Autocmd:clear(opts)
+  if not opts and rawget(self, "_group") then
+    vim.api.nvim_create_augroup(rawget(self, "_group"), { clear = true })
+  else
+    opts = opts or {}
+    opts.buffer = opts.buffer or rawget(self, "_buf")
+    opts.group = opts.group or rawget(self, "_group")
+    vim.api.nvim_clear_autocmds(opts)
+  end
 end
 
 --- Create an autocommand.
