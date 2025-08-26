@@ -3,7 +3,7 @@ return {
     "EdenEast/nightfox.nvim",
     opts = {
       options = {
-        transparent = vim.env.TERM_PROGRAM == "WezTerm",
+        transparent = vim.env.TERM == "xterm-kitty" or vim.env.TERM == "wezterm",
         styles = {
           constants = "bold",
           comments = "italic",
