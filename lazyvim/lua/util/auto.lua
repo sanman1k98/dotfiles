@@ -91,18 +91,41 @@ function Event:__call(handler, opts)
   return vim.api.nvim_create_autocmd(self._event, opts)
 end
 
----@param k string | string[] An `Event` method name or an autocommand pattern.
+---@param k integer | string | string[]
+---@return util.auto.Event | nil
 function Event:__index(k)
   local method = Event[k]
 
   if method then
     return method
-  elseif rawget(self, "_pattern") == nil then
+  end
+
+  local pattern, buffer = rawget(self, "_pattern"), rawget(self, "_buf")
+
+  if k == "buffer" and not buffer and not pattern then -- buflocal event e.g., `vim.autocmd.CursorHold.buffer`
     return create_event_object(
       self._event,
-      k, -- use as pattern
+      nil, -- no pattern
       rawget(self, "_group"),
-      rawget(self, "_buf")
+      0 -- current buffer
+    )
+  elseif -- buflocal event with bufnr specified e.g., `vim.autocmd.CursorHold.buffer[12]`
+    buffer == 0 -- ensure that 'buffer' has already been indexed (see above if-statement)
+    and type(k) == "number" -- only allow numerical keys to index into 'buffer'
+    and k ~= 0 -- avoid cases like `vim.autocmd.CursorHold.buffer[0][0][0]...`
+  then
+    return create_event_object(
+      self._event,
+      nil, -- no pattern
+      rawget(self, "_group"),
+      k -- use as buffer
+    )
+  elseif not pattern and not buffer then -- e.g., `vim.autocmd.User.CustomEvent`
+    return create_event_object(
+      self._event,
+      k --[[@as string]], -- use as pattern
+      rawget(self, "_group"),
+      nil -- no buffer
     )
   end
 
