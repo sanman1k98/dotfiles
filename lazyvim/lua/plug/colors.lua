@@ -11,11 +11,12 @@ return {
       },
       groups = {
         carbonfox = {
+          Visual = { bg = "#1c3c51" },
           ["@comment.documentation"] = { fg = "fg3" },
         },
         dawnfox = {
           -- Make 'list' characters slightly more visible (default: "bg3")
-          WhiteSpace  = { fg = "bg4" },
+          WhiteSpace = { fg = "bg4" },
         },
         all = {
           LspInlayHint = { fg = "bg4", style = "italic" },
