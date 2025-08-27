@@ -22,5 +22,5 @@ window-colorspace = "display-p3"
 
 macos-titlebar-style = "tabs"
 window-padding-x = 28
-window-padding-y = 14,28
+window-padding-y = 28
 window-padding-balance = true
