@@ -3,5 +3,5 @@ gui:
   nerdFontsVersion: "3"
 git:
   paging:
-    pager: delta --light --paging never
+    pager: BAT_THEME="${CONFIG_COLORS}" DELTA_FEATURES="+${CONFIG_COLORS_MODE}" delta --paging never
     colorArg: always

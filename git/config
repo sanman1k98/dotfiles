@@ -17,6 +17,14 @@
 	line-numbers = true
 	navigate = true
 
+# Define delta "features" for using as custom pager in lazygit.
+# see lazygit/config.yaml
+[delta "dark"]
+	dark = true
+
+[delta "light"]
+	light = true
+
 [diff]
 	colormoved = default
 
