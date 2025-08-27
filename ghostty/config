@@ -1,0 +1,25 @@
+font-size = 14
+
+font-thicken = true
+
+font-family = "Monaspace Argon NF"
+font-family-italic = "Monaspace Radon NF"
+font-family-bold = "Rec Mono Semicasual Bold"
+font-family-bold-italic = "Rec Mono Semicasual Bold Italic"
+
+font-feature = "+calt +liga +ss01 +ss02 +ss03 +ss04 +ss06 +ss07 +ss08 +ss09 +ss10"
+
+adjust-cell-height = 40%
+adjust-cursor-thickness = 3
+
+theme = "carbonfox"
+background-opacity = 0.85
+background-blur = true
+background = "black"
+
+window-colorspace = "display-p3"
+
+macos-titlebar-style = "tabs"
+window-padding-x = 28
+window-padding-y = 14,28
+window-padding-balance = true
