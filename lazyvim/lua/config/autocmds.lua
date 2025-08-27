@@ -1,27 +1,30 @@
-local function cul(set)
-  return function()
-    vim.opt_local.cul = set
-  end
-end
-
-local function culopt(set)
-  return function()
-    vim.opt_local.culopt = set
-  end
-end
-
 vim.augroup.cursorline(function(au)
   au:clear()
-  -- enable cursorline for the active window
-  au.WinEnter(cul(true))
-  au.WinLeave(cul(false))
-  -- only highlight the number in insert mode
-  au.InsertEnter(culopt({ "number" }))
-  au.InsertLeave(culopt({ "number", "line" })) -- default
-  -- disbale cursorline for these filetypes
-  au.FileType[{
-    "alpha",
+
+  local disabled = {
+    "snacks_dashboard",
     "mason",
-    "TelescopePrompt",
-  }](cul(false))
+    "lazy",
+    "fzf",
+  }
+
+  local function set_cul(v)
+    ---@param args vim.api.keyset.create_autocmd.callback_args
+    return function(args)
+      vim.wo.cul = v and not vim.list_contains(disabled, vim.bo[args.buf].ft)
+    end
+  end
+
+  local function set_culopt(v)
+    return function()
+      vim.wo.culopt = v
+    end
+  end
+
+  -- enable cursorline for the active window
+  au.WinEnter(set_cul(true))
+  au.WinLeave(set_cul(false))
+  -- only highlight the number in insert mode
+  au.InsertEnter(set_culopt("number"))
+  au.InsertLeave(set_culopt("number,line")) -- default
 end)
