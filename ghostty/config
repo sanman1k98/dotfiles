@@ -4,6 +4,7 @@ font-thicken = true
 
 font-family = "Monaspace Argon NF"
 font-family-italic = "Monaspace Radon NF"
+font-style-italic = "Regular"
 font-family-bold = "Rec Mono Semicasual Bold"
 font-family-bold-italic = "Rec Mono Semicasual Bold Italic"
 
