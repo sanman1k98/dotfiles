@@ -2,6 +2,7 @@
 gui:
   nerdFontsVersion: "3"
 git:
+  overrideGpg: true
   paging:
     pager: BAT_THEME="${CONFIG_COLORS}" DELTA_FEATURES="+${CONFIG_COLORS_MODE}" delta --paging never
     colorArg: always
