@@ -8,7 +8,7 @@ font-style-italic = "Regular"
 font-family-bold = "Rec Mono Semicasual Bold"
 font-family-bold-italic = "Rec Mono Semicasual Bold Italic"
 
-font-feature = "+calt +liga +ss01 +ss02 +ss03 +ss04 +ss06 +ss07 +ss08 +ss09 +ss10"
+font-feature = "+calt, +liga, +ss01, +ss02, +ss03, +ss04, +ss06, +ss07, +ss08, +ss09, +ss10"
 
 adjust-cell-height = 40%
 adjust-cursor-thickness = 3
