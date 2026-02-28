@@ -38,9 +38,9 @@ return {
         lualine_y = {
           {
             function()
-              local line = vim.fn.line('.')
-              local col = vim.fn.virtcol('.')
-              return string.format('%03d:%03d', line, col)
+              local line = vim.fn.line(".")
+              local col = vim.fn.virtcol(".")
+              return string.format("%03d:%03d", line, col)
             end,
           },
         },
@@ -62,7 +62,7 @@ return {
   },
 
   {
-    'folke/snacks.nvim',
+    "folke/snacks.nvim",
     opts = {
       indent = { enabled = false },
       scroll = { enabled = false },
