@@ -19,7 +19,7 @@ return {
           WhiteSpace = { fg = "bg4" },
         },
         all = {
-          LspInlayHint = { fg = "bg4", style = "italic" },
+          LspInlayHint = { fg = "bg4", bg = "NONE", style = "italic" },
           -- Docstrings shouldn't be italicized like regular comments.
           ["@comment.documentation"] = { style = "nocombine" },
           -- By default, luadoc comments link to normal comments.
