@@ -23,3 +23,6 @@ window-colorspace = "display-p3"
 window-padding-x = 28
 window-padding-y = 28
 window-padding-balance = true
+
+macos-window-buttons = hidden
+macos-titlebar-proxy-icon = hidden
