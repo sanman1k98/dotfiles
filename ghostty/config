@@ -20,6 +20,8 @@ background = "black"
 
 window-colorspace = "display-p3"
 
+window-width = 120
+window-height = 24
 window-padding-x = 28
 window-padding-y = 28
 window-padding-balance = true
