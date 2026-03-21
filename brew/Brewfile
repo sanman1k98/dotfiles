@@ -1,20 +1,21 @@
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "oven-sh/bun"
 
+
+# neovim btw
+brew "neovim"
 
 # shell
 brew "bat"
+brew "fzf"
 brew "fd"
 brew "jq"
+brew "yq"
 brew "ripgrep"
 brew "gh"
 brew "git"
 brew "git-delta"
 brew "lazygit"
-# brew "gnupg"
-# brew "podman"
-# brew "tmux"
 brew "starship"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
@@ -26,29 +27,40 @@ brew "node"
 brew "deno"
 brew "rust"
 brew "go"
-# brew "composer"
-brew "luajit-openresty"
 brew "luarocks"
-# brew "openjdk"
-# brew "kotlin"
+# brew "composer"
 
 # package managers
 brew "pnpm"
-brew "poetry"
-# brew "gradle"
+brew "uv"
 
-# macOS applications
+# terminal emulators
 cask "kitty"
+cask "ghostty"
 cask "wezterm@nightly"
-cask "brave-browser"
-cask "firefox@developer-edition"
-cask "stats"
-cask "gpg-suite-no-mail"
-cask "monitorcontrol"
+
+# editors
+cask "zed"
 cask "visual-studio-code"
 
+# browsers
+cask "brave-browser"
+cask "firefox@developer-edition"
+
+# applications
+cask "steam"
+cask "discord"
+cask "slack"
+cask "zoom"
+cask "sony-ps-remote-play"
+
+# macOS utilities
+cask "stats"
+cask "container"
+cask "gpg-suite-no-mail"
+cask "monitorcontrol"
+
 # fonts
-# cask "font-inter"
 cask "font-shantell-sans"
 cask "font-recursive"
 cask "font-ia-writer-mono"
