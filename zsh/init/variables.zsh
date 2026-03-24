@@ -21,8 +21,5 @@ export CONFIG_BRANCH="$(git -C ${XDG_CONFIG_HOME} branch --show-current)"
 # OFF by default: shell editor wm de palette
 export PF_INFO="ascii title os host kernel uptime pkgs memory palette"
 
-# pnpm home directory
-export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
-
 # bat theme
 export BAT_THEME="${CONFIG_COLORS}"
