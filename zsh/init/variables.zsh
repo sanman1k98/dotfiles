@@ -8,9 +8,6 @@ export HOMEBREW_PREFIX="$(brew --prefix)"
 # lazygit config
 export LG_CONFIG_FILE="${XDG_CONFIG_HOME}/lazygit/config.yml"
 
-# store the branch name of the current config
-export CONFIG_BRANCH="$(git -C ${XDG_CONFIG_HOME} branch --show-current)"
-
 # pfetch: a pretty system information tool
 #
 # Which information to display.
