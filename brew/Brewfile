@@ -13,6 +13,7 @@ brew "git"
 brew "git-delta"
 brew "lazygit"
 brew "starship"
+brew "container"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
@@ -52,7 +53,6 @@ cask "sony-ps-remote-play"
 
 # macOS utilities
 cask "stats"
-cask "container"
 cask "gpg-suite-no-mail"
 cask "monitorcontrol"
 
