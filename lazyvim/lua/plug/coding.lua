@@ -32,14 +32,51 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
-      "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
-      "stevearc/dressing.nvim", -- Optional: Improves `vim.ui.select`
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        ft = { "codecompanion" }, -- Optional: For prettier markdown rendering
-      },
     },
-    config = true,
+    cmd = {
+      "CodeCompanion",
+      "CodeCompanionChat",
+      "CodeCompanionActions",
+      "CodeCompanionCmd",
+    },
+    opts = {
+      adapters = {
+        http = {
+          LlamaBarn = function ()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              name = "llamabarn",
+              formated_name = "LlamaBarn",
+              env = {
+                url = "http://localhost:2276",
+                chat_url = "/v1/chat/completions",
+              },
+            })
+          end
+        }
+      },
+      interactions = {
+        chat = { adapter = "Llamabarn" },
+        inline = { adapter = "Llamabarn" },
+        cmd = { adapter = "Llamabarn" },
+        background = {
+          adapter = "Llamabarn",
+          chat = {
+            callbacks = {
+              ["on_ready"] = {
+                actions = {
+                  "interactions.background.builtin.chat_make_title",
+                },
+                -- Enable "on_ready" callback which contains the title generation action
+                enabled = true,
+              },
+            },
+            opts = {
+              -- Enable background interactions generally
+              enabled = true,
+            },
+          },
+        },
+      }
+    }
   },
 }
