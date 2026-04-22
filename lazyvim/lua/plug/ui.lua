@@ -2,6 +2,7 @@ return {
   -- neo-tree customizations
   {
     "nvim-neo-tree/neo-tree.nvim",
+    import = "lazyvim.plugins.extras.editor.neo-tree",
     opts = {
       add_blank_line_at_top = true,
       hide_root_node = true,
