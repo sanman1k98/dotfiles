@@ -27,36 +27,6 @@ require("lazy").setup({
       },
     },
 
-    -- For vim mode in VSCode; only loads when `vim.g.vscode` is set
-    { import = "lazyvim.plugins.extras.vscode" },
-
-    -- Generate annotations
-    { import = "lazyvim.plugins.extras.coding.neogen" },
-
-    -- Add, delete, replace surrounding pairs (e.g., quotes, parens, tags)
-    { import = "lazyvim.plugins.extras.coding.mini-surround" },
-
-    -- Highlight colors in code; supports Tailwind CSS
-    { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-
-    -- TypeScript
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
-    { import = "lazyvim.plugins.extras.lang.astro" },
-
-    -- Python
-    { import = "lazyvim.plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.formatting.black" },
-
-    -- PHP
-    { import = "lazyvim.plugins.extras.lang.php" },
-
-    -- Other languages
-    { import = "lazyvim.plugins.extras.lang.markdown" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
-
     -- Additional plugin specs
     { import = "plug" },
   },
