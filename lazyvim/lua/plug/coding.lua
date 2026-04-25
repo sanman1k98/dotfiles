@@ -102,6 +102,12 @@ return {
           },
         },
       }
-    }
+    },
+    keys = map.lazykeys {
+      prefix = "<leader>C",
+      label = "CodeCompanion",
+      { "C", function () vim.cmd.CodeCompanionChat("Toggle") end, desc = "Open Chat" },
+      { "a", vim.cmd.CodeCompanionActions, desc = "Chat Actions" },
+    },
   },
 }
