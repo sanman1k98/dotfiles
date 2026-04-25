@@ -31,19 +31,18 @@ return {
               },
               schema = {
                 model = {
-                  default = "mudler/Qwen3.6-35B-A3B-APEX-GGUF:unknown",
-                  choices = {
-                    ["mudler/Qwen3.6-35B-A3B-APEX-GGUF:unknown"] = {
-                      formatted_name = "Qwen 3.6 35B-A3B",
-                      meta = { context_window = 131072 },
-                      opts = { has_vision = false, can_reason = true, },
-                    },
-                    ["gemma-4-e4b"] = {
-                      formatted_name = "Gemma 4 E4B",
-                      meta = { context_window = 131072 },
-                      opts = { has_vision = true, can_reason = true, },
-                    },
-                  }
+                  default = function(self)
+                    local models = require("plug.ai.llama_server").get_models(self)
+                    for id, info in pairs(models) do
+                      if info.status == "loaded" then
+                        return id
+                      end
+                    end
+                  end,
+                  choices = function (self)
+                    local models = require("plug.ai.llama_server").get_models(self)
+                    return vim.tbl_keys(models)
+                  end
                 }
               }
             })
