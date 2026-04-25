@@ -41,6 +41,11 @@ return {
     },
     opts = {
       adapters = {
+        acp = {
+          opts = {
+            show_presets = false,
+          }
+        },
         http = {
           LlamaBarn = function ()
             return require("codecompanion.adapters").extend("openai_compatible", {
@@ -51,7 +56,10 @@ return {
                 chat_url = "/v1/chat/completions",
               },
             })
-          end
+          end,
+          opts = {
+            show_presets = false,
+          }
         }
       },
       interactions = {
