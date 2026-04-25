@@ -45,7 +45,7 @@ return {
           LlamaBarn = function ()
             return require("codecompanion.adapters").extend("openai_compatible", {
               name = "llamabarn",
-              formated_name = "LlamaBarn",
+              formatted_name = "LlamaBarn",
               env = {
                 url = "http://localhost:2276",
                 chat_url = "/v1/chat/completions",
@@ -55,11 +55,11 @@ return {
         }
       },
       interactions = {
-        chat = { adapter = "Llamabarn" },
-        inline = { adapter = "Llamabarn" },
-        cmd = { adapter = "Llamabarn" },
+        chat = { adapter = "LlamaBarn" },
+        inline = { adapter = "LlamaBarn" },
+        cmd = { adapter = "LlamaBarn" },
         background = {
-          adapter = "Llamabarn",
+          adapter = "LlamaBarn",
           chat = {
             callbacks = {
               ["on_ready"] = {
