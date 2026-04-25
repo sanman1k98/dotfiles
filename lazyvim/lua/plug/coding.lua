@@ -55,6 +55,23 @@ return {
                 url = "http://localhost:2276",
                 chat_url = "/v1/chat/completions",
               },
+              schema = {
+                model = {
+                  default = "mudler/Qwen3.6-35B-A3B-APEX-GGUF:unknown",
+                  choices = {
+                    ["mudler/Qwen3.6-35B-A3B-APEX-GGUF:unknown"] = {
+                      formatted_name = "Qwen 3.6 35B-A3B",
+                      meta = { context_window = 131072 },
+                      opts = { has_vision = false, can_reason = true, },
+                    },
+                    ["gemma-4-e4b"] = {
+                      formatted_name = "Gemma 4 E4B",
+                      meta = { context_window = 131072 },
+                      opts = { has_vision = true, can_reason = true, },
+                    },
+                  }
+                }
+              }
             })
           end,
           opts = {
