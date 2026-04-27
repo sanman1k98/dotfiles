@@ -75,6 +75,7 @@
     "chat": {
       "mode": "primary",
       "description": "A regular chatbot",
+      "prompt": "Be concise.",
       "permission": {
         "*": "deny"
       }
