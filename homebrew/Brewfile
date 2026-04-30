@@ -53,6 +53,7 @@ cask "sony-ps-remote-play"
 
 # macOS utilities
 cask "stats"
+cask "llamabarn"
 cask "gpg-suite-no-mail"
 cask "monitorcontrol"
 
