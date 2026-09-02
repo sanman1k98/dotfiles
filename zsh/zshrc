@@ -8,6 +8,8 @@ if [[ "${TERM}" == "wezterm" ]]; then
 	source "${conf}/integrations/wezterm.sh"
 fi
 
+eval "$(brew shellenv zsh)"
+
 source "${init}/colors.zsh"
 source "${init}/variables.zsh"		# env vars for CLI tools
 source "${init}/path.zsh"			# add executables to $PATH
